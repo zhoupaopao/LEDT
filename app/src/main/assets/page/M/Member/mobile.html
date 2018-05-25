@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>登录页面</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="../../Public/template/green/css/webapp.css" />
+    <!--<script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>-->
+    <script src="http://wximg.qq.com/wxp/libs/wxmoment/0.0.4/wxmoment.min.js"></script>
+</head>
+
+<body>
+    <div class="page" id="page-city-picker">
+        <header class="bar bar-nav bg-main bg-inverse">
+
+            <h1 class="title color-white fs-2x fw-bold">GPS终端激活工具</h1>
+        </header>
+        <div class="content">
+            <div class="list-block mv-no">
+                <ul class="list-container pv-1x">
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-phone"></i></div>
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <input id="name" type="text" placeholder="请输入用户名">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-media"><i class="icon icon-message"></i></div>
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <input id="password" type="password" placeholder="请输入密码">
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="content-padded">
+                            <p>
+                                <div onclick="sure()" class="button button-big button-fill bg-main">确定</div>
+                                <!--<div onclick="qingchu()" class="button button-big button-fill bg-main">清除缓存</div>-->
+                                <!--<a href="../Scan/result.html" class="button button-big button-fill bg-main">确定</a>-->
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var basePath = "../../Public/template/green";
+    </script>
+    <script type="text/javascript" src="../../Public/template/green/js/loading.js"></script>
+    <script type="text/javascript" src="../../Public/template/green/sui/sm.min.js"></script>
+    <script type="text/javascript" src="../../Public/template/green/js/webapp.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="../js/my.js"></script>
+    <!--<script src="../layer/layer.js"></script>-->
+    <script>
+        // function returnpandu() {
+        //     if (data.type == "1") {
+
+        //     } else {
+
+        //     }
+        // }
+        //         layer.open({
+        //   type: 1,
+        //   area: ['600px', '360px'],
+        //   shadeClose: true, //点击遮罩关闭
+        //   content: '\<\div style="padding:20px;">自定义内容\<\/div>'
+        //   });
+
+        // var weburl = "http://fk.chetxt.com:10086/WX/Setup"
+        var weburl = weburl()
+        $(window).load(function () {
+            if (localStorage.getItem("username")) {
+                var data1 = {
+                    name: localStorage.getItem("username"),
+                    password: localStorage.getItem("userpwd")
+                };
+                $.ajax({
+                    url: weburl + '/LoginSetup',
+                    type: 'GET',
+                    // headers: {
+                    //     "Authorization": "Basic " + btoa("csOfBasic" + ":" + "testkongpwd")
+                    // },
+                    data: data1,
+                    dataType: "json",
+                    // jsonp: 'jsoncallback', 
+                    success: function (data) {
+                        debugger
+                        if (data.type == "1") {
+                            var tokenString = data.resultdata
+                            localStorage.setItem("Token", tokenString)
+                            location.href = '../Scan/result.html'
+                        } else if (data.type == "0") {
+                            if (data.errorcode == "10000101") {
+                                alert("没有该用户")
+                            } else if (data.errorcode == "10000102") {
+                                alert("用户密码不可以为空")
+                            } else if (data.errorcode == "10000103") {
+                                alert("密码错误")
+                            }
+                        } else if (data.type == "3") {
+                            alert("程序异常！")
+                        }
+
+                    },
+                    error: function (data) {
+                        debugger
+                        alert("网络出错");
+                    }
+                });
+            }
+
+        })
+        function sure() {
+            if ($("#name").val() == "" || $("#password").val() == "") {
+                alert("用户名或密码不能为空")
+            } else {
+                var data1 = {
+                    name: $("#name").val(),
+                    password: $("#password").val()
+                };
+                $.ajax({
+                    url: weburl + '/LoginSetup',
+                    type: 'GET',
+                    data: data1,
+                    dataType: "json",
+                    success: function (data) {
+                        debugger
+                        if (data.type == "1") {
+                            var tokenString = data.resultdata
+                            localStorage.setItem("username", $("#name").val())
+                            localStorage.setItem("userpwd", $("#password").val())
+                            localStorage.setItem("Token", tokenString)
+                            location.href = '../Scan/result.html'
+                        } else if (data.type == "0") {
+                            if (data.errorcode == "10000101") {
+                                alert("没有该用户")
+                            } else if (data.errorcode == "10000102") {
+                                alert("用户密码不可以为空")
+                            } else if (data.errorcode == "10000103") {
+                                alert("密码错误")
+                            }
+                        } else if (data.type == "3") {
+                            alert("程序异常！")
+                        }
+
+                    },
+                    error: function (data) {
+                        debugger
+                        alert("网络出错");
+                    }
+                });
+            }
+
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			body,
+			body .mui-content {
+				background-color: #fff !important;
+				height: 100%;
+			}
+			
+			.text {
+				text-align: center;
+				padding-top: 30%;
+				font-size: 22px;
+			}
+			
+			.second-div {
+				margin-top: 20%;
+				margin-left: 10%;
+				margin-right: 10%;
+				border: 1px solid #DBDFE2;
+				height: 50px;
+				line-height: 50px;
+				/*border-radius: 10px;*/
+			}
+			
+			.third-div {
+				margin-left: 10%;
+				margin-right: 10%;
+				border: 1px solid #DBDFE2;
+				height: 50px;
+				line-height: 50px;
+				/*border-radius: 10px;*/
+			}
+			
+			.username-img {
+				width: 20px;
+				height: 25px;
+				margin-top: 12.5px;
+				margin-left: 10px;
+				float: left;
+			}
+			
+			.loginbtn {
+				margin-top: 20%;
+				width: 80%;
+				margin-left: 10%;
+				margin-right: 10%;
+				color: white !important;
+				background-color: #2494F1 !important;
+			}
+			
+			.YZM {
+				margin-top: 5%;
+				margin-left: 10%;
+				width: 80px !important;
+			}
+			
+			.yzm-layout {
+				height: 60px;
+			}
+			
+			.yzmimg {
+				float: right;
+				margin-top: 5%;
+				margin-right: 10%;
+				width: 30%;
+				height: 40px !important;
+				line-height: 40px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="first-div text">英臻车联</div>
+			<div class="second-div">
+				<div class="mui-input-row">
+					<div style="width: 15%;float: left;">
+						<img class="username-img" src="../img/name2.png" />
+					</div>
+					<input type="text" id="name" class="username-input" style="margin-top:12.5px;width: 85%;float: right;height:25px;line-height: 25px;border: none;" placeholder="请输入用户名">
+
+				</div>
+			</div>
+			<div class="third-div">
+				<div class="mui-input-row">
+					<div style="width: 15%;float: left;">
+						<img class="username-img" src="../img/password2.png" />
+					</div>
+					<input type="password" id="password" class="username-input" style="margin-top:5px;width: 85%;float: right;height:40px;line-height: 40px;border: none;" placeholder="请输入密码">
+
+				</div>
+			</div>
+			<div class="yzm-layout">
+				<input type="text" class="YZM" id="YZM" value="" />
+				<img src="https://lbstec.cn/yzclauth/v1/imagecode" class="yzmimg" id="imgyzm" />
+			</div>
+			<input type="button" class="loginbtn" id="login" value="登录" />
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../layer/layer.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var network = true;
+
+			mui.plusReady(function() {
+				if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+					network = false;
+				}
+				var self = plus.webview.currentWebview();
+				//是通过前一个页面传过来的
+				var name = self.name; //获得参数
+				console.log(name);
+				if(name=="csdn1"){
+//					setTimeout(function(){
+//  var h=plus.webview.getWebviewById( "4.html" );
+////						plus.webview.close(h);
+//h.close('none');
+//},500)
+
+				}
+				mui.toast(name);
+			});
+			//设置全局beforeSend
+			mui.ajaxSettings.beforeSend = function(xhr, setting) {
+				//beforeSend演示,也可在$.ajax({beforeSend:function(){}})中设置单个Ajax的beforeSend
+				console.log('beforeSend:::' + JSON.stringify(setting));
+			};
+			//设置全局complete
+			mui.ajaxSettings.complete = function(xhr, status) {
+				console.log('complete:::' + status);
+			}
+			var username = document.getElementById("name");
+			var password = document.getElementById("password");
+			var yzm = document.getElementById("YZM");
+			username.value=localStorage.getItem("username");
+			password.value=localStorage.getItem("password");
+			var login = function() {
+				mui.ajax("http://118.178.227.126:20200/auth/v1/login", {
+					data: {
+						"username": username.value,
+						"password": password.value,
+						"imagecode": yzm.value
+					},
+					type: 'get', //HTTP请求类型
+					dataType: 'json', //返回数据类型  
+					success: function(data) { //请求成功回调函数  
+						console.log(JSON.stringify(data));
+						if(data.success) {
+							var token = data.object.token;
+															mui.toast(token)
+															localStorage.setItem("username",username.value);
+															localStorage.setItem("password",password.value);
+							localStorage.setItem("token", token);
+							mui.openWindow({
+								url: '2.html',
+								id: '2.html'
+							})
+						}
+
+					}
+				})
+
+			}
+			document.getElementById("imgyzm").addEventListener('tap', function() {
+				console.log("tap");
+//				$("#imgyzm").attr("src",'https://lbstec.cn/yzclauth/v1/imagecode');
+//在图片链接后方加上一段无用的代码，不加会让程序直接从本地缓存拿图片（在4.4手机上可以不加，在7.0手机上必须加）
+				document.getElementById("imgyzm").src = "https://lbstec.cn/yzclauth/v1/imagecode?time="+ new Date().getTime()  ;
+			})
+			//在这里面也是可以使用jquery的
+			$("#login").click(function() {
+				//layer也是有用的
+				
+//				layer.msg('您确定要退出登录吗？', {
+//					time: 0 //不自动关闭
+//						,
+//					area: ['210px', '100px'] //宽高
+//						,
+//					btn: ['确定', '取消'],
+//					yes: function(index) {
+////						localStorage.removeItem("username1");
+////						localStorage.removeItem("userpwd1");
+////						window.location.href = "../Member/mobile1.html";
+//					}
+//				}); 
+								var btnArray = ['否', '是'];
+								mui.confirm('是否密码登录？', '登录', btnArray, function(e) {
+									if(e.index == 1) {
+										if(network) {
+											login();
+										} else {
+											mui.toast("网络出错")
+										}
+									} else {
+										mui.openWindow({
+											url: '2.html',
+											id: '2.html'
+										})
+									}
+								})
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css"/>-->
+		<style>
+			.moreimg {
+				/*background-color: #000000;*/
+				font-size: 2.4em;
+				position: relative;
+			}
+			
+			.moreimg img {
+				width: 35px;
+				height: 35px;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			.mui-bar-nav {
+				background-color: #2494F1;
+			}
+			
+			.showhead {
+				width: 24px;
+				height: 24px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon  mui-pull-left">
+				<img id="showhead" class="showhead" src="../img/u77.png" />
+			</a>
+			<h1 class="mui-title">首页</h1>
+		</header>
+
+		<div class="mui-content">
+			<div id="slider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../img/u34.png">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../img/u36.png">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../img/u34.png">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../img/u36.png">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../img/u34.png">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../img/u36.png">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<ul class="mui-table-view mui-grid-view mui-grid-9">
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon moreimg"><img src="../img/group1.png" /></span>
+						<div class="mui-media-body">风控预警</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon moreimg"><img src="../img/group2.png" /></span>
+						<div class="mui-media-body">车辆监视</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon moreimg"><img src="../img/group3.png" /></span>
+						<div class="mui-media-body">车辆管理</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon moreimg"><img src="../img/group4.png" /></span>
+						<div class="mui-media-body">下单中心</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon moreimg"><img src="../img/group5.png" /></span>
+						<div class="mui-media-body">围栏管理</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon moreimg"><img src="../img/group5.png" /></span>
+						<div class="mui-media-body">指令设置</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon moreimg"><img src="../img/group7.png" /></span>
+						<div class="mui-media-body">客户管理</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<span class="mui-icon moreimg"><img src="../img/group8.png" /></span>
+						<div class="mui-media-body">更多...</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../layer/layer.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/immersed.js"></script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		var network = true;
+		var token = "";
+		var wp=null;
+		mui.plusReady(function() {
+			if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+				network = false;
+			}
+			//				var self = plus.webview.currentWebview();
+			//				var name = self.name; //获得参数
+			//				console.log(name);
+			
+			console.log("123")
+			token = localStorage.getItem("token");
+			mui.toast(token);
+
+		});
+		var slider = mui("#slider");
+		slider.slider({
+			//轮播时间间隔
+			interval: 2000
+		});
+		$("#showhead").click(function() {
+			animateWindow("slide-in-left")
+			
+//			mui.openWindow({
+//				url: 'webview_animation.html',
+//				id: '4.html'
+//			})
+		})
+		function animateWindow(type){
+	wp||(wp=plus.webview.create('webview_animation.html','webview_animation.html',{scrollIndicator:'none',scalable:false,popGesture:'none'},{preate:true}));
+	console.log(JSON.stringify(wp))
+	wp.show(type);
+}
+// 关闭窗口
+var _back=window.back;
+function preateBack(){
+	wp&&(wp.close(),wp=null);
+	_back();
+}
+window.back=preateBack;
+		mui('ul li').each(function() {
+			this.addEventListener("tap", function(event) {
+				var aa = this.innerText.trim();
+				mui.toast(aa);
+				console.log(aa);
+				if(aa == "风控预警") {
+					mui.toast('风控预警');
+					mui.openWindow({
+						url: 'fkyj.html',
+						id: 'fkyj.html'
+					})
+				} else if(aa == "车辆监视") {
+										if('Android'===plus.os.name&&navigator.userAgent.indexOf('StreamApp')>0){
+							plus.nativeUI.toast('当前环境暂不支持地图插件');
+							return;
+						}
+						var ws=plus.webview.currentWebview();
+						var wm=plus.webview.getWebviewById(plus.runtime.appid);
+						wm&&wm.evalJS("preateClear()");
+						clicked('14.html',false,true);
+//					mui.openWindow({
+//						url: 'maps.html',
+//						id: 'maps.html'
+//					})
+				} else if(aa == "车辆管理") {
+					mui.openWindow({
+						url: '11.html',
+						id: '11.html'
+					})
+				} else if(aa == "下单中心") {
+
+				} else if(aa == "围栏管理") {
+					mui.openWindow({
+						url: '15.html',
+						id: '15.html'
+					})
+				} else if(aa == "指令设置") {
+
+				} else if(aa == "客户管理") {
+
+				} else if(aa == "更多...") {
+
+				}
+			})
+		})
+	</script>
+
+</html>
+<!--<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var network = true;
+			var token ="";
+			mui.plusReady(function() {
+				if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+					network = false;
+				}
+				//				var self = plus.webview.currentWebview();
+				//				var name = self.name; //获得参数
+				//				console.log(name);
+				console.log("123")
+				token = localStorage.getItem("token");
+				mui.toast(token);
+
+			});
+		</script>
+	</body>
+
+</html>-->

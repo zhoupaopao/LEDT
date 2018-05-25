@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-bar-nav {
+				background-color: #2494F1;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			.mui-btn {
+				color: white !important;
+			}
+			.mui-content{
+				padding: 54px 10px !important;
+				position: absolute;
+				width: 100%;
+			}
+			.mui-input-row{
+				/*如果padding写在这边input后面的删除按钮显示不正常*/
+			}
+			.mui-input-clear{
+				width: 100%;
+				height: 100%;
+				background-color: #2494F1;
+				font-size: 15px;
+				letter-spacing: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+
+			<h1 class="mui-title">修改密码</h1>
+			<button class="mui-action-back mui-btn mui-btn-blue mui-btn-link mui-btn-nav mui-pull-left">
+				取消</button>
+			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right">完成</button>
+		</header>
+		<div class="mui-content">
+			<div class="mui-input-row">
+				<input type="text" class="mui-input-clear" placeholder="带清除按钮的输入框">
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

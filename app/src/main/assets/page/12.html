@@ -1,0 +1,536 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+			
+			.showhead {
+				width: 15px;
+				height: 22px;
+			}
+			
+			.mui-bar-nav {
+				background-color: #2494F1;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			.mui-content1 {
+				position: relative;
+				padding-top: 44px;
+			}
+			
+			.item {
+				background-color: white;
+				margin-top: 15px;
+			}
+			
+			.line-1 {
+				padding: 5px 10px;
+				display: flex;
+			}
+			
+			.line-1 .name {
+				width: auto;
+				line-height: 40px;
+				color: #030303;
+			}
+			
+			.line-1 .gz {
+				line-height: 25px;
+				position: absolute;
+				right: 10px;
+				border-radius: 35px;
+				width: 50px;
+				height: 25px;
+				margin-top: 7.5px;
+				text-align: center;
+				background-color: #1587F3;
+				font-size: 13px;
+				color: white;
+			}
+			
+			.line-1 .gzz {
+				line-height: 25px;
+				position: absolute;
+				right: 10px;
+				border-radius: 35px;
+				width: 50px;
+				height: 25px;
+				margin-top: 7.5px;
+				text-align: center;
+				background-color: #86BEFA;
+				font-size: 13px;
+				color: white;
+			}
+			
+			.line-1 .img {
+				height: 40px;
+			}
+			
+			.showimg {
+				display: none;
+			}
+			
+			.line-2 {
+				padding: 0px 10px;
+				color: #4A4A4A;
+				font-size: 13px;
+			}
+			
+			.line-3 {
+				display: flex;
+				height: 44px;
+				line-height: 34px;
+			}
+			
+			.line3-item {
+				flex: 1;
+				font-size: 13px;
+				color: #2494F1;
+				border: 1px solid #BFBFBF;
+				border-left: none;
+				padding: 5px;
+				text-align: center;
+			}
+			
+			.mui-control-item {
+				font-size: 13px;
+				color: #9B9B9B;
+			}
+			
+			.mui-active {
+				color: #2494F1 !important;
+				border-bottom: none !important;
+				background: 0 0;
+			}
+			
+			.mui-segmented-control {
+				background-color: white;
+				height: 44px;
+				color: #9B9B9B;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				line-height: 44px;
+			}
+			
+			.mui-table-view {
+				background-color: initial;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon  mui-pull-left">
+				<img id="showhead" class="showhead" src="../img/icon_back.png" />
+			</a>
+			<h1 class="mui-title">车辆列表</h1>
+			
+		</header>
+		<div class="mui-content1">
+			<div style="">
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active" href="#item1">全部</a>
+					<a class="mui-control-item" href="#item2">逾期</a>
+					<a class="mui-control-item" href="#item3">重点关注</a>
+				</div>
+			</div>
+			<div id="item1" class="mui-control-content mui-active">
+				<div class="mui-table-view" id="item1-view">
+					<!--<div class="item">
+						<div class="line-1">
+							<div class="name">刘诗诗</div>
+							<img class="img" src="../img/u2816.png" />
+							<div class="gz">关注</div>
+						</div>
+						<div class="line-2">
+							车架号:AW333333333333333333
+						</div>
+						<div class="line-2">
+							已绑设备:有线（1个）、无线（1个）
+						</div>
+						<div class="line-2">
+							绑车时间:2016-12-20 11:15
+						</div>
+						<div class="line-2">
+							所属客户：深圳市罗湖大兴4S店面
+						</div>
+						<div class="line-3">
+							<div class="line3-item">位置</div>
+							<div class="line3-item">详情</div>
+							<div class="line3-item">取消逾期</div>
+							<div class="line3-item">结清</div>
+						</div>
+					</div>
+					<div class="item">
+						<div class="line-1">
+							<div class="name">刘诗诗</div>
+							<img class="img" src="../img/u2816.png" />
+							<div class="gz">关注</div>
+						</div>
+						<div class="line-2">
+							车架号:AW333333333333333333
+						</div>
+						<div class="line-2">
+							已绑设备:有线（1个）、无线（1个）
+						</div>
+						<div class="line-2">
+							绑车时间:2016-12-20 11:15
+						</div>
+						<div class="line-2">
+							所属客户：深圳市罗湖大兴4S店面
+						</div>
+						<div class="line-3">
+							<div class="line3-item">位置</div>
+							<div class="line3-item">详情</div>
+							<div class="line3-item">取消逾期</div>
+							<div class="line3-item">结清</div>
+						</div>
+					</div>-->
+				</div>
+			</div>
+			<div id="item2" class="mui-control-content">
+				<div class="item">
+					<div class="line-1">
+						<div class="name">第二</div>
+						<img class="img" src="../img/u2816.png" />
+						<div class="gz">关注</div>
+					</div>
+					<div class="line-2">
+						车架号:AW333333333333333333
+					</div>
+					<div class="line-2">
+						已绑设备:有线（1个）、无线（1个）
+					</div>
+					<div class="line-2">
+						绑车时间:2016-12-20 11:15
+					</div>
+					<div class="line-2">
+						所属客户：深圳市罗湖大兴4S店面
+					</div>
+					<div class="line-3">
+						<div class="line3-item">位置</div>
+						<div class="line3-item">详情</div>
+						<div class="line3-item">取消逾期</div>
+						<div class="line3-item">结清</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="line-1">
+						<div class="name">刘诗诗</div>
+						<img class="img" src="../img/u2816.png" />
+						<div class="gz">关注</div>
+					</div>
+					<div class="line-2">
+						车架号:AW333333333333333333
+					</div>
+					<div class="line-2">
+						已绑设备:有线（1个）、无线（1个）
+					</div>
+					<div class="line-2">
+						绑车时间:2016-12-20 11:15
+					</div>
+					<div class="line-2">
+						所属客户：深圳市罗湖大兴4S店面
+					</div>
+					<div class="line-3">
+						<div class="line3-item">位置</div>
+						<div class="line3-item">详情</div>
+						<div class="line3-item">取消逾期</div>
+						<div class="line3-item">结清</div>
+					</div>
+				</div>
+				<div class="item">
+					<div class="line-1">
+						<div class="name">刘诗诗</div>
+						<img class="img" src="../img/u2816.png" />
+						<div class="gz">关注</div>
+					</div>
+					<div class="line-2">
+						车架号:AW333333333333333333
+					</div>
+					<div class="line-2">
+						已绑设备:有线（1个）、无线（1个）
+					</div>
+					<div class="line-2">
+						绑车时间:2016-12-20 11:15
+					</div>
+					<div class="line-2">
+						所属客户：深圳市罗湖大兴4S店面
+					</div>
+					<div class="line-3">
+						<div class="line3-item">位置</div>
+						<div class="line3-item">详情</div>
+						<div class="line3-item">取消逾期</div>
+						<div class="line3-item">结清</div>
+					</div>
+				</div>
+			</div>
+			<div id="item3" class="mui-control-content">
+				<div class="mui-table-view"></div>
+
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script type="text/javascript">
+			mui.init({
+				gestureConfig: {
+					doubletap: true
+				}
+			});
+
+			console.log(localStorage.getItem('token'))
+			var token = localStorage.getItem('token');
+			var list;
+			var itemid = 1;
+			mui.plusReady(function() {
+				ajaxinit(3);
+
+				//阻尼系数
+				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+				mui('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration: deceleration
+				});
+				mui.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-control-content'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									itemid = 1;
+									var self = this;
+									//									window.location.reload();
+									//									$(".item").remove();
+									setTimeout(function() {
+										ajaxinit(1,self);
+									}, 1000)
+									
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									//page加1
+									itemid++;
+									setTimeout(function() {
+										ajaxinit(2,self);
+											
+									}, 1000);
+
+								}
+							}
+						});
+					});
+				});
+			});
+
+			function address(e) {
+				console.log(e.id);
+			}
+
+			function detail(e) {
+				console.log(e.id);
+			}
+
+			function jq(e) {
+				console.log(e.id);
+			}
+
+			function yq(e) {
+				console.log(e.id);
+			}
+
+			function ajaxinit(intid,self) {
+				console.log(itemid);
+				mui.ajax("https://lbstec.cn/yzcl/operation/v1/vehicleManage/getCar?token=" + token, {
+					data: {
+						"status": '0',
+						"pagesize": '5',
+						"page": itemid
+					},
+					type: 'post', //HTTP请求类型
+					dataType: 'json', //返回数据类型  
+					contentType: "application/json",
+					success: function(data) { //请求成功回调函数  
+
+						//						mui.toast(JSON.stringify(data));
+						if(data.success) {
+							//成功
+							list = data.list;
+							var htmltext = "";
+							for(var i = 0; i < list.length; i++) {
+								var listitem = list[i];
+								if(listitem.status == "1" || listitem.status == "3") {
+									//不显示逾期图片
+									var showimg = "";
+								} else {
+									//显示逾期图片
+									var showimg = "showimg"
+								}
+								if(listitem.status == "1" || listitem.status == "2") {
+									//没有 重点关注
+									var zdgz = '<div class="gz">关注</div>';
+								} else {
+									//已经重点关注
+									var zdgz = '<div class="gzz">已关注</div>';
+								}
+								var createtime = listitem.createtime.split(".");
+								var createtime = createtime[0];
+
+								htmltext = htmltext + '<div class="item">' +
+									'<div class="line-1">' +
+									'<div class="name">' + listitem.pledgename + '</div>' +
+									'<img class="img ' + showimg + '" src="../img/u2816.png" />' +
+									zdgz +
+									'</div>' +
+									'<div class="line-2">' +
+									'车架号:' + listitem.vin +
+									'</div>' +
+									'<div class="line-2">' +
+									'已绑设备数量:' + listitem.devicecount +
+									'</div>' +
+									'<div class="line-2">' +
+									'绑车时间:' + createtime +
+									'</div>' +
+									'<div class="line-2">' +
+									'所属客户：' + listitem.groupname +
+									'</div>' +
+									'<div class="line-3">' +
+									'<div class="line3-item" id="' + listitem.id + '.adress" onclick="address(this)">位置</div>' +
+									'<div class="line3-item" id="' + listitem.id + '.detail" onclick="detail(this)">详情</div>' +
+									'<div class="line3-item" id="' + listitem.id + '.yq" onclick="yq(this)">取消逾期</div>' +
+									'<div class="line3-item" id="' + listitem.id + '.jq" onclick="jq(this)">结清</div>' +
+									'</div>' +
+									'</div>';
+
+							}
+							if(intid == 1) {
+								//刷新
+								$("#item1-view").html(
+									htmltext
+								)
+								console.log("2213");
+								self.endPullDownToRefresh();
+							} else if(intid == 2) {
+								//下拉加载
+								$("#item1-view").append(
+									htmltext
+								)
+								console.log("213");
+								self.endPullUpToRefresh();
+							}else{
+								$("#item1-view").html(
+									htmltext
+								)
+							}
+							
+
+						}
+					},
+					error: function(data) {
+						alert("网络错误！");
+
+					}
+				})
+				return 0;
+			}
+			var segmentedControl = document.getElementById('segmentedControl');
+			var style = "inverted";
+			var color = "primary";
+			segmentedControl.className = 'mui-segmented-control' + (style ? (' mui-segmented-control-' + style) : '') + ' mui-segmented-control-' + color;
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.showhead {
+				width: 15px;
+				height: 22px;
+			}
+			
+			.mui-bar-nav {
+				background-color: #2494F1;
+				box-shadow: none;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			
+			.mui-content {
+				display: flex;
+				background-color: #2494F1;
+				padding: 64px 20px 20px 20px !important;
+			}
+			
+			.mui-content1 {
+				width: 60px;
+				height: 60px;
+			}
+			
+			.mui-content2 {
+				flex: 1;
+				padding-left: 20px;
+				padding-top: 5px;
+			}
+			
+			.mui-content3 {
+				width: 14px;
+				height: 60px;
+				padding: 20px 0px;
+			}
+			
+			.mui-content-title {
+				font-size: 18px;
+				color: #FFFFFF;
+				line-height: 25px;
+			}
+			
+			.mui-content2-check {
+				font-size: 10px;
+			}
+			
+			.content1 {
+				width: 100%;
+				height: 44px;
+				background-color: #ffffff;
+				display: flex;
+				padding: 10px;
+			}
+			
+			.content1-car {
+				line-height: 24px;
+				color: #4A4A4A;
+				font-size: 13px;
+			}
+			
+			.content1-detail {
+				flex: 1;
+				font-size: 13px;
+				text-align: right;
+				line-height: 24px;
+				border: 1px solid #ffffff;
+				padding-right: 10px;
+				color: #9B9B9B;
+			}
+			
+			.icon-go {
+				width: 8px;
+				padding: 4px 0px;
+				/*padding: 5px 0px;*/
+			}
+			.content2 {
+				width: 100%;
+				height: 66px;
+				background-color: #ffffff;
+				display: flex;
+				padding: 10px;
+				color: #9B9B9B;
+				border-top: 1px solid #C5CFE2;
+			}
+			.content2-all{
+				width: 20%;
+				text-align: center;
+			}
+			.content2-yq{
+				flex: 1;
+				text-align: center;
+			}
+			.content2-zdgz{
+				text-align: center;
+				width: 20%;
+			}
+			.content-text{
+				font-size: 13px;
+			}
+			.content-blue-text{
+				font-size: 13px;
+				color: #1587F3;
+				padding-top: 5px;
+			}
+			.mui-btn{
+				color: white !important;
+			}
+			.accountimg {
+				margin-top: 18px;
+				width: 60px;
+				height: 60px;
+			}
+			
+			.accountmsg {
+				margin-top: 44px;
+				height: 96px;
+				/*line-height: 96px;*/
+				position: relative;
+				background-color: #2494F1;
+				padding-left: 10px;
+				
+				padding-right: 10px;
+			}
+			
+			.accounttex {
+				width: auto !important;
+				position: absolute;
+				height: 20px;
+				letter-spacing: 0.36px;
+				font-family: .PingFangSC-Regular;
+				width: 60%;
+				margin-left: 25px;
+				margin-top: 48px;
+				font-size: 9pt;
+				color: white;
+				line-height: 20px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				/*overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;*/
+			}
+			
+			.accounttext {
+				margin-top: 23px;
+				position: absolute;
+				height: 25px;
+				font-family: .SFNSDisplay;
+				letter-spacing: 0.5px;
+				margin-left: 25px;
+				font-size: 16pt;
+				color: white;
+			}
+			
+			.accounttoright {
+				position: absolute;
+				right: 10px;
+				width: 14px;
+				height: 20px;
+				top: 38px;
+			}
+			.input2 {
+				height: 13px;
+				vertical-align: text-top;
+				margin-top: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon  mui-pull-left">
+				<img id="showhead" class="showhead" src="../img/icon_back.png" />
+			</a>
+			<h1 class="mui-title">账户信息</h1>
+			<button class="mui-btn mui-btn-blue mui-btn-link mui-pull-right" onclick="addcar()">新增车辆</button>
+		</header>
+		<div class="accountmsg" id="accountmsg">
+				<img class="accountimg" src="../img/icon_account.png" />
+				<span class="accounttext">GZESC001</span>
+				<span class="accounttex" id="showusermsg"><input type="checkbox" name="checkbox" id="checkbox2" class="input2"/><label style="margin-left: 10px;" for="checkbox2">显示下级数据</label></span>
+				<img class="accounttoright" src="../img/icon_right_light.png" />
+			</div>
+		<div class="content1" onclick="mycar()">
+			<div class="content1-car">我的车辆</div>
+			<div class="content1-detail">查看详情</div>
+			<img class="icon-go" src="../img/icon_go.png" />
+		</div>
+		<div class="content2">
+			<div class="content2-all">
+				<div class="content-text">全部</div>
+				<div class="content-blue-text">1230</div>
+			</div>
+			<div class="content2-yq">
+				<div class="content-text">逾期</div>
+				<div class="content-blue-text">1230</div>
+			</div>
+			<div class="content2-zdgz">
+				<div class="content-text">重点关注</div>
+				<div class="content-blue-text">1230</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+			function mycar(){
+				mui.openWindow({
+					url:"12.html",
+					id:'12.html'
+				})
+			}
+			function addcar(){
+				mui.openWindow({
+					url:"13.html",
+					id:"13.html"
+				})
+			}
+			$(document).ready(function() {
+				//等dom加载完了再执行
+				$("#showusermsg").click(function(e) {
+					alert("显示下级数据");
+					e.stopPropagation(); //终止事件冒泡
+				})
+				$("#accountmsg").click(function() {
+					mui.openWindow({
+					url: "chooseaccount.html",
+					id: "chooseaccount.html"
+				})
+				})
+				
+			})
+		</script>
+	</body>
+
+</html>

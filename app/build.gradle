@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion '27.0.0'
+    //修改解决sdk问题
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+
+        }
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+    defaultConfig {
+        applicationId "com.ledt"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 2
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "08907382a5099eae085f76c5", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    useLibrary 'org.apache.http.legacy'
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25+'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    //    compile 'com.facebook.fresco:fresco:0.12.0'
+    compile 'com.zxy.android:recovery:0.0.8'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile files('libs/android-async-http-1.4.6.jar')
+    compile files('libs/jpush-android-3.0.8.jar')
+    compile files('libs/jcore-android-1.1.6.jar')
+    compile files('libs/zhy_treeview.jar')
+    compile project(':library')
+    compile 'com.android.support:cardview-v7:23.1.1'
+    compile 'cn.finalteam:okhttpfinal:2.0.7'
+    compile 'com.dou361.dialogui:jjdxm-dialogui:1.0.3'
+    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile project(':banner')
+    compile 'com.lzy.widget:imagepicker:0.5.4'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.zhy:okhttputils:2.6.2'
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title>Hello H5+</title>
+		<!--<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/mui.js"></script>
+		<script type="text/javascript" src="../js/immersed.js"></script>-->
+		<script type="text/javascript">
+			//			document.getElementById("cz").innerHTML="213";
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+			function plusReady() {
+				var self = plus.webview.currentWebview();
+    				var name = self.preload;//获得参数
+    				console.log(name);
+			}
+			window.onload = function() {
+				document.getElementById('cz').innerHTML = 'one';
+				 
+			}
+
+			function resetMap(e) {
+				var inter = e.innerText;
+				localStorage.setItem("openket", inter);
+				plus.webview.currentWebview().opener().evalJS('resetMap()');
+				//用来关闭当前页面
+//				plus.webview.currentWebview().close();
+			}
+			function resetMap1(e) {
+				
+				plus.webview.currentWebview().opener().evalJS('resetMap1()');
+			}
+			function resetMap2(e) {
+				plus.webview.currentWebview().opener().evalJS('resetMap2()');
+			}
+			function resetMap3(e) {
+				plus.webview.currentWebview().opener().evalJS('resetMap3()');
+			}
+		</script>
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+		<style type="text/css">
+			html,
+			body {
+				overflow: hidden;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="button" id="cz" style="margin:.2em auto;width:50%" onclick="resetMap(this)">重　置</div>
+		<div class="button" id="dh" style="margin:.2em auto;width:50%" onclick="resetMap1(this)">导    航</div>
+		<div class="button" id="gj" style="margin:.2em auto;width:50%" onclick="resetMap2(this)">轨    迹</div>
+		<div class="button" id="cq" style="margin:.2em auto;width:50%" onclick="resetMap3(this)">清     除</div>
+	</body>
+
+</html>

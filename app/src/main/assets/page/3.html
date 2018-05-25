@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+/**
+ *用来熟悉布局的 
+ */
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/my.css" rel="stylesheet" />
+		<style>
+body,html{
+            padding: 0;
+            margin: 0;
+        }
+        .header{
+            border: 1px solid #000;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            position: relative;
+        }
+        .header .arrow{
+            position: absolute;
+            border: 1px solid #000;
+            height: 15px;
+            width: 15px;
+            margin-left: 15px;
+            top: 11px;
+            left: 0px;
+        }
+        .content{
+            display: flex;
+            padding: 15px;
+            border: 1px solid #000;
+        }
+        .flex-item{
+            flex: 1;
+        }
+        .left{
+            width: 60px;
+            height: 60px;
+            border: 1px solid #000;
+        }
+        .medium-top{
+            border: 1px solid #000;
+        }
+        .medium-botttom{
+            border: 1px solid #000;
+        }
+        .right{
+            width: 20px;
+            height: 40px;
+            border: 1px solid #000;
+        }
+		</style>
+	</head>
+
+	<body>
+		<!--头 start-->
+		<div class="header">
+				<img class="arrow" src="../img/name2.png" />
+
+			<span>标题</span>
+		</div>
+		<div class="content">
+			<div class="left">1</div>
+			<div class="flex-item medium">
+				<div class="medium-top">2</div>
+				<div class="medium-botttom">3</div>
+			</div>
+			<div class="right">4</div>
+		</div>
+		<!--头 end-->
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

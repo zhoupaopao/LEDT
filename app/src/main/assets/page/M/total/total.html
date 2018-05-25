@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>统计页面</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="../../Public/template/green/css/webapp.css" />
+    <!--<script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>-->
+    <script src="http://wximg.qq.com/wxp/libs/wxmoment/0.0.4/wxmoment.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../js/iview.css">
+    <script type="text/javascript" src="../js/vue.min.js"></script>
+    <script type="text/javascript" src="../js/iview.min.js"></script>
+    <style>
+        input {
+            line-height: normal;
+            font-size: initial;
+        }
+        
+        .searchbar {
+            height: 2.5rem
+        }
+        
+        .button12 {
+            font-size: 14px;
+            width: 30%;
+            display: inline-block;
+            margin-bottom: 0;
+            /* font-weight: 400; */
+            /* text-align: center; */
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            /* cursor: pointer; */
+            background-image: none;
+            border: 1px solid transparent;
+            /* white-space: nowrap; */
+            /* line-height: 1.5; */
+            /* -webkit-user-select: none; */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            /* user-select: none; */
+            padding: 6px 15px;
+            /* font-size: 12px; */
+            border-radius: 4px;
+            transition: color .2s linear, background-color .2s linear, border .2s linear;
+            color: #495060;
+            background-color: #f7f7f7;
+            border-color: #dddee1;
+        }
+        
+        .newazg {
+            display: inline-block;
+            margin-bottom: 0;
+            /* font-weight: 400; */
+            /* text-align: center; */
+            vertical-align: middle;
+            -ms-touch-action: manipulation;
+            touch-action: manipulation;
+            /* cursor: pointer; */
+            background-image: none;
+            border: 1px solid transparent;
+            /* white-space: nowrap; */
+            /* line-height: 1.5; */
+            /* -webkit-user-select: none; */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            /* user-select: none; */
+            padding: 6px 15px;
+            /* font-size: 12px; */
+            border-radius: 4px;
+            transition: color .2s linear, background-color .2s linear, border .2s linear;
+            color: #495060;
+            background-color: #f7f7f7;
+            border-color: #dddee1;
+        }
+    </style>
+
+</head>
+
+<body id="all" style="overflow-y:scroll">
+    <header class="bar bar-nav bg-main bg-inverse">
+        <a class="icon icon-left pull-left back"></a>
+        <h1 class="title color-white fs-2x fw-bold">工单情况</h1>
+    </header>
+    <img class="color-white fw-bold" id="tuichu" style="position: absolute;right:10px;z-index:100;height: 2.2rem;line-height: 2.2rem;font-size: 0.6rem;padding-bottom: 0.3rem;padding-top: 0.3rem"
+        src="./22.png" />
+    <!--<div style="height: 30px;line-height: 30px;margin-top: 2.2rem;text-align: center;">
+        <input id="newusername" placeholder="安装工姓名" style="width: 35%; border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;"
+        />
+        <input id="newpassword" placeholder="安装工电话" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"
+            style="width: 35%;border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;" />
+        </br>
+        <input id="newYZM" placeholder="输入验证码" style="width: 35%; border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;"
+        />
+        <input id="achieveYZM" type="button" onclick="achieveYZM" value="获取验证码" style="background-color:white;width: 35%;border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;"
+        />
+        </br>
+        <input id="newtijiao" onclick="addperson()" style="background-color:#03ab9e;color: white; width: 30%;text-align: center; border-radius:10px;padding-left: 5px;margin-left: 20px;"
+            type="button" value="新增" />
+    </div>-->
+    <div style="margin-top: 2.2rem;">
+        <div class="searchbar row bg-no ">
+            <select style="height: 1.4rem;margin-left: 5%;width: 25%;float: left" name="" id="searchitem"> 
+                    <option value="0">完整工单号</option> 
+                    <option value="1">车架号后6位</option> 
+                    <option value="2">车主姓名</option> 
+                    <option value="3">安装工姓名</option> 
+                </select>
+            <div class="search-input " style="padding-left: 0px;margin-left: 5%;width: 50%;float: left">
+                <label class="icon icon-search" for="search" style="padding-left: 0px"></label>
+                <input class="r-round" type="search" id='searchinput' placeholder='' autocomplete="on" />
+            </div>
+            <!--<div class="col-20 text-center"><a href="javascript:void(0)" style="color: #03ab9e;line-height: 1.5rem" onclick="aaa(this)" id="submit">搜索</a></div>-->
+        </div>
+        <div id="app">
+            <div class="searchbar row bg-no ">
+                <div style="height: 1.7rem;margin-left: 5%;width: 30%;float: left;line-height: 1.7rem">完成起始时间:</div>
+                <div style="padding-left: 0px;width: 50%;float: left">
+                    <Date-picker type="datetime" editable="false" style="width: 100%" :value.sync="time" @on-change="changeTime" @on-clear="clearTime" placeholder="选择日期和时间"
+                        style="width: 10rem"></Date-picker>
+                </div>
+                <!--<div class="col-20 text-center"><a href="javascript:void(0)" style="color: #03ab9e;line-height: 1.5rem" onclick="aaa(this)" id="submit">搜索</a></div>-->
+            </div>
+            <div class="searchbar row bg-no ">
+                <div style="height: 1.7rem;margin-left: 5%;width: 30%;float: left;line-height: 1.7rem">完成截止时间:</div>
+                <div style="padding-left: 0px;width: 50%;float: left;">
+                    <Date-picker type="datetime" editable="false" style="width: 100%" :value.sync="time1" @on-change="changeTime1" @on-clear="clearTime1" placeholder="选择日期和时间"
+                        style="width: 10rem"></Date-picker>
+                </div>
+                <!--<div class="col-20 text-center"><a href="javascript:void(0)" style="color: #03ab9e;line-height: 1.5rem" onclick="aaa(this)" id="submit">搜索</a></div>-->
+            </div>
+            <i-button @click="show" style="margin-top: 10px; margin-left: 35%; background-color:#03ab9e;color: white; width: 30%;text-align: center; border-radius:10px;padding-left: 5px;">搜索</i-button>
+        </div>
+        <!--<div class="searchbar row bg-no ">
+            <div style="height: 1.4rem;margin-left: 5%;width: 30%;float: left;line-height: 1.4rem">
+                完成起始时间：
+            </div>
+            <div class="search-input " style="padding-left: 0px;margin-left: 5%;width: 50%;float: left">
+                <input type="datetime-local" value="2015-09-24T13:59" />
+
+            </div>
+        </div>
+        <div class="searchbar row bg-no ">
+            <div style="height: 1.4rem;margin-left: 5%;width: 30%;float: left;line-height: 1.4rem">
+                完成截止时间：
+            </div>
+            <div class="search-input " style="padding-left: 0px;margin-left: 5%;width: 50%;float: left">
+                <input type="datetime-local" />
+            </div>
+        </div>-->
+        <!--<div class="text-center"><button style="background-color:#03ab9e;color: white; width: 30%;text-align: center; border-radius:10px;padding-left: 5px;margin-left: 20px;"
+                onclick="allsearch(this)" id="submit">搜索</button></div>-->
+    </div>
+
+    <!--<div class="col-90">
+        <div class="searchbar row bg-no">
+            <div class="search-input col-80" style="padding-left: 20px">
+                <label class="icon icon-search" for="search" style="padding-left: 20px"></label>
+                <input class="r-round" type="search" id='searchinputazg' placeholder='请输入安装工姓名' autocomplete="on" />
+            </div>
+            <div class="col-20 text-center"><a href="javascript:void(0)" style="color: #03ab9e;line-height: 1.5rem" onclick="searchazg(this)" id="submit">搜索</a></div>
+        </div>
+    </div>-->
+    <div style="height: 50px;line-height: 50px;">
+        <div style="float: left;width: 55%;padding-left: 20px"><input style="font-size: inherit;" type="button" class="newazg" onclick="newazg()" value="新增安装工" /></div>
+        <div style="float: left;width: 15%;text-align: center;">待接单</div>
+        <div style="float: left;width: 15%;text-align: center;">已接单</div>
+        <div style="float: left;width: 15%;text-align: center;">完成</div>
+    </div>
+    <div id="content1" style="height: 60px;line-height: 30px;font-weight: bold">
+        <div style="float: left;height: 60px;width: 55%;padding-left: 30px;-webkit-line-clamp: 2;overflow: hidden;" id="allname">服务商总部</div>
+        <div style="float: left;width: 15%;text-align: center" id="alldjd">0</div>
+        <div style="float: left;width: 15%;text-align: center" id="allyjd">0</div>
+        <div style="float: left;width: 15%;text-align: center" id="allywc">0</div>
+    </div>
+    <div id="scall" style="overflow-y:scroll;height: 60%">
+
+    </div>
+    <!--<div style="height: 30px;line-height: 30px;text-align: center">
+        <div style="float: left;width: 40%;background-color: red">安装工1</div>
+        <div style="float: left;width: 20%;background-color: black">0</div>
+        <div style="float: left;width: 20%;background-color: white">0</div>
+        <div style="float: left;width: 20%;background-color: orange">0</div>
+    </div>-->
+    <script type="text/javascript">
+        var basePath = "../../Public/template/green";
+    </script>
+    <script type="text/javascript" src="../../Public/template/green/js/loading.js"></script>
+    <script type="text/javascript" src="../../Public/template/green/sui/sm.min.js"></script>
+    <script type="text/javascript" src="../../Public/template/green/js/webapp.js"></script>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="../layer/layer.js"></script>
+    <script src="../js/my.js"></script>
+    <script>
+        // var weburl = "http://fk.chetxt.com:10086/WX/Setup"
+        var weburl = weburl()
+        var allid = ""
+        var alldjd = 0
+        var allyjd = 0
+        var allywc = 0
+        var searchazgid = ""
+        var arr = [];//存放搜索数据
+        var havesearch = "0";
+        // var time = '2017-11-11 00:00:00';
+        var timeend = '23:59:59';
+        var timestart='00:00:00'
+        var time = new Date();
+        // 程序计时的月从0开始取值后+1
+        var m = time.getMonth() + 1;
+        var t = time.getFullYear() + "-" + m + "-"
+            + time.getDate() + " " + "00:00:00";
+        var m1 = time.getMonth() + 1;
+        var t1 = time.getFullYear() + "-" + m1 + "-"
+            + time.getDate() + " " + "23:59:59";
+        new Vue({
+            el: '#app',
+            data: {
+                time: '',
+                time1: '',
+                flag: true,
+                firstTime: '',
+                isclear: false,
+                fisclear:false
+            },
+            methods: {
+
+                // 初始化
+                _init: function () {
+                    // this.time = t;
+                    // this.time1 = t1;
+                },
+                // 时间改变
+                changeTime: function (e) {
+                    if(this.fisclear){
+                        var date = e.substring(0, 10);
+                        this.time = date + ' ' + timestart;
+                    }else{
+                        this.time = e
+                    }
+                    
+
+                },
+                changeTime1: function (e) {
+                    if (this.firstTime == '') {
+                        this.firstTime = timeend;
+                        this.flag = true;
+                    } else {
+
+                        if (e.substring(11, 19) != timeend) {
+                            this.flag = false
+                        }
+                    }
+                    if (this.flag) {
+                        var date = e.substring(0, 10);
+                        this.time1 = date + ' ' + timeend;
+                    } else {
+                        if (this.isclear) {
+                            var date = e.substring(0, 10);
+                            this.time1 = date + ' ' + timeend;
+                        } else {
+                            this.time1 = e
+                        }
+
+                    }
+
+                },
+                // 清空时间
+                clearTime: function () {
+                    this.time = '';
+                    this.fisclear=true
+                },
+                clearTime1: function () {
+                    this.time1 = ''
+                    this.flag = true;
+                    this.firstTime = '';
+                    this.isclear = true
+                },
+                show: function () {
+                    var allstring = $("#searchinput").val()
+                    if (trim(allstring) == "") {
+                        if(this.time==" 00:00:00"){
+                        this.time=""
+                    }
+                    if(this.time1==" 23:59:59"){
+                        this.time1=""
+                    }
+                    if(this.time!=""){
+                        if(this.time1==""){
+                            this.time1=t1;
+                        }
+                    }
+                        //没有输入指定的工单号
+                        $('#scall').empty();
+                        if (localStorage.getItem("canreload") == "1") {
+                            location.reload();
+                            localStorage.removeItem("canreload")
+                        }
+                        document.getElementById("allname").innerHTML = localStorage.getItem("username1")
+                        var data1 = {
+                            token: localStorage.getItem("ManagerToken"),
+                            begintime: this.time,
+                            endtime: this.time1
+                        }
+
+                        $.ajax({
+                            url: weburl + '/getSurySetup',
+                            type: 'GET',
+                            data: data1,
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.type == "1") {
+                                    debugger
+                                    alldjd = 0
+                                    allyjd = 0
+                                    allywc = 0
+                                    var resultdata1 = data.resultdata
+                                    for (var i = 0; i < resultdata1.length; i++) {
+                                        if (localStorage.getItem("username1") == resultdata1[i].username) {
+                                            alldjd += parseInt(resultdata1[i].crabcount)
+                                            allyjd += parseInt(resultdata1[i].setcount)
+                                            allywc += parseInt(resultdata1[i].overcount)
+                                            //是总服务商的，获取他的level和id
+                                            allid = resultdata1[i].id
+                                            var toulevel = resultdata1[i].level
+                                            //查找父id是这个id的
+                                            for (var j = 0; j < resultdata1.length; j++) {
+                                                if (resultdata1[j].parentid == allid) {
+                                                    //父id是这个id的
+                                                    //判断是否为服务商
+                                                    if (resultdata1[j].type == "1") {
+                                                        //是服务商
+                                                        var level = resultdata1[j].level
+                                                        var mid = resultdata1[j].id
+                                                        var azg = resultdata1[j].username
+                                                        var alldd = resultdata1[j].allcount
+                                                        var yjd = resultdata1[j].setcount
+                                                        var ywc = resultdata1[j].overcount
+                                                        var djd = resultdata1[j].crabcount
+                                                        $('#scall').append('<div style="height: 30px;line-height: 30px;"  id="' + mid + '">' +
+                                                            '<div style="float: left;width: 55%;padding-left:20px">' + azg + '</div>' +
+                                                            '<div style="float: left;width: 15%;text-align:center">' + djd + '</div>' +
+                                                            '<div style="float: left;width: 15%;text-align:center">' + yjd + '</div>' +
+                                                            '<div style="float: left;width: 15%;text-align:center">' + ywc + '</div></div>')
+                                                        alldjd += parseInt(djd)
+                                                        allyjd += parseInt(yjd)
+                                                        allywc += parseInt(ywc)
+                                                        //判断下级服务商和安装工
+                                                        document.getElementById("alldjd").innerHTML = alldjd
+                                                        document.getElementById("allyjd").innerHTML = allyjd
+                                                        document.getElementById("allywc").innerHTML = allywc
+                                                        forxh(resultdata1, mid, level)
+
+
+                                                    } else {
+                                                        //不是服务商
+                                                        var mid = resultdata1[j].id
+                                                        var azg = resultdata1[j].username
+                                                        var alldd = resultdata1[j].allcount
+                                                        var yjd = resultdata1[j].setcount
+                                                        var ywc = resultdata1[j].overcount
+                                                        var djd = resultdata1[j].crabcount
+                                                        $('#scall').append('<div style="height: 30px;line-height: 30px;" onclick="dianji(this)" id="' + mid + '">' +
+                                                            '<div style="float: left;width: 55%;padding-left:20px">' + azg + '</div>' +
+                                                            '<div style="float: left;width: 15%;text-align:center">' + djd + '</div>' +
+                                                            '<div style="float: left;width: 15%;text-align:center">' + yjd + '</div>' +
+                                                            '<div style="float: left;width: 15%;text-align:center">' + ywc + '</div></div>')
+                                                        document.getElementById("alldjd").innerHTML = alldjd
+                                                        document.getElementById("allyjd").innerHTML = allyjd
+                                                        document.getElementById("allywc").innerHTML = allywc
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                } else if (data.type == "3") {
+                                    alert("程序异常！")
+                                } else if (data.type == "0") {
+                                    alert("程序异常！")
+                                }
+
+                            },
+                            error: function (data) {
+                                alert("网络出错");
+                            }
+                        });
+                    } else {
+                        //输入后判断是那个类型
+                        var options = $("#searchitem");
+                        if (options.val() == "3") {
+                            //安装工姓名
+                            searchazg();
+                        } else {
+                            //其他
+                            aaa();
+                        }
+                    }
+                }
+            },
+            // 组件被挂载后执行
+            created: function () {
+                this._init();
+            }
+        })
+        //先获取各个id
+        //来个for循环
+        $(window).load(function () {
+            $('#scall').empty();
+            if (localStorage.getItem("canreload") == "1") {
+                location.reload();
+                localStorage.removeItem("canreload")
+            }
+            document.getElementById("allname").innerHTML = localStorage.getItem("username1")
+            var data1 = {
+                token: localStorage.getItem("ManagerToken")
+            }
+
+            $.ajax({
+                url: weburl + '/getSurySetup',
+                type: 'GET',
+                data: data1,
+                dataType: "json",
+                success: function (data) {
+                    if (data.type == "1") {
+                        debugger
+                        var resultdata1 = data.resultdata
+                        for (var i = 0; i < resultdata1.length; i++) {
+                            if (localStorage.getItem("username1") == resultdata1[i].username) {
+                                alldjd += parseInt(resultdata1[i].crabcount)
+                                allyjd += parseInt(resultdata1[i].setcount)
+                                allywc += parseInt(resultdata1[i].overcount)
+                                //是总服务商的，获取他的level和id
+                                allid = resultdata1[i].id
+                                var toulevel = resultdata1[i].level
+                                //查找父id是这个id的
+                                for (var j = 0; j < resultdata1.length; j++) {
+                                    if (resultdata1[j].parentid == allid) {
+                                        //父id是这个id的
+                                        //判断是否为服务商
+                                        if (resultdata1[j].type == "1") {
+                                            //是服务商
+                                            var level = resultdata1[j].level
+                                            var mid = resultdata1[j].id
+                                            var azg = resultdata1[j].username
+                                            var alldd = resultdata1[j].allcount
+                                            var yjd = resultdata1[j].setcount
+                                            var ywc = resultdata1[j].overcount
+                                            var djd = resultdata1[j].crabcount
+                                            $('#scall').append('<div style="height: 30px;line-height: 30px;"  id="' + mid + '">' +
+                                                '<div style="float: left;width: 55%;padding-left:20px">' + azg + '</div>' +
+                                                '<div style="float: left;width: 15%;text-align:center">' + djd + '</div>' +
+                                                '<div style="float: left;width: 15%;text-align:center">' + yjd + '</div>' +
+                                                '<div style="float: left;width: 15%;text-align:center">' + ywc + '</div></div>')
+                                            alldjd += parseInt(djd)
+                                            allyjd += parseInt(yjd)
+                                            allywc += parseInt(ywc)
+                                            //判断下级服务商和安装工
+                                            document.getElementById("alldjd").innerHTML = alldjd
+                                            document.getElementById("allyjd").innerHTML = allyjd
+                                            document.getElementById("allywc").innerHTML = allywc
+                                            forxh(resultdata1, mid, level)
+
+
+                                        } else {
+                                            //不是服务商
+                                            var mid = resultdata1[j].id
+                                            var azg = resultdata1[j].username
+                                            var alldd = resultdata1[j].allcount
+                                            var yjd = resultdata1[j].setcount
+                                            var ywc = resultdata1[j].overcount
+                                            var djd = resultdata1[j].crabcount
+                                            $('#scall').append('<div style="height: 30px;line-height: 30px;" onclick="dianji(this)" id="' + mid + '">' +
+                                                '<div style="float: left;width: 55%;padding-left:20px">' + azg + '</div>' +
+                                                '<div style="float: left;width: 15%;text-align:center">' + djd + '</div>' +
+                                                '<div style="float: left;width: 15%;text-align:center">' + yjd + '</div>' +
+                                                '<div style="float: left;width: 15%;text-align:center">' + ywc + '</div></div>')
+                                            document.getElementById("alldjd").innerHTML = alldjd
+                                            document.getElementById("allyjd").innerHTML = allyjd
+                                            document.getElementById("allywc").innerHTML = allywc
+                                        }
+                                    }
+                                }
+                            }
+                            // } else {
+                            //     var mid = resultdata1[i].id
+                            //     var azg = resultdata1[i].username
+                            //     var alldd = resultdata1[i].allcount
+                            //     var yjd = resultdata1[i].setcount
+                            //     var ywc = resultdata1[i].overcount
+                            //     var djd = resultdata1[i].crabcount
+                            //     alldjd = djd
+                            //     allyjd += parseInt(yjd)
+                            //     allywc += parseInt(ywc)
+                            //     $('#all').append('<div style="height: 30px;line-height: 30px;margin-left:20px" onclick="dianji(this)" id="' + mid + '">' +
+                            //         '<div style="float: left;width: 40%;">' + azg + '</div>' +
+                            //         '<div style="float: left;width: 20%;">' + djd + '</div>' +
+                            //         '<div style="float: left;width: 20%;">' + yjd + '</div>' +
+                            //         '<div style="float: left;width: 20%;">' + ywc + '</div></div>')
+                            //     document.getElementById("alldjd").innerHTML = alldjd
+                            //     document.getElementById("allyjd").innerHTML = allyjd
+                            //     document.getElementById("allywc").innerHTML = allywc
+                            // }
+                        }
+
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    } else if (data.type == "0") {
+                        alert("程序异常！")
+                    }
+
+                },
+                error: function (data) {
+                    alert("网络出错");
+                }
+            });
+
+        })
+        //获取验证码
+        var wait = 60;
+        function time(o) {
+            var o = document.getElementById("achieveYZM")
+            if (wait == 0) {
+                o.removeAttribute("disabled");
+                o.value = "获取验证码";
+                o.style = "background-color:white;width: 35%;border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;"
+                wait = 60;
+            } else {
+
+                o.setAttribute("disabled", true);
+                o.value = "重新发送(" + wait + ")";
+                o.style = "background-color:#eeeeee;width: 35%;border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;"
+                wait--;
+                setTimeout(function () {
+                    time(o)
+                },
+                    1000)
+            }
+        }
+        function achieveYZM() {
+            var newuser = $("#newusername").val()
+            var newpass = $("#newpassword").val()
+            if ($("#newpassword").val().length != 11) {
+                //正确的手机号码
+                alert("请输入正确的手机号码！")
+            } else if (trim(newuser) == "") {
+                alert("姓名不能为空！")
+            } else {
+                var data2 = {
+                    mobileCode: $("#newpassword").val(),
+                    username: $("#newusername").val(),
+                    token: localStorage.getItem("ManagerToken")
+                }
+                debugger
+                $.ajax({
+                    url: weburl + "/GetSecurityCode",
+                    type: 'GET',
+                    data: data2,
+                    dataType: "json",
+                    success: function (data) {
+                        debugger
+                        if (data.type == "1") {
+                            time(this);
+                            alert("获取成功！")
+                        } else if (data.type == "3") {
+                            alert("程序异常！")
+                        } else {
+                            if (data.errorcode == "10001001") {
+                                alert("短信发送失败！");
+                            } else if (data.errorcode == "10001002") {
+                                alert("请输入正确的手机号码!")
+                            } else if (data.errorcode == "10001003") {
+                                alert("该手机号已经注册过!")
+                            } else if (data.errorcode == "10001004") {
+                                alert("短信发送失败，请联系管理员")
+                            } else if (data.errorcode == "10001005") {
+                                alert("短信发送失败，请联系管理员!")
+                            } else if (data.errorcode == "10001006") {
+                                alert("已有该用户！")
+                            } else {
+                                alert("未知错误！")
+                            }
+                        }
+
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+
+                    }
+                });
+            }
+        }
+        // document.getElementById("achieveYZM").onclick = function () {
+        //     var newuser = $("#newusername").val()
+        //     var newpass = $("#newpassword").val()
+        //     if ($("#newpassword").val().length != 11) {
+        //         //正确的手机号码
+        //         alert("请输入正确的手机号码！")
+        //     } else if (trim(newuser) == "") {
+        //         alert("姓名不能为空！")
+        //     } else {
+        //         var data2 = {
+        //             mobileCode: $("#newpassword").val(),
+        //             username: $("#newusername").val(),
+        //             token: localStorage.getItem("ManagerToken")
+        //         }
+        //         debugger
+        //         $.ajax({
+        //             url: weburl + "/GetSecurityCode",
+        //             type: 'GET',
+        //             data: data2,
+        //             dataType: "json",
+        //             success: function (data) {
+        //                 debugger
+        //                 if (data.type == "1") {
+        //                     time(this);
+        //                     alert("获取成功！")
+        //                 } else if (data.type == "3") {
+        //                     alert("程序异常！")
+        //                 } else {
+        //                     if (data.errorcode == "10001001") {
+        //                         alert("短信发送失败！");
+        //                     } else if (data.errorcode == "10001002") {
+        //                         alert("请输入正确的手机号码!")
+        //                     } else if (data.errorcode == "10001003") {
+        //                         alert("该手机号已经注册过!")
+        //                     } else if (data.errorcode == "10001004") {
+        //                         alert("短信发送失败，请联系管理员")
+        //                     } else if (data.errorcode == "10001005") {
+        //                         alert("短信发送失败，请联系管理员!")
+        //                     } else if (data.errorcode == "10001006") {
+        //                         alert("已有该用户！")
+        //                     } else {
+        //                         alert("未知错误！")
+        //                     }
+        //                 }
+
+        //             },
+        //             error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //                 alert(XMLHttpRequest.status);
+        //                 alert(XMLHttpRequest.readyState);
+        //                 alert(textStatus);
+
+        //             }
+        //         });
+        //     }
+
+
+        // }
+        $("#tuichu").click(function () {
+            layer.msg('您确定要退出登录吗？', {
+                time: 0 //不自动关闭
+                , area: ['210px', '100px'] //宽高
+                , btn: ['确定', '取消']
+                , yes: function (index) {
+                    localStorage.removeItem("username1");
+                    localStorage.removeItem("userpwd1");
+                    window.location.href = "../Member/mobile1.html";
+                }
+            });
+        })
+        // function allsearch(e) {
+        //     var options = $("#searchitem"); //获取选中的项
+        //     alert(options.val()); //拿到选中项的值
+        // }
+        //新增安装工
+        function newazg(e) {
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                skin: 'yourclass',
+                content: '<div style="height: 100px;line-height: 30px;margin-top: 2.2rem;text-align: center;">' +
+                '<input id="newusername" placeholder="安装工姓名" style="width: 35%; border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;"/>' +
+                '<input id="newpassword" placeholder="安装工电话" onkeyup="this.value=this.value.replace(/\D/g,' + "''" +
+                ')" onafterpaste="this.value=this.value.replace(/\D/g,' +
+                "''" +
+                ')" style="width: 35%;border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;" /></br>' +
+                '<input id="newYZM" placeholder="输入验证码" style="width: 35%; border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;"/>' +
+                '<input id="achieveYZM" type="button" onclick="achieveYZM()" value="获取验证码" style="background-color:white;width: 35%;border-radius:8px;padding-left: 5px;border:1px solid #000;margin-left: 20px;"/></br>' +
+                '<input id="newtijiao" class="button12" onclick="addperson()" style="height:1.4rem;padding:0px;    margin-left: 20px;width: 25%;" type="button" value="新增"/>' +
+                '<input id="cancell" class="button12" onclick="cancel()" style="height:1.4rem;  padding:0px;  width: 25%;margin-left: 15%;"  type="button" value="取消"/></br>'
+            });
+        }
+        function cancel() {
+            layer.closeAll();
+        }
+        //模糊搜索
+        function mhsearch(e, keyword) {
+            var len = e.length;
+            arr = [];
+            var reg = new RegExp(keyword);
+            for (var i = 0; i < len; i = i + 4) {
+                //如果字符串中不包含目标字符会返回-1
+                if (e[i].innerHTML.match(reg)) {
+                    var azgnid = e[i].parentNode.id;
+                    searchazgid = azgnid;
+                    e[i].parentNode.style.color = "orange";
+                    window.location.href = '#' + azgnid;
+                    havesearch = "1";
+                    arr.push(searchazgid);
+                }
+                if (i == e.length - 4) {
+                    if (havesearch == "0") {
+                        alert("搜索不到该安装工");
+                    }
+                }
+            }
+        }
+        //搜索安装工
+        function searchazg() {
+            debugger
+
+            if (searchazgid) {
+                for (var i = 0; i < arr.length; i++) {
+                    document.getElementById(arr[i]).style.color = "black"
+                }
+
+            }
+
+            havesearch = "0"
+            // if (document.getElementById("searchinputazg").value.replace(/(^\s*)|(\s*$)/g, "") == "") {
+            //     alert("安装工姓名不能为空")
+            // } else {
+            // e.style.color = "#D0D0D0";
+            // setTimeout(function () {
+            //     e.style.color = "#03ab9e";
+            // }, 3000);
+            var azgn = $("#scall div div");
+            debugger
+            mhsearch(azgn, document.getElementById("searchinput").value)
+            // for (var i = 0; i < azgn.length; i = i + 4) {
+            //     if (azgn[i].innerHTML == document.getElementById("searchinputazg").value) {
+            //         var azgnid = azgn[i].parentNode.id;
+            //         searchazgid = azgnid;
+            //         azgn[i].parentNode.style.color = "orange";
+            //         window.location.href = '#' + azgnid;
+            //         havesearch = "1";
+            //     }
+            //     if (i == azgn.length - 4) {
+            //         if (havesearch == "0") {
+            //             alert("搜索不到该安装工");
+            //         }
+            //     }
+            // }
+
+            // }
+
+        }
+        //搜索工单号
+        function aaa() {
+            // if (document.getElementById("searchinput").value.replace(/(^\s*)|(\s*$)/g, "") == "") {
+            //     alert("工单号不能为空")
+            // } else {
+            // e.style.color = "#D0D0D0";
+            // setTimeout(function () {
+            //     e.style.color = "#03ab9e";
+            // }, 3000);
+            var data1 = {
+                page: "1",
+                pagesize: "50",
+                status: "4",
+                logintype: "0",
+                search: document.getElementById("searchinput").value,
+                token: localStorage.getItem("ManagerToken")
+            };
+
+            $.ajax({
+                url: weburl + '/getOrderList',
+                type: 'GET',
+                data: data1,
+                dataType: "json",
+                success: function (data) {
+                    //错误判断
+                    if (data.type == "1") {
+                        var allData = data.resultdata
+
+                        if (allData.length == 0) {
+                            alert("没有此工单")
+                        } else {
+                            var scstatus = allData[0].status;
+                            var newordermsg = allData[0];
+                            if (scstatus == 4) {
+                                alert("此工单待接单，请进入任意安装工界面查看")
+                            } else if (scstatus == -1) {
+                                alert('当前工单已撤销！\n请根据"车架号后六位"或者"车主姓名"搜索更新的工单信息！')
+                            } else {
+                                //已完成和已接单的工单
+                                //获得订单的安装工
+                                localStorage.setItem("Managerusername", allData[0].username)
+                                var install_user = allData[0].install_user
+                                if (scstatus == 5) {
+
+                                    localStorage.setItem("newordermsg", JSON.stringify(newordermsg));
+                                    localStorage.setItem("showYJDFWS", "1")
+                                } else {
+                                    localStorage.setItem("showfinishFWS", "1")
+                                }
+                                //根据安装工id获取token
+                                var data2 = {
+                                    userid: install_user
+                                }
+                                $.ajax({
+                                    url: weburl + '/getUserToken',
+                                    type: 'GET',
+                                    data: data2,
+                                    dataType: "json",
+                                    success: function (data) {
+                                        debugger
+                                        if (data.type == "1") {
+                                            localStorage.setItem("userToken", data.resultdata)
+                                            location.href = '../Scan/result1.html'
+                                        } else {
+                                            alert("程序异常！")
+                                        }
+
+                                    },
+                                    error: function (data) {
+                                        alert("网络出错");
+                                    }
+                                });
+                            }
+                            debugger
+                        }
+                    } else if (data.type == "0") {
+                        if (data.errorcode == "10000201") {
+                            alert("没有供应商信息")
+                        }
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    }
+
+
+
+                },
+                error: function (data) {
+                    alert("网络错误！");
+                }
+            });
+            // }
+
+        }
+        //新增安装工
+        function addperson() {
+            var newuser = $("#newusername").val()
+            var newpass = $("#newpassword").val()
+            if (trim(newuser) == "" || trim(newpass) == "") {
+                alert("姓名或手机不能为空！")
+            } else if (trim($("#newYZM").val()) == "") {
+                alert("验证码不能为空！")
+            } else if ($("#newpassword").val().length != 11) {
+                alert("请输入正确的手机号！")
+            } else {
+                var dataaa = {
+                    token: localStorage.getItem("ManagerToken"),
+                    username: newuser,
+                    password: "",
+                    contpho: newpass,
+                    securityCode: $("#newYZM").val()
+                }
+                $.ajax({
+                    url: weburl + '/CreateInstall',
+                    type: 'GET',
+                    data: dataaa,
+                    dataType: "json",
+                    success: function (data) {
+                        debugger
+                        if (data.type == "1") {
+                            var mess = data.resultdata
+                            var messarr = mess.split(",")
+                            alert("创建成功!\n用户名:" + messarr[0] + "\n密码:" + messarr[1])
+                            window.location.reload(); //刷新界面
+                        } else if (data.type == "3") {
+                            alert("程序异常！")
+                        } else {
+                            if (data.errorcode == "10000901") {
+                                alert("没有该服务商");
+                            } else if (data.errorcode == "10000902") {
+                                alert("已经有该安装工")
+                            } else if (data.errorcode == "10000903") {
+                                alert("验证码错误")
+                            } else if (data.errorcode == "10000904") {
+                                alert("验证码失效")
+                            } else {
+                                alert("异常信息！")
+                            }
+                        }
+
+                    },
+                    error: function (data) {
+                        alert("网络出错");
+                    }
+                });
+            }
+        }
+        function trim(str) { //删除左右两端的空格
+
+            return str.replace(/(^\s*)|(\s*$)/g, "");
+
+        }
+        function forxh(resultdata1, mmid, level) {
+            for (var i = 0; i < resultdata1.length; i++) {
+
+                if (resultdata1[i].parentid == mmid) {
+                    //父id是这个id的
+                    //判断是否为服务商
+                    if (resultdata1[i].type == "1") {
+                        //是服务商
+                        var mid = resultdata1[i].id
+                        var azg = resultdata1[i].username
+                        var alldd = resultdata1[i].allcount
+                        var yjd = resultdata1[i].setcount
+                        var ywc = resultdata1[i].overcount
+                        var djd = resultdata1[i].crabcount
+                        var levell = resultdata1[i].level
+                        var leftl = 20 + 10 * (parseInt(level) - 1)
+                        $('#scall').append('<div style="height: 30px;line-height: 30px;"  id="' + mid + '">' +
+                            '<div style="float: left;width: 55%;padding-left:' + leftl + 'px">' + azg + '</div>' +
+                            '<div style="float: left;width: 15%;text-align:center">' + djd + '</div>' +
+                            '<div style="float: left;width: 15%;text-align:center">' + yjd + '</div>' +
+                            '<div style="float: left;width: 15%;text-align:center">' + ywc + '</div></div>')
+                        alldjd += parseInt(djd)
+                        allyjd += parseInt(yjd)
+                        allywc += parseInt(ywc)
+                        document.getElementById("alldjd").innerHTML = alldjd
+                        document.getElementById("allyjd").innerHTML = allyjd
+                        document.getElementById("allywc").innerHTML = allywc
+                        //判断下级服务商和安装工
+                        forxh(resultdata1, mid, level)
+
+
+                    } else {
+                        //不是服务商
+                        var mid = resultdata1[i].id
+                        var azg = resultdata1[i].username
+                        var alldd = resultdata1[i].allcount
+                        var yjd = resultdata1[i].setcount
+                        var ywc = resultdata1[i].overcount
+                        var djd = resultdata1[i].crabcount
+                        var leftl = 20 + 10 * (parseInt(level) - 1)
+                        $('#scall').append('<div style="height: 30px;line-height: 30px;" onclick="dianji(this)" id="' + mid + '">' +
+                            '<div style="float: left;width: 55%;padding-left:' + leftl + 'px">' + azg + '</div>' +
+                            '<div style="float: left;width: 15%;text-align:center">' + djd + '</div>' +
+                            '<div style="float: left;width: 15%;text-align:center">' + yjd + '</div>' +
+                            '<div style="float: left;width: 15%;text-align:center">' + ywc + '</div></div>')
+                        document.getElementById("alldjd").innerHTML = alldjd
+                        document.getElementById("allyjd").innerHTML = allyjd
+                        document.getElementById("allywc").innerHTML = allywc
+                    }
+                }
+            }
+
+
+        }
+        function dianji(e) {
+
+            localStorage.setItem("Managerusername", e.childNodes[0].innerHTML)
+            var data2 = {
+                userid: e.id
+            }
+            $.ajax({
+                url: weburl + '/getUserToken',
+                type: 'GET',
+                data: data2,
+                dataType: "json",
+                success: function (data) {
+                    debugger
+                    if (data.type == "1") {
+                        localStorage.setItem("userToken", data.resultdata)
+                        location.href = '../Scan/result1.html'
+                    } else {
+                        alert("程序异常！")
+                    }
+
+                },
+                error: function (data) {
+                    alert("网络出错");
+                }
+            });
+
+        }
+    </script>
+</body>
+
+</html>

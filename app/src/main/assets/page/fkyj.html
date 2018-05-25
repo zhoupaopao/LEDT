@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.showhead {
+				width: 14px;
+				height: 20px;
+				margin-top: 2px;
+			}
+			
+			.mui-bar-nav {
+				background: linear-gradient(#23B5F2, #72ABFD);
+				/*background-color: #23B5F2;*/
+				height: 140px;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			.accountimg {
+				margin-top: 18px;
+				width: 60px;
+				height: 60px;
+			}
+			
+			.accountmsg {
+				margin-top: 44px;
+				height: 96px;
+				/*line-height: 96px;*/
+				position: relative;
+			}
+			
+			.accounttex {
+				position: absolute;
+				height: 20px;
+				letter-spacing: 0.36px;
+				font-family: .PingFangSC-Regular;
+				width: 60%;
+				margin-left: 25px;
+				margin-top: 48px;
+				font-size: 9pt;
+				color: white;
+				line-height: 20px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				/*overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;*/
+			}
+			
+			.accounttext {
+				margin-top: 23px;
+				position: absolute;
+				height: 25px;
+				font-family: .SFNSDisplay;
+				letter-spacing: 0.5px;
+				margin-left: 25px;
+				font-size: 16pt;
+				color: white;
+			}
+			
+			.accounttoright {
+				position: absolute;
+				right: 10px;
+				width: 14px;
+				height: 20px;
+				top: 38px;
+			}
+			
+			.input2 {
+				height: 13px;
+				vertical-align: text-top;
+				margin-top: 0;
+			}
+			
+			.mui-content {
+				padding-top: 140px !important;
+			}
+			
+			.line-warning {
+				height: 90px;
+				width: 90%;
+				margin: 15px auto 15px;
+				background: #FFFFFF;
+				box-shadow: 0 4px 17px 0 rgba(92, 96, 150, 0.16);
+				border-radius: 10px;
+				display: flex;
+				line-height: 90px;
+			}
+			
+			.left-line {
+				border-radius: 10px 0 0 10px;
+				height: 100%;
+				width: 14px;
+			}
+			
+			.line-text {
+				text-align: center;
+				width: 60%;
+			}
+			
+			.line-text1 {
+				text-align: center;
+				width: 40%;
+				color: #1587F3;
+			}
+			
+			.mui-scroll-wrapper {
+				position: initial;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var wp = null;
+
+			function accountmsg() {
+				mui.openWindow({
+					url: "chooseaccount.html",
+					id: "chooseaccount.html"
+				})
+
+			}
+			$("#show-usermsg").click(function() {
+				alert("xsiasd");
+				e.stopPropagation(); //终止事件冒泡
+			})
+			//			function showusermsg(e){
+			//				alert("weqeqw")
+			//				e.stopPropagation(); //终止事件冒泡
+			//			}
+
+			function go() {
+				mui.back();
+			}
+			$(document).ready(function() {
+				//等dom加载完了再执行
+				$("#showusermsg").click(function(e) {
+					alert("显示下级数据");
+					e.stopPropagation(); //终止事件冒泡
+				})
+				$("#accountmsg").click(function() {
+					mui.openWindow({
+					url: "chooseaccount.html",
+					id: "chooseaccount.html"
+				})
+				})
+				
+			})
+		</script>
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon  mui-pull-left">
+				<img id="showhead" class="showhead" src="../img/icon_back.png" onclick="go();" />
+			</a>
+			<h1 class="mui-title">风控预警</h1>
+			<div class="accountmsg" id="accountmsg">
+				<img class="accountimg" src="../img/icon_account.png" />
+				<span class="accounttext">GZESC001</span>
+				<span class="accounttex" id="showusermsg"><input type="checkbox" name="checkbox" id="checkbox2" class="input2"/><label style="margin-left: 10px;" for="checkbox2">显示下级数据</label></span>
+				<img class="accounttoright" src="../img/icon_right_light.png" />
+			</div>
+
+		</header>
+		<div class="mui-content">
+			<div id="scroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div class="line-warning" id="warninggw">
+						<div class="left-line" style="background: #F05353;"></div>
+						<div class="line-text">高危报警</div>
+						<div class="line-text1">223</div>
+					</div>
+					<div class="line-warning">
+						<div class="left-line" style="background: #FD7844;"></div>
+						<div class="line-text">离线报警</div>
+						<div class="line-text1">223</div>
+					</div>
+					<div class="line-warning">
+						<div class="left-line" style="background: #FFC404;"></div>
+						<div class="line-text">设备报警</div>
+						<div class="line-text1">223</div>
+					</div>
+					<div class="line-warning">
+						<div class="left-line" style="background: #25BBF3;"></div>
+						<div class="line-text">电子围栏报警</div>
+						<div class="line-text1">223</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

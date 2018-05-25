@@ -1,0 +1,2977 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>工单详情</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="../../Public/template/green/css/webapp.css" />
+    <!--<script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>-->
+    <script src="http://wximg.qq.com/wxp/libs/wxmoment/0.0.4/wxmoment.min.js"></script>
+    <script type="text/javascript" src="../js/zDrag.js"></script>
+    <script type="text/javascript" src="../js/zDialog.js"></script>
+    <link rel="stylesheet" type="text/css" href="../js/iview.css">
+    <script type="text/javascript" src="../js/vue.min.js"></script>
+    <script type="text/javascript" src="../js/iview.min.js"></script>
+    <style>
+        /*ribbon*/
+
+        .ribbon {
+            padding: 0px;
+            display: inline-block;
+            position: relative;
+            font-size: 0.75rem;
+            text-align: center;
+            margin: 0 auto
+        }
+
+        .ribbon:before,
+        .ribbon:after {
+            content: "";
+            width: 0px;
+            height: 0px;
+            display: block;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .ribbon:before {
+            border-top: 0.6rem solid #F96755;
+            border-right: 1.0rem solid #F96755;
+            border-bottom: 0.6rem solid #F96755;
+            border-left: 0.5rem solid transparent;
+            border-left-color: rgba(0, 0, 0, 0);
+            bottom: -0.3rem;
+            left: 0;
+        }
+
+        .ribbon:after {
+            border-top: 0.6rem solid #F96755;
+            border-right: 0.5rem solid transparent;
+            border-right-color: rgba(0, 0, 0, 0);
+            border-bottom: 0.6rem solid #F96755;
+            border-left: 1.0rem solid #F96755;
+            bottom: -0.3rem;
+            right: 0;
+        }
+
+        .ribbon>span {
+            background: #FF8071;
+            padding: 0.15rem 0.75rem 0.15rem;
+            margin: 0 1.0rem;
+            display: block;
+            position: relative;
+            z-index: 2;
+            font-weight: bold;
+            text-align: center;
+            color: #ffffff;
+            min-width: 8.0rem;
+        }
+
+        .ribbon>span:before,
+        .ribbon>span:after {
+            content: "";
+            width: 0px;
+            height: 0px;
+            display: block;
+            position: absolute;
+            z-index: 1;
+        }
+
+        .ribbon>span:before {
+            border-top: 0.15rem solid #C94131;
+            border-right: 0.25rem solid #C94131;
+            border-bottom: 0.15rem solid transparent;
+            border-bottom-color: rgba(0, 0, 0, 0);
+            border-left: 0.25rem solid transparent;
+            border-left-color: rgba(0, 0, 0, 0);
+            bottom: -0.3rem;
+            left: 0;
+        }
+
+        .ribbon>span:after {
+            border-top: 0.15rem solid #C94131;
+            border-right: 0.25rem solid transparent;
+            border-right-color: rgba(0, 0, 0, 0);
+            border-bottom: 0.15rem solid transparent;
+            border-bottom-color: rgba(0, 0, 0, 0);
+            border-left: 0.25rem solid #C94131;
+            bottom: -0.3rem;
+            right: 0;
+        }
+
+        .ribbon>span>span {
+            margin-bottom: 0.1rem;
+            display: block;
+            font-weight: normal;
+            font-size: 0.6rem;
+            color: #f2f2f2;
+        }
+        /*list*/
+
+        .list-circle-num,
+        .list-square-num {
+            counter-reset: list1;
+            margin: 0;
+            padding: 0
+        }
+
+        .list-circle-num>li {
+            list-style: none outside none;
+            margin-bottom: 0.65rem;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .list-circle-num>li:before {
+            counter-increment: list1;
+            content: counter(list1) '';
+            width: 1.0rem;
+            height: 1.0rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            border-width: 1px;
+            border-style: solid;
+            margin: 0 0.8rem 0 0;
+            display: inline-block;
+            vertical-align: middle;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .list-circle-num>li>ol {
+            counter-reset: list2;
+        }
+
+        .list-circle-num>li>ol>li {
+            margin-bottom: 0.65rem;
+        }
+
+        .list-circle-num>li>ol>li:before {
+            counter-increment: list2;
+            content: counter(list1) "." counter(list2) "";
+            width: 1.2rem;
+            height: 1.2rem;
+            text-align: center;
+            border-radius: 0.6rem;
+            font-size: 0.75rem;
+            border-width: 1px;
+            border-style: solid;
+            margin: 0 0.8rem 0 0;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .list-circle-num[class*="list-full"]>li::before {
+            background: #FF8071;
+            color: #ffffff;
+        }
+
+        .list-circle-num>li h4 {
+            margin-bottom: 0;
+        }
+
+        .list-circle-num>li p {
+            margin-top: 0;
+        }
+        /*content*/
+
+        .wrap {
+            margin: 1.25rem 0.75rem;
+            padding: 0.25rem 0.75rem 0.75rem 0.75rem;
+            -moz-border-radius: 0.5rem;
+            -webkit-border-radius: 0.5rem;
+            border-radius: 0.5rem;
+            background-color: #fff;
+            -webkit-box-shadow: 0 0 0.75rem rgba(0, 0, 0, .2);
+            -moz-box-shadow: 0 0 0.75rem rgba(0, 0, 0, .2);
+            box-shadow: 0 0 0.75rem rgba(0, 0, 0, .2);
+            position: relative;
+        }
+
+        .wrap_header {
+            text-align: center;
+            margin: 0.25rem auto 0.75rem auto;
+        }
+
+        .wrap_body {
+            border-top: 1px dashed #FFD9D4;
+            padding-top: 0.75rem;
+        }
+
+        .clip {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: url(../../Public/template/green/img/clip.png) center no-repeat;
+            background-size: 100% auto;
+            position: absolute;
+            left: 0.25rem;
+            top: -0.55rem;
+        }
+
+        .wrap hr {
+            border: none;
+            border-bottom: 1px dashed #e7e7e7
+        }
+        /*content.green*/
+
+        .wrap.green .list-circle-num[class*="list-full"]>li::before,
+        .list-square-num[class*="list-full"]>li::before {
+            background: #01C4C6;
+        }
+
+        .wrap.green .wrap_body {
+            border-color: #01C4C6
+        }
+
+        .wrap.green .ribbon:before {
+            border-top: 0.6rem solid #01B1B3;
+            border-right: 1.0rem solid #01B1B3;
+            border-bottom: 0.6rem solid #01B1B3;
+        }
+
+        .wrap.green .ribbon:after {
+            border-top: 0.6rem solid #01B1B3;
+            border-bottom: 0.6rem solid #01B1B3;
+            border-left: 1.0rem solid #01B1B3;
+        }
+
+        .wrap.green .ribbon>span {
+            background: #01C4C6;
+        }
+
+        .wrap.green .ribbon>span:before {
+            border-top: 0.15rem solid #028D8F;
+            border-right: 0.25rem solid #028D8F;
+        }
+
+        .wrap.green .ribbon>span:after {
+            border-top: 0.15rem solid #028D8F;
+            border-left: 0.25rem solid #028D8F;
+        }
+
+        .not-found {
+            padding-top: 8.0rem;
+            padding-bottom: 8.0rem;
+            color: #8A8A8A
+        }
+        /*fixed*/
+
+        .fixed {
+            position: fixed;
+            top: 2.2rem;
+            z-index: 98;
+        }
+
+        .content {
+            padding-top: 2.3rem
+        }
+    </style>
+</head>
+
+<body onload="onload()">
+    <div class="page" id="page-no-infinite-scroll">
+        <!--<header class="bar bar-nav bg-main bg-inverse">
+            <div class="row no-gutter">
+                <a class="icon icon-left pull-left back col-10" href="#"></a>
+                <div class="col-90">
+                    <div class="searchbar row bg-no">
+                        <div class="search-input col-80">
+                            <label class="icon icon-search" for="search"></label>
+                            <input class="r-round" type="search" id='searchinput' placeholder='请输入完整工单号' autocomplete="on" />
+                        </div>
+                        <div class="col-20 text-center"><a href="javascript:void(0)" onclick="aaa(this)" id="submit">搜索</a></div>
+                    </div>
+                </div>
+            </div>
+        </header>-->
+        <header class="bar bar-nav bg-main bg-inverse">
+            <!--<a class="icon icon-left pull-left back"></a>-->
+            <h1 class="title color-white fs-2x fw-bold">工单情况</h1>
+
+        </header>
+        <!--<div class="color-white fw-bold" id="tuichu"   style="position: absolute;right:10px;z-index:100;height: 2.2rem;line-height: 2.2rem;font-size: 0.6rem">退出</div>-->
+        <img class="color-white fw-bold" id="tuichu" style="position: absolute;right:10px;z-index:100;height: 2.2rem;line-height: 2.2rem;font-size: 0.6rem;padding-bottom: 0.3rem;padding-top: 0.3rem"
+            src="./22.png" />
+        <!--<input type="button" onclick="qingchu()" value="退出登录" style="position: absolute;left:30px;top:30px;z-index:100" />-->
+        <div class="content">
+            <div class="fixed">
+                <div class="media mv-no pv-0x ph-1x bg-white bb">
+                    <div class="media-left">
+                        <!--<a href="../Project/create.html"><img src="../../Public/template/green/img/category/2.png" style="width: 3.2rem"></a>-->
+                    </div>
+                    <div class="media-body">
+
+
+                    </div>
+                </div>
+                <div class="buttons-tab">
+                    <a href="#tabs-1" id="DJDBT" class="tab-link active button">待接单</a>
+                    <a href="#tabs-2" id="YJDBT" class="tab-link button" onclick="YJD()">已接单</a>
+                    <a href="#tabs-3" id="YWCBT" class="tab-link button" onclick="Finish()">完成</a>
+                </div>
+            </div>
+            <div class="tabs" id="tabs">
+                <div id="tabs-1" class="tab active">
+                    <!--<div class="col-50"><a href="../Project/create.html" class="button">发起检测</a></div>-->
+                    <div class="result_list">
+                        <div class="content-block-title mt-1x" style="line-height: 1.2">&nbsp;&nbsp;<span style="float: right;margin-right: 15px" id="YHM"></span></div>
+                        <div class="search-lan" style="width: 100%;">
+                            <!--<input value="" placeholder="请输入完整工单号" id="searchinput" style="margin-top: 10px; padding: 0 5px; width: 66%;height: 30px;line-height: 30px; border-radius:5px;border:1px solid #000;margin-left: 5%;float: left"
+                            />
+                            <div class="item-after fw-bold " onclick="search(this)" style="margin-top: 10px;width: 20%;height: 30px;line-height: 30px;margin-left: 4%;color: #03ab9e;float: right">搜索</div>-->
+                            <div class="col-90">
+                                <div class="searchbar row bg-no">
+
+                                    <div class="search-input col-80">
+                                        <label class="icon icon-search" for="search"></label>
+                                        <input class="r-round" type="search" id='searchinput' placeholder='请输入完整工单号/车架号后6位/车主姓名' autocomplete="on" />
+                                    </div>
+                                    <div class="col-20 text-center"><a href="javascript:void(0)" style="color: #03ab9e" onclick="aaa(this)" id="submit">搜索</a></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-block media-list mv-no">
+
+                            <ul class="list-container" id="DJD">
+
+                                <!--<li>
+                                    <a href="#" class="item-content pr-1x">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">工单编码：GZ20170501001</div>
+                                            </div>
+                                            <div class="item-subtitle" style="font-size: 10px">安装地址 : 江苏省无锡市锡山区搜客天地a203</div>
+                                            <div class="item-subtitle" style="font-size: 10px">所需设备 : 无线4号/2台；有线4号/1台</div>
+                                            <div class="item-subtitle" style="font-size: 10px">安装时间 : 2017.05.10 18:00:22</div>
+                                        </div>
+                                        <div class="item-media"><img src="../../Public/template/green/img/qiangdan.png" style="width: 2.5rem;"></div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="item-content pr-1x">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">工单编码：GZ20170501001</div>
+                                            </div>
+                                            <div class="item-subtitle" style="font-size: 10px">安装地址 : 江苏省无锡市锡山区搜客天地a203</div>
+                                            <div class="item-subtitle" style="font-size: 10px">所需设备 : 无线4号/2台；有线4号/1台</div>
+                                            <div class="item-subtitle" style="font-size: 10px">安装时间 : 2017.05.10 18:00:22</div>
+                                        </div>
+                                        <div class="item-media"><img src="../../Public/template/green/img/qiangdan.png" style="width: 2.5rem;"></div>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="item-content pr-1x">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">工单编码：GZ20170501001</div>
+                                            </div>
+                                            <div class="item-subtitle" style="font-size: 10px">安装地址 : 江苏省无锡市锡山区搜客天地a203</div>
+                                            <div class="item-subtitle" style="font-size: 10px">所需设备 : 无线4号/2台；有线4号/1台</div>
+                                            <div class="item-subtitle" style="font-size: 10px">安装时间 : 2017.05.10 18:00:22</div>
+                                        </div>
+                                        <div class="item-media"><img src="../../Public/template/green/img/qiangdan.png" style="width: 2.5rem;"></div>
+                                    </a>
+                                </li>-->
+                            </ul>
+                            <!--<div id="DJDJZMORE" style="width: 100%;text-align: center;">点击加载更多</div>-->
+                            <!--<input type="button" onclick="qingchu()" value="清除缓存" style="position: absolute" />-->
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs-2" class="tab">
+                    <div class="wrap green">
+                        <!--<div class="clip"></div>-->
+                        <!--<div class="wrap_header clearfix">
+                            <h3 class="ribbon">
+                                <span>已抢工单</span>
+                            </h3>
+                        </div>-->
+                        <div class="content-block-title mt-1x" style="line-height: 1.2">您有<span id="allNumberYJD">0</span>个工单等待安装 </div>
+                        <div class="list-block media-list mv-no">
+
+                            <ul class="list-container" id="YJD">
+
+                                <!--<li>
+                                    <a href="#" class="item-content pr-1x">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">工单编码：GZ20170501001</div>
+                                            </div>
+                                            <div class="item-subtitle">安装地址:江苏省无锡市锡山区搜客天地a203</div>
+                                            <div class="item-subtitle">所需设备:无线4号/2台；有线4号/1台</div>
+                                            <div class="item-subtitle">安装时间:2017.05.10 18:00:22</div>
+                                            <div class="item-subtitle">门店联系:周周周</div>
+                                            <div class="item-subtitle">联系电话:110</div>
+                                            <div class="item-subtitle">车辆品牌:保时捷</div>
+                                            <div class="item-subtitle">车架号:23123213</div>
+                                        </div>
+                                        <div class="item-media"><img src="../../Public/template/green/img/anzhuang.png" style="width: 2.5rem;"></div>
+                                    </a>
+                                </li>-->
+
+
+                            </ul>
+                            <div id="YJDJZMORE" style="width: 100%;text-align: center;">点击加载更多</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabs-3" class="tab">
+                    <div  style="padding: 0.25rem 0.25rem 0rem 0.25rem;width: 75%;margin-left: 2.5%">
+                        <div class="searchbar row bg-no">
+
+                            <div class="search-input" style="width: 100%;">
+                                <label class="icon icon-search" for="search"></label>
+                                <input class="r-round" type="search" id='searchinput1' placeholder='请输入完整工单号/车架号后6位/车主姓名' autocomplete="on" />
+                            </div>
+                            <!--<div class="col-20 text-center"><a href="javascript:void(0)" style="color: #03ab9e" onclick="finishSearch(this)" id="submit">搜索</a></div>-->
+                        </div>
+                    </div>
+                    <div id="app" class="col-90" style="margin-top: -10px;">
+                        <div class="searchbar row bg-no ">
+                            <div style="width:25%;height: 1.7rem;margin-left: 5%;float: left;line-height: 1.7rem">完成起始时间:</div>
+                            <div style="width:47%;padding-left: 0px; float: left">
+                                <Date-picker editable="false" type="datetime" :value.sync="time" @on-change="changeTime" @on-clear="clearTime" placeholder="选择日期和时间" style="width: 100%"></Date-picker>
+                            </div>
+                            <!--<div class="col-20 text-center"><a href="javascript:void(0)" style="color: #03ab9e;line-height: 1.5rem" onclick="aaa(this)" id="submit">搜索</a></div>-->
+                        
+                        </div>
+                        <div class="searchbar row bg-no ">
+                            <div style="width:25%;height: 1.7rem;margin-left: 5%;float: left;line-height: 1.7rem">完成截止时间:</div>
+                            <div style="width:47%; padding-left: 0px;float: left;">
+                                <Date-picker type="datetime" editable="false" :value.sync="time1" @on-change="changeTime1" @on-clear="clearTime1" placeholder="选择日期和时间" style="width: 100%"></Date-picker>
+                            </div>
+                            <i-button @click="show" style="width:15%;margin-right: 10px;float: right">搜索</i-button>
+                            <!--<div class="col-20 text-center"><a href="javascript:void(0)" style="color: #03ab9e;line-height: 1.5rem" onclick="aaa(this)" id="submit">搜索</a></div>-->
+                        </div>
+                        
+                    </div>
+                    <div class="wrap">
+                        <!--<div class="clip"></div>-->
+                        <!--<div class="wrap_header clearfix">
+                            <h3 class="ribbon">
+                                <span>已完成工单</span>
+                            </h3>
+                        </div>-->
+                        <div class="content-block-title mt-1x" style="line-height: 1.2">您有<span id="allNumberFinish">0</span>个工单已完成 </div>
+                        <div class="list-block media-list mv-no">
+
+                            <ul class="list-container" id="Finish">
+                                <!--<li>
+                                    <a href="#" class="item-content pr-1x">
+                                        <div class="item-inner">
+                                            <div class="item-title-row">
+                                                <div class="item-title">工单编码：GZ20170501001</div>
+                                            </div>
+                                            <div class="item-subtitle">车架号:2017.05.10</div>
+                                            <div class="item-subtitle">安装设备:张</div>
+                                            <div class="item-subtitle">安装地址</div>
+                                            <div class="item-subtitle">完成时间：苏B12345</div>
+                                        </div>
+
+                                    </a>
+                                </li>-->
+
+                            </ul>
+                            <div id="FinishJZMORE" style="width: 100%;text-align: center;">点击加载更多</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var basePath = "../../Public/template/green";
+    </script>
+    <script type="text/javascript" src="../../Public/template/green/js/loading.js"></script>
+    <script type="text/javascript" src="../../Public/template/green/sui/sm.min.js"></script>
+    <script type="text/javascript" src="../../Public/template/green/js/webapp.js"></script>
+    <!--<script src="../js/jquery-1.11.1.min.js"></script>-->
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="../layer/layer.js"></script>
+    <script src="../js/my.js"></script>
+    <link href="../js/art/skins/opera.css" rel="stylesheet" type="text/css" />
+    <script src="../js/art/source/artDialog.js" type="text/javascript"></script>
+    <script src="../js/art/source/artDialog.plugins.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        // var weburl = "http://fk.chetxt.com:10086/WX/Setup"
+        var weburl = weburl()
+        var YJDPage = 1;
+        var DJDPage = 1;
+        var layernum = 1;
+        var FinishPage = 1;
+        var onlyshowone = "1";
+        var searchMSG = new Array();
+        var timeend = '23:59:59';
+        var timestart='00:00:00'
+        var time = new Date();
+        // 程序计时的月从0开始取值后+1
+        var m = time.getMonth() + 1;
+        var t = time.getFullYear() + "-" + m + "-"
+            + time.getDate() + " " + "00:00:00";
+            var m1 = time.getMonth() + 1;
+        var t1 = time.getFullYear() + "-" + m1 + "-"
+            + time.getDate() + " " + "23:59:59";
+
+    new Vue({
+        el: '#app',
+        data: {
+            time: '',
+            time1: '',
+            flag: true,
+                firstTime: '',
+                isclear: false,
+                fisclear:false
+        },
+        methods: {
+            show: function () {
+                if(this.time==" 00:00:00"){
+                        this.time=""
+                    }
+                    if(this.time1==" 23:59:59"){
+                        this.time1=""
+                    }
+                    if(this.time!=""){
+                        if(this.time1==""){
+                            this.time1=t1;
+                        }
+                    }
+                finishSearch(this.time,this.time1)
+            },
+            // 初始化
+                _init: function () {
+                    this.time = "";
+                    this.time1 = "";
+                },
+            // 时间改变
+            changeTime: function(e){
+                if(this.fisclear){
+                        var date = e.substring(0, 10);
+                        this.time = date + ' ' + timestart;
+                    }else{
+                        this.time = e
+                    }
+            },
+            changeTime1: function(e){
+                if (this.firstTime == '') {
+                        this.firstTime = timeend;
+                        this.flag = true;
+                    } else {
+
+                        if (e.substring(11, 19) != timeend) {
+                            this.flag = false
+                        }
+                    }
+                    if (this.flag) {
+                        var date = e.substring(0, 10);
+                        this.time1 = date + ' ' + timeend;
+                    } else {
+                        if (this.isclear) {
+                            var date = e.substring(0, 10);
+                            this.time1 = date + ' ' + timeend;
+                        } else {
+                            this.time1 = e
+                        }
+
+                    }
+            },
+            // 清空时间
+            clearTime: function(){
+                this.time = '';
+                this.fisclear=true
+            },
+            clearTime1: function(){
+                this.time1 = '';
+                this.flag = true;
+                    this.firstTime = '';
+                    this.isclear = true
+            }
+        },
+        // 组件被挂载后执行
+        created: function(){
+            this._init();
+        }
+    })
+        //等值于onload
+        $(window).load(function () {
+
+            document.getElementById('searchinput').focus();
+            document.getElementById("YHM").innerHTML = localStorage.getItem("username");
+            debugger;
+            if (localStorage.getItem("showfinish") == "1") {
+                document.getElementById('DJDBT').className = "tab-link  button";
+                document.getElementById('tabs-3').className = "tab active"
+                document.getElementById('YWCBT').className = "tab-link active button";
+                document.getElementById('tabs-1').className = "tab"
+                Finish()
+                localStorage.removeItem("showfinish")
+            }
+
+        });
+
+        function secondpage() {
+            document.getElementById('DJDBT').className = "tab-link  button";
+            document.getElementById('tabs-2').className = "tab active"
+            document.getElementById('YJDBT').className = "tab-link active button";
+            document.getElementById('tabs-1').className = "tab"
+            $("#YJD").empty()
+            document.getElementById("allNumberYJD").innerHTML = "1"
+
+            var orderID = searchMSG.id
+            var orderAddress = searchMSG.install_address
+            var oderNeed = searchMSG.devicecount
+            var NeedSB = ""
+            var sbfrom = searchMSG.dev_source
+            if (sbfrom == "1") {
+                sbfrom = "需要携带"
+            } else {
+                sbfrom = "客户提供"
+            }
+            var a = oderNeed.split("<name>")
+            for (var j = 1; j < a.length; j++) {
+                var a1 = a[j].split("</name>")
+                var b = a1[1].split("<deviceCount>")
+                var b1 = b[1].split("</deviceCount>")
+                NeedSB += a1[0] + "/" + b1[0] + "台;"
+            }
+            var dateParms = searchMSG.install_date
+            if (dateParms) {
+                //有年月日
+                var dateParms1 = dateParms.split("/Date(")
+                var bigtime = dateParms1[1].split(")/")
+                var datetime = new Date(parseInt(bigtime[0]));
+                var year = datetime.getFullYear();
+                var month = datetime.getMonth() + 1;
+                var date = datetime.getDate();
+                if (searchMSG.install_time) {
+                    //有时分秒
+                    var hour = searchMSG.install_time.Hours
+                    var minutes = searchMSG.install_time.Minutes
+                    var seconds = searchMSG.install_time.Seconds
+                    if (month < 10) {
+                        month = "0" + month;
+                    }
+                    if (date < 10) {
+                        date = "0" + date;
+                    }
+                    if (hour < 10) {
+                        hour = "0" + hour;
+                    }
+                    if (minutes < 10) {
+                        minutes = "0" + minutes;
+                    }
+                    if (seconds < 10) {
+                        seconds = "0" + seconds;
+                    }
+                    var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+                        minutes + ":" + seconds
+                } else {
+                    if (month < 10) {
+                        month = "0" + month;
+                    }
+                    if (date < 10) {
+                        date = "0" + date;
+                    }
+                    var orderTime = year + "." + month + "." + date
+                }
+
+                //月，日，时，分，秒 小于10时，补0
+
+            } else {
+                if (searchMSG.install_time) {
+                    //有时分秒
+                    var hour = searchMSG.install_time.Hours
+                    var minutes = searchMSG.install_time.Minutes
+                    var seconds = searchMSG.install_time.Seconds
+                    if (hour < 10) {
+                        hour = "0" + hour;
+                    }
+                    if (minutes < 10) {
+                        minutes = "0" + minutes;
+                    }
+                    if (seconds < 10) {
+                        seconds = "0" + seconds;
+                    }
+                    var orderTime = hour + ":" + minutes + ":" + seconds
+                } else {
+                    //什么都没有
+                    var orderTime = ""
+                }
+
+            }
+            var pledger_name = searchMSG.pledger_name
+            var installLX = searchMSG.install_cont_per
+            var installPhone = searchMSG.install_cont_pho
+            var carType = searchMSG.car_model + searchMSG.car_color + " " + searchMSG.car_brand
+            carType1 = carType.substring(0, 15)
+            carType2 = carType.substring(15, 45)
+            carType3 = carType.substring(45, 75)
+            if (carType2 == "") {
+                carType = carType1
+            } else if (carType3 == "") {
+                carType = carType1 + "</br>" + carType2
+            } else {
+                carType = carType1 + "</br>" + carType2 + "</br>" + carType3 + "</br>" +
+                    carType.substring(75, addresslength)
+            }
+
+
+            var vin = searchMSG.car_vin
+            var carid = searchMSG.carid
+            var userid = searchMSG.userid
+            var bz = searchMSG.service_remark
+            if (bz) {
+                var bzlength = bz.length
+                bz1 = bz.substring(0, 10)
+                bz = bz1 + "</br>" + bz.substring(10, bzlength)
+                bzcolor = "red"
+            } else {
+                bz = "无"
+                bzcolor = "#9f9f9f"
+            }
+            // var bzlength = bz.length
+            // bz1 = bz.substring(0, 11)
+            // bz = bz1 + "</br>" + bz.substring(11, bzlength)
+            var addresslength = orderAddress.length
+            orderAddress1 = orderAddress.substring(0, 11)
+            orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11,
+                addresslength)
+            var NeedSBlength = NeedSB.length
+            NeedSB1 = NeedSB.substring(0, 16)
+            NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+            //如果需要改其中的位置要注意设备类型数量设备来源的取值
+            $("#YJD").append(
+                '<li><div href="#" class="item-content pr-1x"><div class="item-inner" style="margin-left:-1rem"><div class="item-title-row">' +
+                '<div class="item-title">工单：' + orderID + '</div></div>' +
+                '<div class="item-subtitle"><span class="item-title-head">车主姓名:</span>' +
+                pledger_name + '</div>' +
+                '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' +
+                vin + '</div>' +
+                '<div class="item-subtitle"><span class="item-title-head">车辆品牌:</span>' +
+                carType + '</div>' +
+                '<div class="item-subtitle"><span class="item-title-head">所需设备:</span>' +
+                NeedSB + '</div>' +
+                '<div class="item-subtitle"><span class="item-title-head">设备来源:</span><b style="color:black">' +
+                sbfrom + '</b></div>' +
+                '<div class="item-subtitle"><span class="item-title-head">安装时间要求:</span>' +
+                orderTime + '</div>' +
+                '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' +
+                orderAddress + '</div>' +
+                '<div class="item-subtitle"><span class="item-title-head">门店联系人:</span>' +
+                installLX + '</div>' +
+                // '<div class="item-subtitle"><span class="item-title-head">联系电话:</span>' + installPhone + '</div>' +
+                '<div class="item-subtitle"><span class="item-title-head" style="float:left">联系电话:</span><a href="tel:' +
+                installPhone +
+                '" style="color:#9f9f9f;float:left;margin-top:0rem;margin-bottom:0rem">' +
+                installPhone + '</a></div>' +
+                '<div class="item-subtitle"><span class="item-title-head">已反馈信息:</span><span style="color:' +
+                bzcolor + '">' + bz + '</span></div>' +
+                '</div><div class="item-media" id=' + userid +
+                '><img src="../../Public/template/green/img/fankui.png" id=' + carid +
+                ' onclick="{fankui(this)}" style="width: 3.0rem;margin-bottom:70px;margin-right:-3rem;"><img src="../../Public/template/green/img/anzhuang.png" id=' +
+                carid +
+                ' onclick="{b(this)}" style="width: 3.0rem;margin-top:70px"></div></div></li>'
+            )
+            document.getElementById("YJDJZMORE").innerHTML = "没有更多了"
+            // YJD();
+        }
+
+        function thirdpage() {
+            document.getElementById('DJDBT').className = "tab-link  button";
+            document.getElementById('tabs-3').className = "tab active"
+            document.getElementById('YWCBT').className =
+                "tab-link active button";
+            document.getElementById('tabs-1').className = "tab"
+            // $("#Finish").empty()
+            // document.getElementById("allNumberFinish").innerHTML = "1"
+            // var orderID = searchMSG.id
+            // var orderAddress = searchMSG.install_address
+            // var oderNeed = searchMSG.devicecount
+            // var NeedSB = ""
+            // var a = oderNeed.split("<name>")
+            // for (var j = 1; j < a.length; j++) {
+            //     var a1 = a[j].split("</name>")
+            //     var b = a1[1].split("<deviceCount>")
+            //     var b1 = b[1].split("</deviceCount>")
+            //     NeedSB += a1[0] + "/" + b1[0] + "台;"
+            // }
+            // var dateParms = searchMSG.time
+            // if (dateParms) {
+            //     //有年月日
+            //     var dateParms1 = dateParms.split("/Date(")
+            //     var bigtime = dateParms1[1].split(")/")
+            //     var datetime = new Date(parseInt(bigtime[0]));
+            //     var year = datetime.getFullYear();
+            //     var month = datetime.getMonth() + 1;
+            //     var date = datetime.getDate();
+            //     var hour = datetime.getHours();
+            //     var minutes = datetime.getMinutes();
+            //     var seconds = datetime.getSeconds();
+            //     if (month < 10) {
+            //         month = "0" + month;
+            //     }
+            //     if (date < 10) {
+            //         date = "0" + date;
+            //     }
+            //     if (hour < 10) {
+            //         hour = "0" + hour;
+            //     }
+            //     if (minutes < 10) {
+            //         minutes = "0" + minutes;
+            //     }
+            //     if (seconds < 10) {
+            //         seconds = "0" + seconds;
+            //     }
+            //     var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+            //         minutes + ":" + seconds
+            // } else {
+            //     //什么都没有
+            //     var orderTime = ""
+            // }
+
+            // // var installLX=searchMSG.install_cont_per
+            // // var installPhone=searchMSG.install_cont_pho
+            // // var carType=searchMSG.car_model+searchMSG.car_color+" "+searchMSG.car_brand
+            // var vin = searchMSG.car_vin
+            // var addresslength = orderAddress.length
+            // orderAddress1 = orderAddress.substring(0, 11)
+            // orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11,
+            //     addresslength)
+            // var NeedSBlength = NeedSB.length
+            // NeedSB1 = NeedSB.substring(0, 16)
+            // NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+            // $("#Finish").append(
+            //     '<li><div href="#" class="item-content pr-1x"><div class="item-inner"><div class="item-title-row">' +
+            //     '<div class="item-title">工单：' + orderID + '</div></div>' +
+            //     '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' +
+            //     vin + '</div>' +
+            //     '<div class="item-subtitle"><span class="item-title-head">安装设备:</span>' +
+            //     NeedSB + '</div>' +
+            //     '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' +
+            //     orderAddress + '</div>' +
+            //     '<div class="item-subtitle"><span class="item-title-head">激活时间：</span>' +
+            //     orderTime + '</div></div></div></li>')
+            //     document.getElementById("FinishJZMORE").innerHTML = "没有更多了"
+        Finish();
+        }
+        
+        $("#tuichu").click(function () {
+            layer.msg('您确定要退出登录吗？', {
+                time: 0 //不自动关闭
+                    ,
+                area: ['210px', '100px'] //宽高
+                    ,
+                btn: ['确定', '取消'],
+                yes: function (index) {
+                    localStorage.removeItem("username");
+                    localStorage.removeItem("userpwd");
+                    window.location.href = "../Member/mobile.html";
+                }
+            });
+        })
+
+        // function tuichu(){
+        //     alert("1231")
+        // }
+
+        function aaa(e) {
+            if (document.getElementById("searchinput").value.replace(/(^\s*)|(\s*$)/g, "") == "") {
+                alert("工单号不能为空")
+            } else {
+                $("#DJD").empty()
+                e.style.color = "#D0D0D0";
+                setTimeout(function () {
+                    e.style.color = "#03ab9e";
+                }, 3000);
+                var data1 = {
+                    page: "1",
+                    pagesize: "50",
+                    status: "4",
+                    search: document.getElementById("searchinput").value,
+                    token: localStorage.getItem("Token")
+                };
+
+                $.ajax({
+                    url: weburl + '/getOrderList',
+                    type: 'GET',
+                    data: data1,
+                    dataType: "json",
+                    success: function (data) {
+                        //错误判断
+                        debugger
+                        if (data.type == "1") {
+                            var allData = data.resultdata
+
+                            for (var i = 0; i < allData.length; i++) {
+                                var status = allData[i].status
+                                var orderID = allData[i].id
+                                var orderAddress = allData[i].install_address
+                                var oderNeed = allData[i].devicecount
+                                var NeedSB = ""
+                                var sbfrom = allData[i].dev_source
+                                if (sbfrom == "1") {
+                                    sbfrom = "需要携带"
+                                } else {
+                                    sbfrom = "客户提供"
+                                }
+                                var a = oderNeed.split("<name>")
+                                for (var j = 1; j < a.length; j++) {
+                                    var a1 = a[j].split("</name>")
+                                    var b = a1[1].split("<deviceCount>")
+                                    var b1 = b[1].split("</deviceCount>")
+                                    NeedSB += a1[0] + "/" + b1[0] + "台;"
+                                }
+                                var dateParms = allData[i].install_date
+                                if (dateParms) {
+                                    //有年月日
+                                    var dateParms1 = dateParms.split("/Date(")
+                                    var bigtime = dateParms1[1].split(")/")
+                                    var datetime = new Date(parseInt(bigtime[0]));
+                                    var year = datetime.getFullYear();
+                                    var month = datetime.getMonth() + 1;
+                                    var date = datetime.getDate();
+                                    if (allData[i].install_time) {
+                                        //有时分秒
+                                        var hour = allData[i].install_time.Hours
+                                        var minutes = allData[i].install_time.Minutes
+                                        var seconds = allData[i].install_time.Seconds
+                                        if (month < 10) {
+                                            month = "0" + month;
+                                        }
+                                        if (date < 10) {
+                                            date = "0" + date;
+                                        }
+                                        if (hour < 10) {
+                                            hour = "0" + hour;
+                                        }
+                                        if (minutes < 10) {
+                                            minutes = "0" + minutes;
+                                        }
+                                        if (seconds < 10) {
+                                            seconds = "0" + seconds;
+                                        }
+                                        var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+                                            minutes + ":" + seconds
+                                    } else {
+                                        if (month < 10) {
+                                            month = "0" + month;
+                                        }
+                                        if (date < 10) {
+                                            date = "0" + date;
+                                        }
+                                        var orderTime = year + "." + month + "." + date
+                                    }
+
+                                    //月，日，时，分，秒 小于10时，补0
+
+                                } else {
+                                    if (allData[i].install_time) {
+                                        //有时分秒
+                                        var hour = allData[i].install_time.Hours
+                                        var minutes = allData[i].install_time.Minutes
+                                        var seconds = allData[i].install_time.Seconds
+                                        if (hour < 10) {
+                                            hour = "0" + hour;
+                                        }
+                                        if (minutes < 10) {
+                                            minutes = "0" + minutes;
+                                        }
+                                        if (seconds < 10) {
+                                            seconds = "0" + seconds;
+                                        }
+                                        var orderTime = hour + ":" + minutes + ":" + seconds
+                                    } else {
+                                        //什么都没有
+                                        var orderTime = ""
+                                    }
+
+                                }
+                                var carType = allData[i].car_model + allData[i].car_color + " " + allData[i]
+                                    .car_brand
+                                carType1 = carType.substring(0, 15)
+                                carType2 = carType.substring(15, 45)
+                                carType3 = carType.substring(45, 75)
+                                if (carType2 == "") {
+                                    carType = carType1
+                                } else if (carType3 == "") {
+                                    carType = carType1 + "</br>" + carType2
+                                } else {
+                                    carType = carType1 + "</br>" + carType2 + "</br>" + carType3 + "</br>" +
+                                        carType.substring(75, addresslength)
+                                }
+
+                                var pledger_name = allData[i].pledger_name
+                                var vin = allData[i].car_vin
+                                var addresslength = orderAddress.length
+                                orderAddress1 = orderAddress.substring(0, 12)
+                                orderAddress = orderAddress1 + "</br>" + orderAddress.substring(12,
+                                    addresslength)
+                                var NeedSBlength = NeedSB.length
+                                NeedSB1 = NeedSB.substring(0, 16)
+                                NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+                                var username1 = allData[i].username
+                                if (status == "5") {
+                                    if (username1 == localStorage.getItem("username")) {
+                                        searchMSG = allData[i];
+                                        onlyshowone = "0";
+                                        alert("该工单已被接单")
+                                        secondpage();
+                                    } else {
+                                        alert("没有此工单")
+                                    }
+
+                                } else if (status == "4") {
+                                    $("#DJD").append(
+                                        '<li style="margin-top:60px;"><a href="#" class="item-content pr-1x"><div class="item-inner">' +
+                                        '<div class="item-title-row"><div class="item-title">工单：' +
+                                        orderID + '</div></div>' +
+                                        '<div class="item-subtitle" ><span class="item-title-head">车主姓名 :</span> ' +
+                                        pledger_name + '</div>' +
+                                        '<div class="item-subtitle" ><span class="item-title-head">车架号 :</span> ' +
+                                        vin + '</div>' +
+                                        '<div class="item-subtitle" ><span class="item-title-head">车辆品牌 :</span> ' +
+                                        carType + '</div>' +
+                                        '<div class="item-subtitle" ><span class="item-title-head">安装地址 :</span> ' +
+                                        orderAddress + '</div>' +
+                                        '<div class="item-subtitle" ><span class="item-title-head">所需设备 :</span> ' +
+                                        NeedSB + '</div>' +
+                                        '<div class="item-subtitle" ><span class="item-title-head">设备来源 :</span><b style="color:black"> ' +
+                                        sbfrom + '</b></div>' +
+                                        '<div class="item-subtitle" ><span class="item-title-head">要求安装时间 :</span> ' +
+                                        orderTime + '</div>' +
+                                        '</div><div class="item-mediaa"><img src="../../Public/template/green/img/qiangdan.png" onclick="{a(this)}" style="width: 3.0rem;"></div></a></li>'
+                                    )
+                                } else if(status == "-1"){
+                                    alert('当前工单已撤销！\n请根据"车架号后六位"或者"车主姓名"搜索更新的工单信息！')
+                                }else {
+                                    if (username1 == localStorage.getItem("username")) {
+                                        searchMSG = allData[i];
+                                        alert("该工单已完成")
+                                        thirdpage();
+                                        // document.getElementById('DJDBT').className = "tab-link  button";
+                                        // document.getElementById('tabs-3').className = "tab active"
+                                        // document.getElementById('YWCBT').className =
+                                        //     "tab-link active button";
+                                        // document.getElementById('tabs-1').className = "tab"
+                                        // Finish();
+                                    } else {
+                                        alert("没有此工单")
+                                    }
+
+                                }
+
+
+                            }
+                            if (allData.length == 0) {
+                                alert("没有此工单")
+                            }
+                        } else if (data.type == "0") {
+                            if (data.errorcode == "10000201") {
+                                alert("没有供应商信息")
+                            }
+                        } else if (data.type == "3") {
+                            alert("程序异常！")
+                        }
+
+
+
+                    },
+                    error: function (data) {
+                        alert("网络错误！");
+                    }
+                });
+            }
+
+        }
+
+        // function search(e) {
+        //     if (document.getElementById("searchinput").value.replace(/(^\s*)|(\s*$)/g, "") == "") {
+        //         alert("工单号不能为空")
+        //     } else {
+        //         $("#DJD").empty()
+        //         e.style.color = "#D0D0D0";
+        //         setTimeout(function () {
+        //             e.style.color = "#03ab9e";
+        //         }, 3000);
+        //         var data1 = {
+        //             page: "1",
+        //             pagesize: "50",
+        //             status: "4",
+        //             search: document.getElementById("searchinput").value,
+        //             token: localStorage.getItem("Token")
+        //         };
+
+        //         $.ajax({
+        //             url: weburl + '/getOrderList',
+        //             type: 'GET',
+        //             data: data1,
+        //             dataType: "json",
+        //             success: function (data) {
+        //                 //错误判断
+        //                 if (data.type == "1") {
+        //                     var allData = data.resultdata
+
+        //                     for (var i = 0; i < allData.length; i++) {
+        //                         var status = allData[i].status
+        //                         var orderID = allData[i].id
+        //                         var orderAddress = allData[i].install_address
+        //                         var oderNeed = allData[i].devicecount
+        //                         var NeedSB = ""
+        //                         var sbfrom = allData[i].dev_source
+        //                         if (sbfrom == "1") {
+        //                             sbfrom = "需要携带"
+        //                         } else {
+        //                             sbfrom = "客户提供"
+        //                         }
+        //                         var a = oderNeed.split("<name>")
+        //                         for (var j = 1; j < a.length; j++) {
+        //                             var a1 = a[j].split("</name>")
+        //                             var b = a1[1].split("<deviceCount>")
+        //                             var b1 = b[1].split("</deviceCount>")
+        //                             NeedSB += a1[0] + "/" + b1[0] + "台;"
+        //                         }
+        //                         var dateParms = allData[i].install_date
+        //                         if (dateParms) {
+        //                             //有年月日
+        //                             var dateParms1 = dateParms.split("/Date(")
+        //                             var bigtime = dateParms1[1].split(")/")
+        //                             var datetime = new Date(parseInt(bigtime[0]));
+        //                             var year = datetime.getFullYear();
+        //                             var month = datetime.getMonth() + 1;
+        //                             var date = datetime.getDate();
+        //                             if (allData[i].install_time) {
+        //                                 //有时分秒
+        //                                 var hour = allData[i].install_time.Hours
+        //                                 var minutes = allData[i].install_time.Minutes
+        //                                 var seconds = allData[i].install_time.Seconds
+        //                                 if (month < 10) {
+        //                                     month = "0" + month;
+        //                                 }
+        //                                 if (date < 10) {
+        //                                     date = "0" + date;
+        //                                 }
+        //                                 if (hour < 10) {
+        //                                     hour = "0" + hour;
+        //                                 }
+        //                                 if (minutes < 10) {
+        //                                     minutes = "0" + minutes;
+        //                                 }
+        //                                 if (seconds < 10) {
+        //                                     seconds = "0" + seconds;
+        //                                 }
+        //                                 var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+        //                                     minutes + ":" + seconds
+        //                             } else {
+        //                                 if (month < 10) {
+        //                                     month = "0" + month;
+        //                                 }
+        //                                 if (date < 10) {
+        //                                     date = "0" + date;
+        //                                 }
+        //                                 var orderTime = year + "." + month + "." + date
+        //                             }
+
+        //                             //月，日，时，分，秒 小于10时，补0
+
+        //                         } else {
+        //                             if (allData[i].install_time) {
+        //                                 //有时分秒
+        //                                 var hour = allData[i].install_time.Hours
+        //                                 var minutes = allData[i].install_time.Minutes
+        //                                 var seconds = allData[i].install_time.Seconds
+        //                                 if (hour < 10) {
+        //                                     hour = "0" + hour;
+        //                                 }
+        //                                 if (minutes < 10) {
+        //                                     minutes = "0" + minutes;
+        //                                 }
+        //                                 if (seconds < 10) {
+        //                                     seconds = "0" + seconds;
+        //                                 }
+        //                                 var orderTime = hour + ":" + minutes + ":" + seconds
+        //                             } else {
+        //                                 //什么都没有
+        //                                 var orderTime = ""
+        //                             }
+
+        //                         }
+
+        //                         var addresslength = orderAddress.length
+        //                         orderAddress1 = orderAddress.substring(0, 12)
+        //                         orderAddress = orderAddress1 + "</br>" + orderAddress.substring(12,
+        //                             addresslength)
+        //                         var NeedSBlength = NeedSB.length
+        //                         NeedSB1 = NeedSB.substring(0, 16)
+        //                         NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+        //                         if (status == "5") {
+        //                             alert("该工单已被接单")
+        //                         } else if (status == "4") {
+        //                             $("#DJD").append(
+        //                                 '<li style="margin-top:60px;"><a href="#" class="item-content pr-1x"><div class="item-inner">' +
+        //                                 '<div class="item-title-row"><div class="item-title">工单：' +
+        //                                 orderID +
+        //                                 '</div></div><div class="item-subtitle" ><span class="item-title-head">安装地址 :</span> ' +
+        //                                 orderAddress + '</div>' +
+        //                                 '<div class="item-subtitle" ><span class="item-title-head">所需设备 :</span> ' +
+        //                                 NeedSB + '</div>' +
+        //                                 '<div class="item-subtitle" ><span class="item-title-head">设备来源 :</span><b style="color:black"> ' +
+        //                                 sbfrom + '</b></div>' +
+        //                                 '<div class="item-subtitle" ><span class="item-title-head">要求安装时间 :</span> ' +
+        //                                 orderTime + '</div>' +
+        //                                 '</div><div class="item-mediaa"><img src="../../Public/template/green/img/qiangdan.png" onclick="{a(this)}" style="width: 3.0rem;"></div></a></li>'
+        //                             )
+        //                         } else {
+        //                             alert("该工单已完成")
+        //                         }
+
+
+        //                     }
+        //                     if (allData.length == 0) {
+        //                         alert("没有此工单")
+        //                     }
+        //                 } else if (data.type == "0") {
+        //                     if (data.errorcode == "10000201") {
+        //                         alert("没有供应商信息")
+        //                     }
+        //                 } else if (data.type == "3") {
+        //                     alert("程序异常！")
+        //                 }
+
+
+
+        //             },
+        //             error: function (data) {
+        //                 alert("网络错误！");
+        //             }
+        //         });
+        //     }
+
+        // }
+
+        function qingchu() {
+            alert("21331")
+        }
+        //已接单
+        function YJD() {
+
+            $("#YJD").empty()
+            YJDPage = 1;
+            var data1 = {
+                page: YJDPage,
+                pagesize: "50",
+                status: "5",
+                search: "",
+                token: localStorage.getItem("Token")
+            };
+            $.ajax({
+                url: weburl + '/getOrderList',
+                type: 'GET',
+                data: data1,
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+
+                    if (data.type == "1") {
+                        var allData = data.resultdata
+                        document.getElementById("allNumberYJD").innerHTML = data.count
+
+                        for (var i = 0; i < allData.length; i++) {
+
+                            var orderID = allData[i].id
+                            var orderAddress = allData[i].install_address
+                            var oderNeed = allData[i].devicecount
+                            var NeedSB = ""
+                            var sbfrom = allData[i].dev_source
+                            if (sbfrom == "1") {
+                                sbfrom = "需要携带"
+                            } else {
+                                sbfrom = "客户提供"
+                            }
+                            var a = oderNeed.split("<name>")
+                            for (var j = 1; j < a.length; j++) {
+                                var a1 = a[j].split("</name>")
+                                var b = a1[1].split("<deviceCount>")
+                                var b1 = b[1].split("</deviceCount>")
+                                NeedSB += a1[0] + "/" + b1[0] + "台;"
+                            }
+                            var dateParms = allData[i].install_date
+                            if (dateParms) {
+                                //有年月日
+                                var dateParms1 = dateParms.split("/Date(")
+                                var bigtime = dateParms1[1].split(")/")
+                                var datetime = new Date(parseInt(bigtime[0]));
+                                var year = datetime.getFullYear();
+                                var month = datetime.getMonth() + 1;
+                                var date = datetime.getDate();
+                                if (allData[i].install_time) {
+                                    //有时分秒
+                                    var hour = allData[i].install_time.Hours
+                                    var minutes = allData[i].install_time.Minutes
+                                    var seconds = allData[i].install_time.Seconds
+                                    if (month < 10) {
+                                        month = "0" + month;
+                                    }
+                                    if (date < 10) {
+                                        date = "0" + date;
+                                    }
+                                    if (hour < 10) {
+                                        hour = "0" + hour;
+                                    }
+                                    if (minutes < 10) {
+                                        minutes = "0" + minutes;
+                                    }
+                                    if (seconds < 10) {
+                                        seconds = "0" + seconds;
+                                    }
+                                    var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+                                        minutes + ":" + seconds
+                                } else {
+                                    if (month < 10) {
+                                        month = "0" + month;
+                                    }
+                                    if (date < 10) {
+                                        date = "0" + date;
+                                    }
+                                    var orderTime = year + "." + month + "." + date
+                                }
+
+                                //月，日，时，分，秒 小于10时，补0
+
+                            } else {
+                                if (allData[i].install_time) {
+                                    //有时分秒
+                                    var hour = allData[i].install_time.Hours
+                                    var minutes = allData[i].install_time.Minutes
+                                    var seconds = allData[i].install_time.Seconds
+                                    if (hour < 10) {
+                                        hour = "0" + hour;
+                                    }
+                                    if (minutes < 10) {
+                                        minutes = "0" + minutes;
+                                    }
+                                    if (seconds < 10) {
+                                        seconds = "0" + seconds;
+                                    }
+                                    var orderTime = hour + ":" + minutes + ":" + seconds
+                                } else {
+                                    //什么都没有
+                                    var orderTime = ""
+                                }
+
+                            }
+                            var pledger_name = allData[i].pledger_name
+                            var installLX = allData[i].install_cont_per
+                            var installPhone = allData[i].install_cont_pho
+                            var carType = allData[i].car_model + allData[i].car_color + " " + allData[i].car_brand
+                            carType1 = carType.substring(0, 15)
+                            carType2 = carType.substring(15, 45)
+                            carType3 = carType.substring(45, 75)
+                            if (carType2 == "") {
+                                carType = carType1
+                            } else if (carType3 == "") {
+                                carType = carType1 + "</br>" + carType2
+                            } else {
+                                carType = carType1 + "</br>" + carType2 + "</br>" + carType3 + "</br>" +
+                                    carType.substring(75, addresslength)
+                            }
+
+
+                            var vin = allData[i].car_vin
+                            var carid = allData[i].carid
+                            var userid = allData[i].userid
+                            var bz = allData[i].service_remark
+                            if (bz) {
+                                var bzlength = bz.length
+                                bz1 = bz.substring(0, 10)
+                                bz = bz1 + "</br>" + bz.substring(10, bzlength)
+                                bzcolor = "red"
+                            } else {
+                                bz = "无"
+                                bzcolor = "#9f9f9f"
+                            }
+                            // var bzlength = bz.length
+                            // bz1 = bz.substring(0, 11)
+                            // bz = bz1 + "</br>" + bz.substring(11, bzlength)
+                            var addresslength = orderAddress.length
+                            orderAddress1 = orderAddress.substring(0, 11)
+                            orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11,
+                                addresslength)
+                            var NeedSBlength = NeedSB.length
+                            NeedSB1 = NeedSB.substring(0, 16)
+                            NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+                            //如果需要改其中的位置要注意设备类型数量设备来源的取值
+                            $("#YJD").append(
+                                '<li><div href="#" class="item-content pr-1x"><div class="item-inner" style="margin-left:-1rem"><div class="item-title-row">' +
+                                '<div class="item-title">工单：' + orderID + '</div></div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">车主姓名:</span>' +
+                                pledger_name + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' +
+                                vin + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">车辆品牌:</span>' +
+                                carType + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">所需设备:</span>' +
+                                NeedSB + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">设备来源:</span><b style="color:black">' +
+                                sbfrom + '</b></div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">安装时间要求:</span>' +
+                                orderTime + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' +
+                                orderAddress + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">门店联系人:</span>' +
+                                installLX + '</div>' +
+                                // '<div class="item-subtitle"><span class="item-title-head">联系电话:</span>' + installPhone + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head" style="float:left">联系电话:</span><a href="tel:' +
+                                installPhone +
+                                '" style="color:#9f9f9f;float:left;margin-top:0rem;margin-bottom:0rem">' +
+                                installPhone + '</a></div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">已反馈信息:</span><span style="color:' +
+                                bzcolor + '">' + bz + '</span></div>' +
+                                '</div><div class="item-media" id=' + userid +
+                                '><img src="../../Public/template/green/img/fankui.png" id=' + carid +
+                                ' onclick="{fankui(this)}" style="width: 3.0rem;margin-bottom:70px;margin-right:-3rem;"><img src="../../Public/template/green/img/anzhuang.png" id=' +
+                                carid +
+                                ' onclick="{b(this)}" style="width: 3.0rem;margin-top:70px"></div></div></li>'
+                            )
+                        }
+                        //点击加载
+                        if (allData.length < 50) {
+                            document.getElementById("YJDJZMORE").innerHTML = "没有更多了"
+                        } else {
+                            $("#YJDJZMORE").click(function () {
+                                YJDJZMORE()
+                            })
+                        }
+                    } else if (data.type == "0") {
+                        if (data.errorcode == "10000201") {
+                            alert("没有供应商信息")
+                        }
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    }
+
+
+
+                },
+                error: function (data) {
+                    alert("网络错误！");
+                }
+            });
+        }
+
+        //已接单加载更多
+        function YJDJZMORE() {
+            var data1 = {
+                page: ++YJDPage,
+                pagesize: "50",
+                status: "5",
+                search: "",
+                token: localStorage.getItem("Token")
+            };
+            $.ajax({
+                url: weburl + '/getOrderList',
+                type: 'GET',
+                data: data1,
+                dataType: "json",
+                success: function (data) {
+                    if (data.type == "1") {
+
+                        var allData = data.resultdata
+                        // var allNUMM = parseInt(document.getElementById("allNumberYJD").innerHTML) + allData.length
+                        // document.getElementById("allNumberYJD").innerHTML = allNUMM
+
+                        for (var i = 0; i < allData.length; i++) {
+
+                            var orderID = allData[i].id
+                            var orderAddress = allData[i].install_address
+                            var oderNeed = allData[i].devicecount
+                            var sbfrom = allData[i].dev_source
+                            if (sbfrom == "1") {
+                                sbfrom = "需要携带"
+                            } else {
+                                sbfrom = "客户提供"
+                            }
+                            var NeedSB = ""
+                            var a = oderNeed.split("<name>")
+                            for (var j = 1; j < a.length; j++) {
+                                var a1 = a[j].split("</name>")
+                                var b = a1[1].split("<deviceCount>")
+                                var b1 = b[1].split("</deviceCount>")
+                                NeedSB += a1[0] + "/" + b1[0] + "台;"
+                            }
+                            var dateParms = allData[i].install_date
+                            if (dateParms) {
+                                //有年月日
+                                var dateParms1 = dateParms.split("/Date(")
+                                var bigtime = dateParms1[1].split(")/")
+                                var datetime = new Date(parseInt(bigtime[0]));
+                                var year = datetime.getFullYear();
+                                var month = datetime.getMonth() + 1;
+                                var date = datetime.getDate();
+                                if (allData[i].install_time) {
+                                    //有时分秒
+                                    var hour = allData[i].install_time.Hours
+                                    var minutes = allData[i].install_time.Minutes
+                                    var seconds = allData[i].install_time.Seconds
+                                    if (month < 10) {
+                                        month = "0" + month;
+                                    }
+                                    if (date < 10) {
+                                        date = "0" + date;
+                                    }
+                                    if (hour < 10) {
+                                        hour = "0" + hour;
+                                    }
+                                    if (minutes < 10) {
+                                        minutes = "0" + minutes;
+                                    }
+                                    if (seconds < 10) {
+                                        seconds = "0" + seconds;
+                                    }
+                                    var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+                                        minutes + ":" + seconds
+                                } else {
+                                    if (month < 10) {
+                                        month = "0" + month;
+                                    }
+                                    if (date < 10) {
+                                        date = "0" + date;
+                                    }
+                                    var orderTime = year + "." + month + "." + date
+                                }
+
+                                //月，日，时，分，秒 小于10时，补0
+
+                            } else {
+                                if (allData[i].install_time) {
+                                    //有时分秒
+                                    var hour = allData[i].install_time.Hours
+                                    var minutes = allData[i].install_time.Minutes
+                                    var seconds = allData[i].install_time.Seconds
+                                    if (hour < 10) {
+                                        hour = "0" + hour;
+                                    }
+                                    if (minutes < 10) {
+                                        minutes = "0" + minutes;
+                                    }
+                                    if (seconds < 10) {
+                                        seconds = "0" + seconds;
+                                    }
+                                    var orderTime = hour + ":" + minutes + ":" + seconds
+                                } else {
+                                    //什么都没有
+                                    var orderTime = ""
+                                }
+
+                            }
+                            var installLX = allData[i].install_cont_per
+                            var installPhone = allData[i].install_cont_pho
+                            var carType = allData[i].car_model + allData[i].car_color + " " + allData[i].car_brand
+                            carType1 = carType.substring(0, 15)
+                            carType2 = carType.substring(15, 45)
+                            carType3 = carType.substring(45, 75)
+                            if (carType2 == "") {
+                                carType = carType1
+                            } else if (carType3 == "") {
+                                carType = carType1 + "</br>" + carType2
+                            } else {
+                                carType = carType1 + "</br>" + carType2 + "</br>" + carType3 + "</br>" +
+                                    carType.substring(75, addresslength)
+                            }
+                            var pledger_name = allData[i].pledger_name
+                            var vin = allData[i].car_vin
+                            var carid = allData[i].carid
+                            var addresslength = orderAddress.length
+                            orderAddress1 = orderAddress.substring(0, 11)
+                            orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11,
+                                addresslength)
+                            var NeedSBlength = NeedSB.length
+                            var bz = allData[i].service_remark
+                            if (bz) {
+                                var bzlength = bz.length
+                                bz1 = bz.substring(0, 10)
+                                bz = bz1 + "</br>" + bz.substring(10, bzlength)
+                                bzcolor = "red"
+                            } else {
+                                bz = "无"
+                                bzcolor = "#9f9f9f"
+                            }
+
+                            NeedSB1 = NeedSB.substring(0, 16)
+                            NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+                            // $("#YJD").append('<li><a href="#" class="item-content pr-1x"><div class="item-inner"><div class="item-title-row">' +
+                            //     '<div class="item-title">工单：' + orderID + '</div></div>' +
+                            //     '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' + orderAddress + '</div>' +
+                            //     '<div class="item-subtitle"><span class="item-title-head">所需设备:</span>' + NeedSB + '</div>' +
+                            //     '<div class="item-subtitle"><span class="item-title-head">设备来源:</span>' + sbfrom + '</div>' +
+                            //     '<div class="item-subtitle"><span class="item-title-head">安装时间:</span>' + orderTime + '</div>' +
+                            //     '<div class="item-subtitle"><span class="item-title-head">门店联系:</span>' + installLX + '</div>' +
+                            //     '<div class="item-subtitle"><span class="item-title-head">联系电话:</span><a href="tel:' + installPhone +'">'+installPhone+ '</a></div>' +
+                            //     '<div class="item-subtitle"><span class="item-title-head">车辆品牌:</span>' + carType + '</div>' +
+                            //     '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' + vin + '</div>' +
+                            //     '</div><div class="item-media" id=' + userid + '><img src="../../Public/template/green/img/anzhuang.png" id=' + carid + ' onclick="{b(this)}" style="width: 3.0rem;"></div></a></li>')
+                            $("#YJD").append(
+                                '<li><div href="#" class="item-content pr-1x"><div class="item-inner" style="margin-left:-1rem"><div class="item-title-row">' +
+                                '<div class="item-title">工单：' + orderID + '</div></div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">车主姓名:</span>' +
+                                pledger_name + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' +
+                                vin + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">车辆品牌:</span>' +
+                                carType + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">所需设备:</span>' +
+                                NeedSB + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">设备来源:</span><b style="color:black">' +
+                                sbfrom + '</b></div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">安装时间要求:</span>' +
+                                orderTime + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' +
+                                orderAddress + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">门店联系人:</span>' +
+                                installLX + '</div>' +
+                                // '<div class="item-subtitle"><span class="item-title-head">联系电话:</span>' + installPhone + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head" style="float:left">联系电话:</span><a href="tel:' +
+                                installPhone +
+                                '" style="color:#9f9f9f;float:left;margin-top:0rem;margin-bottom:0rem">' +
+                                installPhone + '</a></div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">已反馈信息:</span><span style="color:' +
+                                bzcolor + '">' + bz + '</span></div>' +
+                                '</div><div class="item-media" id=' + userid +
+                                '><img src="../../Public/template/green/img/fankui.png" id=' + carid +
+                                ' onclick="{fankui(this)}" style="width: 3.0rem;margin-bottom:70px;margin-right:-3rem;"><img src="../../Public/template/green/img/anzhuang.png" id=' +
+                                carid +
+                                ' onclick="{b(this)}" style="width: 3.0rem;margin-top:70px"></div></div></li>'
+                            )
+                        }
+                        //点击加载
+                        if (allData.length < 50) {
+                            document.getElementById("YJDJZMORE").innerHTML = "没有更多了"
+                        } else {
+                            $("#YJDJZMORE").click(function () {
+                                YJDJZMORE()
+                            })
+                        }
+                    } else if (data.type == "0") {
+                        if (data.errorcode == "10000201") {
+                            alert("没有供应商信息")
+                        }
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    }
+                },
+                error: function (data) {
+                    alert("网络错误！");
+                }
+            });
+        }
+        //搜索已完成的订单
+        function finishSearch(starttime,endtime) {
+            // if (document.getElementById("searchinput1").value.replace(/(^\s*)|(\s*$)/g, "") == "") {
+            //     alert("工单号不能为空")
+            // } else {
+                $("#Finish").empty()
+                // e.style.color = "#D0D0D0";
+                // setTimeout(function () {
+                //     e.style.color = "#03ab9e";
+                // }, 3000);
+                var data1 = {
+                    page: "1",
+                    pagesize: "50",
+                    status: "0",
+                    search: document.getElementById("searchinput1").value,
+                    token: localStorage.getItem("Token"),
+                    begintime:starttime,
+                    endtime:endtime
+                };
+
+                $.ajax({
+                    url: weburl + '/getOrderList',
+                    type: 'GET',
+                    data: data1,
+                    dataType: "json",
+                    success: function (data) {
+                        //错误判断
+                        if (data.type == "1") {
+                            debugger
+                            var allData = data.resultdata
+                            document.getElementById("allNumberFinish").innerHTML = allData.length
+
+                            for (var i = 0; i < allData.length; i++) {
+
+                                var orderID = allData[i].id
+                                var orderAddress = allData[i].install_address
+                                var oderNeed = allData[i].devicecount
+                                var NeedSB = ""
+                                var a = oderNeed.split("<name>")
+                                for (var j = 1; j < a.length; j++) {
+                                    var a1 = a[j].split("</name>")
+                                    var b = a1[1].split("<deviceCount>")
+                                    var b1 = b[1].split("</deviceCount>")
+                                    NeedSB += a1[0] + "/" + b1[0] + "台;"
+                                }
+                                var dateParms = allData[i].time
+                                if (dateParms) {
+                                    //有年月日
+                                    var dateParms1 = dateParms.split("/Date(")
+                                    var bigtime = dateParms1[1].split(")/")
+                                    var datetime = new Date(parseInt(bigtime[0]));
+                                    var year = datetime.getFullYear();
+                                    var month = datetime.getMonth() + 1;
+                                    var date = datetime.getDate();
+                                    var hour = datetime.getHours();
+                                    var minutes = datetime.getMinutes();
+                                    var seconds = datetime.getSeconds();
+                                    if (month < 10) {
+                                        month = "0" + month;
+                                    }
+                                    if (date < 10) {
+                                        date = "0" + date;
+                                    }
+                                    if (hour < 10) {
+                                        hour = "0" + hour;
+                                    }
+                                    if (minutes < 10) {
+                                        minutes = "0" + minutes;
+                                    }
+                                    if (seconds < 10) {
+                                        seconds = "0" + seconds;
+                                    }
+                                    var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+                                        minutes + ":" + seconds
+                                } else {
+                                    //什么都没有
+                                    var orderTime = ""
+                                }
+
+                                // var installLX=allData[i].install_cont_per
+                                // var installPhone=allData[i].install_cont_pho
+                                // var carType=allData[i].car_model+allData[i].car_color+" "+allData[i].car_brand
+                                var vin = allData[i].car_vin
+                                var addresslength = orderAddress.length
+                                orderAddress1 = orderAddress.substring(0, 11)
+                                orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11,
+                                    addresslength)
+                                var NeedSBlength = NeedSB.length
+                                NeedSB1 = NeedSB.substring(0, 16)
+                                NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+                                $("#Finish").append(
+                                    '<li><div href="#" class="item-content pr-1x"><div class="item-inner"><div class="item-title-row">' +
+                                    '<div class="item-title">工单：' + orderID + '</div></div>' +
+                                    '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' +
+                                    vin + '</div>' +
+                                    '<div class="item-subtitle"><span class="item-title-head">安装设备:</span>' +
+                                    NeedSB + '</div>' +
+                                    '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' +
+                                    orderAddress + '</div>' +
+                                    '<div class="item-subtitle"><span class="item-title-head">完成时间：</span>' +
+                                    orderTime + '</div></div></div></li>')
+                            }
+                            if (allData.length < 50) {
+                                document.getElementById("FinishJZMORE").innerHTML = "没有更多了"
+                            } else {
+                                $("#FinishJZMORE").click(function () {
+                                    FinishJZMORE()
+                                })
+                            }
+                        } else if (data.type == "0") {
+                            if (data.errorcode == "10000201") {
+                                alert("没有供应商信息")
+                            }
+                        } else if (data.type == "3") {
+                            alert("程序异常！")
+                        }
+
+                    },
+                    error: function (data) {
+                        alert("网络错误！");
+                    }
+                });
+            // }
+        }
+        //已完成
+        function Finish() {
+            $("#Finish").empty()
+            FinishPage = 1;
+            var data1 = {
+                page: "1",
+                search: "",
+                pagesize: "50",
+                status: "0",
+                token: localStorage.getItem("Token")
+            };
+            $.ajax({
+                url: weburl + '/getOrderList',
+                type: 'GET',
+                data: data1,
+                dataType: "json",
+                success: function (data) {
+                    if (data.type == "1") {
+
+                        var allData = data.resultdata
+                        document.getElementById("allNumberFinish").innerHTML = data.count
+
+                        for (var i = 0; i < allData.length; i++) {
+
+                            var orderID = allData[i].id
+                            var orderAddress = allData[i].install_address
+                            var oderNeed = allData[i].devicecount
+                            var NeedSB = ""
+                            var a = oderNeed.split("<name>")
+                            for (var j = 1; j < a.length; j++) {
+                                var a1 = a[j].split("</name>")
+                                var b = a1[1].split("<deviceCount>")
+                                var b1 = b[1].split("</deviceCount>")
+                                NeedSB += a1[0] + "/" + b1[0] + "台;"
+                            }
+                            var dateParms = allData[i].time
+                            if (dateParms) {
+                                //有年月日
+                                var dateParms1 = dateParms.split("/Date(")
+                                var bigtime = dateParms1[1].split(")/")
+                                var datetime = new Date(parseInt(bigtime[0]));
+                                var year = datetime.getFullYear();
+                                var month = datetime.getMonth() + 1;
+                                var date = datetime.getDate();
+                                var hour = datetime.getHours();
+                                var minutes = datetime.getMinutes();
+                                var seconds = datetime.getSeconds();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (date < 10) {
+                                    date = "0" + date;
+                                }
+                                if (hour < 10) {
+                                    hour = "0" + hour;
+                                }
+                                if (minutes < 10) {
+                                    minutes = "0" + minutes;
+                                }
+                                if (seconds < 10) {
+                                    seconds = "0" + seconds;
+                                }
+                                var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+                                    minutes + ":" + seconds
+                            } else {
+                                //什么都没有
+                                var orderTime = ""
+                            }
+
+                            // var installLX=allData[i].install_cont_per
+                            // var installPhone=allData[i].install_cont_pho
+                            // var carType=allData[i].car_model+allData[i].car_color+" "+allData[i].car_brand
+                            var vin = allData[i].car_vin
+                            var addresslength = orderAddress.length
+                            orderAddress1 = orderAddress.substring(0, 11)
+                            orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11,
+                                addresslength)
+                            var NeedSBlength = NeedSB.length
+                            NeedSB1 = NeedSB.substring(0, 16)
+                            NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+                            $("#Finish").append(
+                                '<li><div href="#" class="item-content pr-1x"><div class="item-inner"><div class="item-title-row">' +
+                                '<div class="item-title">工单：' + orderID + '</div></div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' +
+                                vin + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">安装设备:</span>' +
+                                NeedSB + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' +
+                                orderAddress + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">激活时间：</span>' +
+                                orderTime + '</div></div></div></li>')
+                        }
+                        if (allData.length < 50) {
+                            document.getElementById("FinishJZMORE").innerHTML = "没有更多了"
+                        } else {
+                            $("#FinishJZMORE").click(function () {
+                                FinishJZMORE()
+                            })
+                        }
+                    } else if (data.type == "0") {
+                        if (data.errorcode == "10000201") {
+                            alert("没有供应商信息")
+                        }
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    }
+                },
+                error: function (data) {
+                    alert("网络错误！");
+                }
+            });
+        }
+        //已完成加载
+        function FinishJZMORE() {
+            var data1 = {
+                page: ++FinishPage,
+                pagesize: "50",
+                status: "0",
+                search: "",
+                token: localStorage.getItem("Token")
+            };
+            $.ajax({
+                url: weburl + '/getOrderList',
+                type: 'GET',
+                data: data1,
+                dataType: "json",
+                success: function (data) {
+                    if (data.type == "1") {
+
+                        var allData = data.resultdata
+                        // var allNUMM = parseInt(document.getElementById("allNumberFinish").innerHTML) + allData.length
+                        // document.getElementById("allNumberFinish").innerHTML = allNUMM
+
+                        for (var i = 0; i < allData.length; i++) {
+
+                            var orderID = allData[i].id
+                            var orderAddress = allData[i].install_address
+                            var oderNeed = allData[i].devicecount
+                            var NeedSB = ""
+                            var a = oderNeed.split("<name>")
+                            for (var j = 1; j < a.length; j++) {
+                                var a1 = a[j].split("</name>")
+                                var b = a1[1].split("<deviceCount>")
+                                var b1 = b[1].split("</deviceCount>")
+                                NeedSB += a1[0] + "/" + b1[0] + "台;"
+                            }
+                            var dateParms = allData[i].time
+                            if (dateParms) {
+                                //有年月日
+                                var dateParms1 = dateParms.split("/Date(")
+                                var bigtime = dateParms1[1].split(")/")
+                                var datetime = new Date(parseInt(bigtime[0]));
+                                var year = datetime.getFullYear();
+                                var month = datetime.getMonth() + 1;
+                                var date = datetime.getDate();
+                                var hour = datetime.getHours();
+                                var minutes = datetime.getMinutes();
+                                var seconds = datetime.getSeconds();
+                                if (month < 10) {
+                                    month = "0" + month;
+                                }
+                                if (date < 10) {
+                                    date = "0" + date;
+                                }
+                                if (hour < 10) {
+                                    hour = "0" + hour;
+                                }
+                                if (minutes < 10) {
+                                    minutes = "0" + minutes;
+                                }
+                                if (seconds < 10) {
+                                    seconds = "0" + seconds;
+                                }
+                                var orderTime = year + "." + month + "." + date + "  " + hour + ":" +
+                                    minutes + ":" + seconds
+                            } else {
+                                //什么都没有
+                                var orderTime = ""
+                            }
+
+                            // var installLX=allData[i].install_cont_per
+                            // var installPhone=allData[i].install_cont_pho
+                            // var carType=allData[i].car_model+allData[i].car_color+" "+allData[i].car_brand
+                            var vin = allData[i].car_vin
+                            var addresslength = orderAddress.length
+                            orderAddress1 = orderAddress.substring(0, 11)
+                            orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11,
+                                addresslength)
+                            var NeedSBlength = NeedSB.length
+                            NeedSB1 = NeedSB.substring(0, 16)
+                            NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+                            $("#Finish").append(
+                                '<li><div href="#" class="item-content pr-1x"><div class="item-inner"><div class="item-title-row">' +
+                                '<div class="item-title">工单：' + orderID + '</div></div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' +
+                                vin + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">安装设备:</span>' +
+                                NeedSB + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' +
+                                orderAddress + '</div>' +
+                                '<div class="item-subtitle"><span class="item-title-head">激活时间：</span>' +
+                                orderTime + '</div></div></div></li>')
+                        }
+                        if (allData.length < 50) {
+                            document.getElementById("FinishJZMORE").innerHTML = "没有更多了"
+                        } else {
+                            $("#FinishJZMORE").click(function () {
+                                FinishJZMORE()
+                            })
+                        }
+                    } else if (data.type == "0") {
+                        if (data.errorcode == "10000201") {
+                            alert("没有供应商信息")
+                        }
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    }
+
+                },
+                error: function (data) {
+                    alert("网络错误！");
+                }
+            });
+        }
+        //抢单
+        function a(ss) {
+            var tr = ss.parentNode.parentNode;
+            var nn = tr.childNodes[0].childNodes[0].childNodes[0].childNodes[0].data
+
+            var oderidsplist = nn.split("工单：")
+            var data2 = {
+                orderid: oderidsplist[1],
+                token: localStorage.getItem("Token")
+
+            }
+
+            layer.msg('您确定要接单吗？', {
+                time: 0 //不自动关闭
+                    ,
+                area: ['210px', '100px'] //宽高
+                    ,
+                btn: ['确定', '取消'],
+                yes: function (index) {
+                    $.ajax({
+                        url: weburl + '/grabOrder',
+                        type: 'GET',
+                        data: data2,
+                        dataType: "json",
+                        success: function (data) {
+
+                            if (data.type == "1") {
+                                layer.close(index);
+                                alert("接单成功！")
+                                $("#DJD").empty()
+                                //跳转界面
+                                document.getElementById('DJDBT').className = "tab-link  button";
+                                document.getElementById('tabs-2').className = "tab active"
+                                document.getElementById('YJDBT').className =
+                                    "tab-link active button";
+                                document.getElementById('tabs-1').className = "tab"
+                                $("#YJD").empty()
+                                YJDPage = 1;
+                                var data1 = {
+                                    page: YJDPage,
+                                    pagesize: "50",
+                                    status: "5",
+                                    search: "",
+                                    token: localStorage.getItem("Token")
+                                };
+                                $.ajax({
+                                    url: weburl + '/getOrderList',
+                                    type: 'GET',
+                                    data: data1,
+                                    dataType: "json",
+                                    success: function (data) {
+
+                                        if (data.type == "1") {
+                                            var allData = data.resultdata
+                                            document.getElementById("allNumberYJD")
+                                                .innerHTML = data.count
+
+                                            for (var i = 0; i < allData.length; i++) {
+
+                                                var orderID = allData[i].id
+                                                var orderAddress = allData[i].install_address
+                                                var oderNeed = allData[i].devicecount
+                                                var NeedSB = ""
+                                                var sbfrom = allData[i].dev_source
+                                                if (sbfrom == "1") {
+                                                    sbfrom = "需要携带"
+                                                } else {
+                                                    sbfrom = "客户提供"
+                                                }
+                                                var a = oderNeed.split("<name>")
+                                                for (var j = 1; j < a.length; j++) {
+                                                    var a1 = a[j].split("</name>")
+                                                    var b = a1[1].split(
+                                                        "<deviceCount>")
+                                                    var b1 = b[1].split(
+                                                        "</deviceCount>")
+                                                    NeedSB += a1[0] + "/" + b1[0] +
+                                                        "台;"
+                                                }
+                                                var dateParms = allData[i].install_date
+                                                if (dateParms) {
+                                                    //有年月日
+                                                    var dateParms1 = dateParms.split(
+                                                        "/Date(")
+                                                    var bigtime = dateParms1[1].split(
+                                                        ")/")
+                                                    var datetime = new Date(
+                                                        parseInt(bigtime[0]));
+                                                    var year = datetime.getFullYear();
+                                                    var month = datetime.getMonth() +
+                                                        1;
+                                                    var date = datetime.getDate();
+                                                    if (allData[i].install_time) {
+                                                        //有时分秒
+                                                        var hour = allData[i].install_time
+                                                            .Hours
+                                                        var minutes = allData[i].install_time
+                                                            .Minutes
+                                                        var seconds = allData[i].install_time
+                                                            .Seconds
+                                                        if (month < 10) {
+                                                            month = "0" + month;
+                                                        }
+                                                        if (date < 10) {
+                                                            date = "0" + date;
+                                                        }
+                                                        if (hour < 10) {
+                                                            hour = "0" + hour;
+                                                        }
+                                                        if (minutes < 10) {
+                                                            minutes = "0" + minutes;
+                                                        }
+                                                        if (seconds < 10) {
+                                                            seconds = "0" + seconds;
+                                                        }
+                                                        var orderTime = year + "." +
+                                                            month + "." + date +
+                                                            "  " + hour + ":" +
+                                                            minutes + ":" + seconds
+                                                    } else {
+                                                        if (month < 10) {
+                                                            month = "0" + month;
+                                                        }
+                                                        if (date < 10) {
+                                                            date = "0" + date;
+                                                        }
+                                                        var orderTime = year + "." +
+                                                            month + "." + date
+                                                    }
+
+                                                    //月，日，时，分，秒 小于10时，补0
+
+                                                } else {
+                                                    if (allData[i].install_time) {
+                                                        //有时分秒
+                                                        var hour = allData[i].install_time
+                                                            .Hours
+                                                        var minutes = allData[i].install_time
+                                                            .Minutes
+                                                        var seconds = allData[i].install_time
+                                                            .Seconds
+                                                        if (hour < 10) {
+                                                            hour = "0" + hour;
+                                                        }
+                                                        if (minutes < 10) {
+                                                            minutes = "0" + minutes;
+                                                        }
+                                                        if (seconds < 10) {
+                                                            seconds = "0" + seconds;
+                                                        }
+                                                        var orderTime = hour + ":" +
+                                                            minutes + ":" + seconds
+                                                    } else {
+                                                        //什么都没有
+                                                        var orderTime = ""
+                                                    }
+
+                                                }
+
+                                                var installLX = allData[i].install_cont_per
+                                                var installPhone = allData[i].install_cont_pho
+                                                var carType = allData[i].car_model +
+                                                    allData[i].car_color + " " +
+                                                    allData[i].car_brand
+                                                carType1 = carType.substring(0, 15)
+                                                carType2 = carType.substring(15, 45)
+                                                carType3 = carType.substring(45, 75)
+                                                if (carType2 == "") {
+                                                    carType = carType1
+                                                } else if (carType3 == "") {
+                                                    carType = carType1 + "</br>" +
+                                                        carType2
+                                                } else {
+                                                    carType = carType1 + "</br>" +
+                                                        carType2 + "</br>" +
+                                                        carType3 + "</br>" +
+                                                        carType.substring(75,
+                                                            addresslength)
+                                                }
+
+                                                var pledger_name = allData[i].pledger_name
+                                                var vin = allData[i].car_vin
+                                                var carid = allData[i].carid
+                                                var userid = allData[i].userid
+                                                var addresslength = orderAddress.length
+                                                orderAddress1 = orderAddress.substring(
+                                                    0, 11)
+                                                orderAddress = orderAddress1 +
+                                                    "</br>" + orderAddress.substring(
+                                                        11, addresslength)
+                                                var NeedSBlength = NeedSB.length
+                                                NeedSB1 = NeedSB.substring(0, 16)
+                                                var bz = allData[i].service_remark
+                                                if (bz) {
+                                                    var bzlength = bz.length
+                                                    bz1 = bz.substring(0, 10)
+                                                    bz = bz1 + "</br>" + bz.substring(
+                                                        10, bzlength)
+                                                    bzcolor = "red"
+                                                } else {
+                                                    bz = "无"
+                                                    bzcolor = "#9f9f9f"
+                                                }
+                                                // var bzlength = bz.length
+                                                // bz1 = bz.substring(0, 11)
+                                                // bz = bz1 + "</br>" + bz.substring(11, bzlength)
+                                                NeedSB = NeedSB1 + "</br>" + NeedSB
+                                                    .substring(16, NeedSBlength)
+                                                $("#YJD").append(
+                                                    '<li><div href="#" class="item-content pr-1x"><div class="item-inner" style="margin-left:-1rem"><div class="item-title-row">' +
+                                                    '<div class="item-title">工单：' +
+                                                    orderID + '</div></div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">车主姓名:</span>' +
+                                                    pledger_name + '</div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' +
+                                                    vin + '</div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">车辆品牌:</span>' +
+                                                    carType + '</div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">所需设备:</span>' +
+                                                    NeedSB + '</div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">设备来源:</span><b style="color:black">' +
+                                                    sbfrom + '</b></div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">安装时间要求:</span>' +
+                                                    orderTime + '</div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' +
+                                                    orderAddress + '</div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">门店联系人:</span>' +
+                                                    installLX + '</div>' +
+                                                    // '<div class="item-subtitle"><span class="item-title-head">联系电话:</span>' + installPhone + '</div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head" style="float:left">联系电话:</span><a href="tel:' +
+                                                    installPhone +
+                                                    '" style="color:#9f9f9f;float:left;margin-top:0rem;margin-bottom:0rem">' +
+                                                    installPhone + '</a></div>' +
+                                                    '<div class="item-subtitle"><span class="item-title-head">已反馈信息:</span><span style="color:' +
+                                                    bzcolor + '">' + bz +
+                                                    '</span></div>' +
+
+                                                    '</div><div class="item-media" id=' +
+                                                    userid +
+                                                    '><img src="../../Public/template/green/img/fankui.png" id=' +
+                                                    carid +
+                                                    ' onclick="{fankui(this)}" style="width: 3.0rem;margin-bottom:70px;margin-right:-3rem;"><img src="../../Public/template/green/img/anzhuang.png" id=' +
+                                                    carid +
+                                                    ' onclick="{b(this)}" style="width: 3.0rem;margin-top:70px"></div></div></li>'
+                                                )
+                                            }
+                                            //点击加载
+                                            if (allData.length < 50) {
+                                                document.getElementById("YJDJZMORE")
+                                                    .innerHTML = "没有更多了"
+                                            } else {
+                                                $("#YJDJZMORE").click(function () {
+                                                    YJDJZMORE()
+                                                })
+                                            }
+                                        } else if (data.type == "0") {
+                                            if (data.errorcode == "10000201") {
+                                                alert("没有供应商信息")
+                                            }
+                                        } else if (data.type == "3") {
+                                            alert("程序异常！")
+                                        }
+
+
+
+                                    },
+                                    error: function (data) {
+                                        alert("网络错误！");
+                                    }
+                                });
+
+
+                            } else if (data.type == "0") {
+                                layer.close(index);
+
+                                //处理异常信息
+                                if (data.errorcode == "10000301") {
+                                    alert("该工单已经被接走")
+                                    $("#DJD").empty()
+                                } else if (data.errorcode == "10000302") {
+                                    alert("短信发送失败，但工单已经接单成功")
+                                    document.getElementById('DJDBT').className =
+                                        "tab-link  button";
+                                    document.getElementById('tabs-2').className = "tab active"
+                                    document.getElementById('YJDBT').className =
+                                        "tab-link active button";
+                                    document.getElementById('tabs-1').className = "tab"
+                                    YJD();
+                                    $("#DJD").empty()
+                                }
+                            } else if (data.type == "3") {
+                                layer.close(index);
+                                alert("程序异常！")
+                            }
+                        },
+                        error: function (data) {
+                            alert("网络错误")
+                        }
+                    })
+                }
+            })
+
+            // Dialog.confirm('您确定要接单吗？', function () {
+            //     $.ajax({
+            //         url: weburl + '/grabOrder',
+            //         type: 'GET',
+            //         data: data2,
+            //         dataType: "json",
+            //         success: function (data) {
+            //             debugger
+            //             if (data.type == "1") {
+            //                 alert("接单成功！")
+            //                 $("#DJD").empty()
+            //                 //跳转界面
+            //                 document.getElementById('DJDBT').className = "tab-link  button";
+            //                 document.getElementById('tabs-2').className = "tab active"
+            //                 document.getElementById('YJDBT').className = "tab-link active button";
+            //                 document.getElementById('tabs-1').className = "tab"
+            //                 $("#YJD").empty()
+            //                 YJDPage = 1;
+            //                 var data1 = {
+            //                     page: YJDPage,
+            //                     pagesize: "50",
+            //                     status: "5",
+            //                     search: "",
+            //                     token: localStorage.getItem("Token")
+            //                 };
+            //                 $.ajax({
+            //                     url: weburl + '/getOrderList',
+            //                     type: 'GET',
+            //                     data: data1,
+            //                     dataType: "json",
+            //                     success: function (data) {
+            //                         debugger
+            //                         if (data.type == "1") {
+            //                             var allData = data.resultdata
+            //                             document.getElementById("allNumberYJD").innerHTML = allData.length
+
+            //                             for (var i = 0; i < allData.length; i++) {
+
+            //                                 var orderID = allData[i].id
+            //                                 var orderAddress = allData[i].install_address
+            //                                 var oderNeed = allData[i].devicecount
+            //                                 var NeedSB = ""
+            //                                 var sbfrom = allData[i].dev_source
+            //                                 if (sbfrom == "1") {
+            //                                     sbfrom = "需要携带"
+            //                                 } else {
+            //                                     sbfrom = "客户提供"
+            //                                 }
+            //                                 var a = oderNeed.split("<name>")
+            //                                 for (var j = 1; j < a.length; j++) {
+            //                                     var a1 = a[j].split("</name>")
+            //                                     var b = a1[1].split("<deviceCount>")
+            //                                     var b1 = b[1].split("</deviceCount>")
+            //                                     NeedSB += a1[0] + "/" + b1[0] + "台;"
+            //                                 }
+            //                                 var dateParms = allData[i].install_date
+            //                                 if (dateParms) {
+            //                                     //有年月日
+            //                                     var dateParms1 = dateParms.split("/Date(")
+            //                                     var bigtime = dateParms1[1].split(")/")
+            //                                     var datetime = new Date(parseInt(bigtime[0]));
+            //                                     var year = datetime.getFullYear();
+            //                                     var month = datetime.getMonth() + 1;
+            //                                     var date = datetime.getDate();
+            //                                     if (allData[i].install_time) {
+            //                                         //有时分秒
+            //                                         var hour = allData[i].install_time.Hours
+            //                                         var minutes = allData[i].install_time.Minutes
+            //                                         var seconds = allData[i].install_time.Seconds
+            //                                         if (month < 10) {
+            //                                             month = "0" + month;
+            //                                         }
+            //                                         if (date < 10) {
+            //                                             date = "0" + date;
+            //                                         }
+            //                                         if (hour < 10) {
+            //                                             hour = "0" + hour;
+            //                                         }
+            //                                         if (minutes < 10) {
+            //                                             minutes = "0" + minutes;
+            //                                         }
+            //                                         if (seconds < 10) {
+            //                                             seconds = "0" + seconds;
+            //                                         }
+            //                                         var orderTime = year + "." + month + "." + date + "  " + hour + ":" + minutes + ":" + seconds
+            //                                     } else {
+            //                                         if (month < 10) {
+            //                                             month = "0" + month;
+            //                                         }
+            //                                         if (date < 10) {
+            //                                             date = "0" + date;
+            //                                         }
+            //                                         var orderTime = year + "." + month + "." + date
+            //                                     }
+
+            //                                     //月，日，时，分，秒 小于10时，补0
+
+            //                                 } else {
+            //                                     if (allData[i].install_time) {
+            //                                         //有时分秒
+            //                                         var hour = allData[i].install_time.Hours
+            //                                         var minutes = allData[i].install_time.Minutes
+            //                                         var seconds = allData[i].install_time.Seconds
+            //                                         if (hour < 10) {
+            //                                             hour = "0" + hour;
+            //                                         }
+            //                                         if (minutes < 10) {
+            //                                             minutes = "0" + minutes;
+            //                                         }
+            //                                         if (seconds < 10) {
+            //                                             seconds = "0" + seconds;
+            //                                         }
+            //                                         var orderTime = hour + ":" + minutes + ":" + seconds
+            //                                     } else {
+            //                                         //什么都没有
+            //                                         var orderTime = ""
+            //                                     }
+
+            //                                 }
+
+            //                                 var installLX = allData[i].install_cont_per
+            //                                 var installPhone = allData[i].install_cont_pho
+            //                                 var carType = allData[i].car_model + allData[i].car_color + " " + allData[i].car_brand
+            //                                 carType1 = carType.substring(0, 15)
+            //                                 carType2 = carType.substring(15, 45)
+            //                                 carType3 = carType.substring(45, 75)
+            //                                 if (carType2 == "") {
+            //                                     carType = carType1
+            //                                 } else if (carType3 == "") {
+            //                                     carType = carType1 + "</br>" + carType2
+            //                                 } else {
+            //                                     carType = carType1 + "</br>" + carType2 + "</br>" + carType3 + "</br>" + carType.substring(75, addresslength)
+            //                                 }
+
+
+            //                                 var vin = allData[i].car_vin
+            //                                 var carid = allData[i].carid
+            //                                 var userid = allData[i].userid
+            //                                 var addresslength = orderAddress.length
+            //                                 orderAddress1 = orderAddress.substring(0, 11)
+            //                                 orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11, addresslength)
+            //                                 var NeedSBlength = NeedSB.length
+            //                                 NeedSB1 = NeedSB.substring(0, 16)
+            //                                 NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+            //                                 $("#YJD").append('<li><a href="#" class="item-content pr-1x"><div class="item-inner" style="margin-left:-1rem"><div class="item-title-row">' +
+            //                                     '<div class="item-title">工单：' + orderID + '</div></div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' + vin + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">车辆品牌:</span>' + carType + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">所需设备:</span>' + NeedSB + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">设备来源:</span>' + sbfrom + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">安装时间要求:</span>' + orderTime + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' + orderAddress + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">门店联系人:</span>' + installLX + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">联系电话:</span>' + installPhone + '</div>' +
+
+
+            //                                     '</div><div class="item-media" id=' + userid + '><img src="../../Public/template/green/img/anzhuang.png" id=' + carid + ' onclick="{b(this)}" style="width: 3.0rem;"></div></a></li>')
+            //                             }
+            //                             //点击加载
+            //                             if (allData.length < 50) {
+            //                                 document.getElementById("YJDJZMORE").innerHTML = "没有更多了"
+            //                             } else {
+            //                                 $("#YJDJZMORE").click(function () {
+            //                                     YJDJZMORE()
+            //                                 })
+            //                             }
+            //                         } else if (data.type == "0") {
+            //                             if (data.errorcode == "10000201") {
+            //                                 alert("没有供应商信息")
+            //                             }
+            //                         } else if (data.type == "3") {
+            //                             alert("程序异常！")
+            //                         }
+
+
+
+            //                     },
+            //                     error: function (data) {
+            //                         alert("网络错误！");
+            //                     }
+            //                 });
+
+
+            //             } else if (data.type == "0") {
+            //                 //处理异常信息
+            //                 if (data.errorcode == "10000301") {
+            //                     alert("该工单已经被接走")
+            //                     $("#DJD").empty()
+            //                 }
+            //             } else if (data.type == "3") {
+            //                 alert("程序异常！")
+            //             }
+            //         },
+            //         error: function (data) {
+            //             alert("网络错误")
+            //         }
+            //     })
+            // });
+
+            // if (confirm("您确定要接单吗？")) {
+            //     $.ajax({
+            //         url: weburl + '/grabOrder',
+            //         type: 'GET',
+            //         data: data2,
+            //         dataType: "json",
+            //         success: function (data) {
+            //             debugger
+            //             if (data.type == "1") {
+            //                 alert("接单成功！")
+            //                 $("#DJD").empty()
+            //                 //跳转界面
+            //                 document.getElementById('DJDBT').className = "tab-link  button";
+            //                 document.getElementById('tabs-2').className = "tab active"
+            //                 document.getElementById('YJDBT').className = "tab-link active button";
+            //                 document.getElementById('tabs-1').className = "tab"
+            //                 $("#YJD").empty()
+            //                 YJDPage = 1;
+            //                 var data1 = {
+            //                     page: YJDPage,
+            //                     pagesize: "50",
+            //                     status: "5",
+            //                     search: "",
+            //                     token: localStorage.getItem("Token")
+            //                 };
+            //                 $.ajax({
+            //                     url: weburl + '/getOrderList',
+            //                     type: 'GET',
+            //                     data: data1,
+            //                     dataType: "json",
+            //                     success: function (data) {
+            //                         debugger
+            //                         if (data.type == "1") {
+            //                             var allData = data.resultdata
+            //                             document.getElementById("allNumberYJD").innerHTML = allData.length
+
+            //                             for (var i = 0; i < allData.length; i++) {
+
+            //                                 var orderID = allData[i].id
+            //                                 var orderAddress = allData[i].install_address
+            //                                 var oderNeed = allData[i].devicecount
+            //                                 var NeedSB = ""
+            //                                 var sbfrom = allData[i].dev_source
+            //                                 if (sbfrom == "1") {
+            //                                     sbfrom = "需要携带"
+            //                                 } else {
+            //                                     sbfrom = "客户提供"
+            //                                 }
+            //                                 var a = oderNeed.split("<name>")
+            //                                 for (var j = 1; j < a.length; j++) {
+            //                                     var a1 = a[j].split("</name>")
+            //                                     var b = a1[1].split("<deviceCount>")
+            //                                     var b1 = b[1].split("</deviceCount>")
+            //                                     NeedSB += a1[0] + "/" + b1[0] + "台;"
+            //                                 }
+            //                                 var dateParms = allData[i].install_date
+            //                                 if (dateParms) {
+            //                                     //有年月日
+            //                                     var dateParms1 = dateParms.split("/Date(")
+            //                                     var bigtime = dateParms1[1].split(")/")
+            //                                     var datetime = new Date(parseInt(bigtime[0]));
+            //                                     var year = datetime.getFullYear();
+            //                                     var month = datetime.getMonth() + 1;
+            //                                     var date = datetime.getDate();
+            //                                     if (allData[i].install_time) {
+            //                                         //有时分秒
+            //                                         var hour = allData[i].install_time.Hours
+            //                                         var minutes = allData[i].install_time.Minutes
+            //                                         var seconds = allData[i].install_time.Seconds
+            //                                         if (month < 10) {
+            //                                             month = "0" + month;
+            //                                         }
+            //                                         if (date < 10) {
+            //                                             date = "0" + date;
+            //                                         }
+            //                                         if (hour < 10) {
+            //                                             hour = "0" + hour;
+            //                                         }
+            //                                         if (minutes < 10) {
+            //                                             minutes = "0" + minutes;
+            //                                         }
+            //                                         if (seconds < 10) {
+            //                                             seconds = "0" + seconds;
+            //                                         }
+            //                                         var orderTime = year + "." + month + "." + date + "  " + hour + ":" + minutes + ":" + seconds
+            //                                     } else {
+            //                                         if (month < 10) {
+            //                                             month = "0" + month;
+            //                                         }
+            //                                         if (date < 10) {
+            //                                             date = "0" + date;
+            //                                         }
+            //                                         var orderTime = year + "." + month + "." + date
+            //                                     }
+
+            //                                     //月，日，时，分，秒 小于10时，补0
+
+            //                                 } else {
+            //                                     if (allData[i].install_time) {
+            //                                         //有时分秒
+            //                                         var hour = allData[i].install_time.Hours
+            //                                         var minutes = allData[i].install_time.Minutes
+            //                                         var seconds = allData[i].install_time.Seconds
+            //                                         if (hour < 10) {
+            //                                             hour = "0" + hour;
+            //                                         }
+            //                                         if (minutes < 10) {
+            //                                             minutes = "0" + minutes;
+            //                                         }
+            //                                         if (seconds < 10) {
+            //                                             seconds = "0" + seconds;
+            //                                         }
+            //                                         var orderTime = hour + ":" + minutes + ":" + seconds
+            //                                     } else {
+            //                                         //什么都没有
+            //                                         var orderTime = ""
+            //                                     }
+
+            //                                 }
+
+            //                                 var installLX = allData[i].install_cont_per
+            //                                 var installPhone = allData[i].install_cont_pho
+            //                                 var carType = allData[i].car_model + allData[i].car_color + " " + allData[i].car_brand
+            //                                 carType1 = carType.substring(0, 15)
+            //                                 carType2 = carType.substring(15, 45)
+            //                                 carType3 = carType.substring(45, 75)
+            //                                 if (carType2 == "") {
+            //                                     carType = carType1
+            //                                 } else if (carType3 == "") {
+            //                                     carType = carType1 + "</br>" + carType2
+            //                                 } else {
+            //                                     carType = carType1 + "</br>" + carType2 + "</br>" + carType3 + "</br>" + carType.substring(75, addresslength)
+            //                                 }
+
+
+            //                                 var vin = allData[i].car_vin
+            //                                 var carid = allData[i].carid
+            //                                 var userid = allData[i].userid
+            //                                 var addresslength = orderAddress.length
+            //                                 orderAddress1 = orderAddress.substring(0, 11)
+            //                                 orderAddress = orderAddress1 + "</br>" + orderAddress.substring(11, addresslength)
+            //                                 var NeedSBlength = NeedSB.length
+            //                                 NeedSB1 = NeedSB.substring(0, 16)
+            //                                 NeedSB = NeedSB1 + "</br>" + NeedSB.substring(16, NeedSBlength)
+            //                                 $("#YJD").append('<li><a href="#" class="item-content pr-1x"><div class="item-inner" style="margin-left:-1rem"><div class="item-title-row">' +
+            //                                     '<div class="item-title">工单：' + orderID + '</div></div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">车架号:</span>' + vin + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">车辆品牌:</span>' + carType + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">所需设备:</span>' + NeedSB + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">设备来源:</span>' + sbfrom + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">安装时间要求:</span>' + orderTime + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">安装地址:</span>' + orderAddress + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">门店联系人:</span>' + installLX + '</div>' +
+            //                                     '<div class="item-subtitle"><span class="item-title-head">联系电话:</span>' + installPhone + '</div>' +
+
+
+            //                                     '</div><div class="item-media" id=' + userid + '><img src="../../Public/template/green/img/anzhuang.png" id=' + carid + ' onclick="{b(this)}" style="width: 3.0rem;"></div></a></li>')
+            //                             }
+            //                             //点击加载
+            //                             if (allData.length < 50) {
+            //                                 document.getElementById("YJDJZMORE").innerHTML = "没有更多了"
+            //                             } else {
+            //                                 $("#YJDJZMORE").click(function () {
+            //                                     YJDJZMORE()
+            //                                 })
+            //                             }
+            //                         } else if (data.type == "0") {
+            //                             if (data.errorcode == "10000201") {
+            //                                 alert("没有供应商信息")
+            //                             }
+            //                         } else if (data.type == "3") {
+            //                             alert("程序异常！")
+            //                         }
+
+
+
+            //                     },
+            //                     error: function (data) {
+            //                         alert("网络错误！");
+            //                     }
+            //                 });
+
+
+            //             } else if (data.type == "0") {
+            //                 //处理异常信息
+            //                 if (data.errorcode == "10000301") {
+            //                     alert("该工单已经被接走")
+            //                     $("#DJD").empty()
+            //                 }
+            //             } else if (data.type == "3") {
+            //                 alert("程序异常！")
+            //             }
+            //         },
+            //         error: function (data) {
+            //             alert("网络错误")
+            //         }
+            //     })
+            // }
+            // else {
+
+
+            // }
+
+        }
+
+        //反馈
+        function fankui(e) {
+            var tr = e.parentNode.parentNode;
+            var nn = tr.childNodes[0].childNodes[0].childNodes[0].childNodes[0].data
+            var oderidsplist = nn.split("工单：")
+
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                shadeClose: true,
+                skin: 'yourclass',
+                // content: '<label id='+oderidsplist[1]+'><input name="Fruit" type="radio" onclick="fankuimsg(this)" value="" />车未到店 </label><br />' +
+                // '<label id='+oderidsplist[1]+'><input name="Fruit" type="radio" value="" onclick="fankuimsg(this)"/>车辆手续代办 </label><br />' +
+                // '<label id='+oderidsplist[1]+'><input name="Fruit" type="radio" value="" onclick="fankuimsg(this)"/>无设备延后安装 </label><br />' +
+                // '<label id='+oderidsplist[1]+'><input name="Fruit" type="radio" value="" onclick="fankuimsg(this)"/>未联系上店面联系人 </label><br />' +
+                // '<label id='+oderidsplist[1]+'><input name="Fruit" type="radio" value="" onclick="shoudong(this)"/>手动输入 </label><br />'
+                content: '<div style="text-align: center;line-height: 2rem;width:12rem">' +
+                    '<div  style="color: #6d6d72">反馈信息</div>' +
+                    '<div id=' + oderidsplist[1] +
+                    ' style="border-top: 1px solid rgb(201, 193, 193);" onclick="fankuimsg(this)">车未到店</div>' +
+                    '<div id=' + oderidsplist[1] +
+                    ' style="border-top: 1px solid rgb(201, 193, 193);" onclick="fankuimsg(this)">车辆手续代办</div>' +
+                    '<div id=' + oderidsplist[1] +
+                    ' style="border-top: 1px solid rgb(201, 193, 193);" onclick="fankuimsg(this)">无设备延后安装</div>' +
+                    '<div id=' + oderidsplist[1] +
+                    ' style="border-top: 1px solid rgb(201, 193, 193);" onclick="fankuimsg(this)">未联系上店面联系人</div>' +
+                    '<div id=' + oderidsplist[1] +
+                    ' style="border-top: 1px solid rgb(201, 193, 193);" onclick="shoudong(this)">手动输入</div>' +
+                    '</div>'
+            });
+        }
+        //选中其中一个按钮反馈
+        function fankuimsg(e) {
+            addfankui(e.innerText, e.id)
+            layer.closeAll();
+        }
+        //手动输入
+        function shoudong(e) {
+            var orderidd = e.id;
+            var x;
+            var person = prompt("请输入需要反馈的信息", "");
+            if (person == null) {
+                //点击取消
+                // pro();
+            } else if (person.length < 2) {
+                pro();
+            } else if (trim(person) != "") {
+                //执行操作
+                addfankui(person, orderidd);
+                layer.closeAll();
+            } else {
+                //不输入点击确定
+                pro();
+            }
+
+            function pro() {
+                var person = prompt("请重新输入", "");
+
+                // if (person != null && person != "") {
+                if (person == null) {
+                    // pro();
+                } else if (person.length < 2) {
+                    pro();
+                } else if (trim(person) != "") {
+                    //执行操作
+                    addfankui(person, orderidd);
+                    layer.closeAll();
+                } else {
+                    pro();
+                }
+            }
+        }
+        //提交反馈信息
+        function addfankui(msg, oreridd) {
+            debugger
+            console.log("2313")
+            var data1 = {
+                orderid: oreridd,
+                memo: msg + "(安)"
+            };
+            $.ajax({
+                url: weburl + '/updateOrderMemo',
+                type: 'GET',
+                data: data1,
+                dataType: "json",
+                success: function (data) {
+
+                    if (data.type == "1") {
+                        $("#YJD").empty()
+                        YJD();
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    } else {
+                        alert("网络异常")
+                    }
+                },
+                error: function (data) {
+                    alert("网络错误！");
+                }
+            });
+        }
+
+        function trim(str) {
+            return str.replace(/(^\s+)|(\s+$)/g, "");
+        }
+        //安装
+        function b(dd) {
+            var userid = dd.parentNode.id
+            var tr = dd.parentNode.parentNode;
+            var nn = tr.childNodes[0].childNodes[0].childNodes[0].childNodes[0].data
+            // var hasoderid = localStorage.getItem("orderid")
+
+            //判断之前是否有未完成的工单
+            layer.msg('您确定要安装吗？', {
+                time: 0 //不自动关闭
+                    ,
+                area: ['210px', '100px'] //宽高
+                    ,
+                btn: ['确定', '取消'],
+                yes: function (index) {
+                    var sbnum = 0;
+                    var sblx = ""
+                    var sbsl = ""
+                    var str = ""
+
+                    // var tr = dd.parentNode.parentNode;
+                    // var nn = tr.childNodes[0].childNodes[0].childNodes[0].childNodes[0].data
+
+                    if (tr.childNodes[0].childNodes[4].childNodes.length == 4) {
+                        var sb = tr.childNodes[0].childNodes[4].childNodes[1].data + tr.childNodes[0].childNodes[
+                            4].childNodes[3].data
+                    } else {
+                        var sb = tr.childNodes[0].childNodes[4].childNodes[1].data
+                    }
+
+                    // var sb1 = sb.split("所需设备:")
+                    var allsb = sb.split(";")
+                    for (var ii = 0; ii < allsb.length - 1; ii++) {
+                        var flsb = allsb[ii].split("/")
+                        // sblx.push(flsb[0])
+                        // sbsl.push(flsb[1])
+                        sblx += flsb[0] + ","
+                        sbsl += flsb[1] + ","
+                    }
+                    debugger
+                    var oderidsplist = nn.split("工单：")
+                    localStorage.setItem("userid", userid)
+                    localStorage.setItem("sblx", sblx)
+                    localStorage.setItem("sbsl", sbsl)
+                    localStorage.setItem("carid", dd.id)
+                    localStorage.setItem("orderid", oderidsplist[1])
+                    localStorage.setItem("source", tr.childNodes[0].childNodes[5].childNodes[1].innerHTML)
+                    // window.location.href = "../Project/takepart_list.html?cc=" + oderidsplist[1];
+                    window.location.href = "../Project/takepart_list.html";
+                }
+            });
+            //暂时影藏
+            // Dialog.confirm('您确定要安装吗？', function () {
+            //     var sbnum = 0;
+            //     var sblx = ""
+            //     var sbsl = ""
+            //     var str = ""
+
+            //     // var tr = dd.parentNode.parentNode;
+            //     // var nn = tr.childNodes[0].childNodes[0].childNodes[0].childNodes[0].data
+
+            //     if (tr.childNodes[0].childNodes[3].childNodes.length == 4) {
+            //         var sb = tr.childNodes[0].childNodes[3].childNodes[1].data + tr.childNodes[0].childNodes[3].childNodes[3].data
+            //     } else {
+            //         var sb = tr.childNodes[0].childNodes[3].childNodes[1].data
+            //     }
+
+            //     // var sb1 = sb.split("所需设备:")
+            //     var allsb = sb.split(";")
+            //     for (var ii = 0; ii < allsb.length - 1; ii++) {
+            //         var flsb = allsb[ii].split("/")
+            //         // sblx.push(flsb[0])
+            //         // sbsl.push(flsb[1])
+            //         sblx += flsb[0] + ","
+            //         sbsl += flsb[1] + ","
+            //     }
+
+            //     var oderidsplist = nn.split("工单：")
+            //     localStorage.setItem("userid", userid)
+            //     localStorage.setItem("sblx", sblx)
+            //     localStorage.setItem("sbsl", sbsl)
+            //     localStorage.setItem("carid", dd.id)
+            //     localStorage.setItem("orderid", oderidsplist[1])
+            //     localStorage.setItem("source", tr.childNodes[0].childNodes[4].childNodes[1].data)
+            //     // window.location.href = "../Project/takepart_list.html?cc=" + oderidsplist[1];
+            //     window.location.href = "../Project/takepart_list.html";
+            // });
+
+
+
+
+
+            // if (confirm("您确定要安装吗？")) {
+            //     var sbnum = 0;
+            //     var sblx = ""
+            //     var sbsl = ""
+            //     var str = ""
+
+            //     // var tr = dd.parentNode.parentNode;
+            //     // var nn = tr.childNodes[0].childNodes[0].childNodes[0].childNodes[0].data
+
+            //     if (tr.childNodes[0].childNodes[3].childNodes.length == 4) {
+            //         var sb = tr.childNodes[0].childNodes[3].childNodes[1].data + tr.childNodes[0].childNodes[3].childNodes[3].data
+            //     } else {
+            //         var sb = tr.childNodes[0].childNodes[3].childNodes[1].data
+            //     }
+
+            //     // var sb1 = sb.split("所需设备:")
+            //     var allsb = sb.split(";")
+            //     for (var ii = 0; ii < allsb.length - 1; ii++) {
+            //         var flsb = allsb[ii].split("/")
+            //         // sblx.push(flsb[0])
+            //         // sbsl.push(flsb[1])
+            //         sblx += flsb[0] + ","
+            //         sbsl += flsb[1] + ","
+            //     }
+
+            //     var oderidsplist = nn.split("工单：")
+            //     localStorage.setItem("userid", userid)
+            //     localStorage.setItem("sblx", sblx)
+            //     localStorage.setItem("sbsl", sbsl)
+            //     localStorage.setItem("carid", dd.id)
+            //     localStorage.setItem("orderid", oderidsplist[1])
+            //     localStorage.setItem("source", tr.childNodes[0].childNodes[4].childNodes[1].data)
+            //     // window.location.href = "../Project/takepart_list.html?cc=" + oderidsplist[1];
+            //     window.location.href = "../Project/takepart_list.html";
+            // } else {
+            //     var myApp = new Framework7();
+            //     myApp.showTab('#tab1');
+            //     // window.location.href="#tab3"
+            // }
+
+
+        }
+    </script>
+</body>
+
+</html>

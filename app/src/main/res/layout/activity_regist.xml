@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/et1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="请输入用户名"
+        />
+<TextView
+    android:id="@+id/YZM"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="点击获取验证码"/>
+    <TextView
+        android:id="@+id/YZM1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击获取验证码"/>
+    <TextView
+        android:id="@+id/YZM2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击获取验证码"/>
+    <TextView
+        android:id="@+id/YZM3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="点击获取验证码"/>
+
+
+
+</LinearLayout>

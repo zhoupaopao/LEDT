@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>基于bootstrup的jQuery多级列表树插件</title>
+		<link href="http://www.jq22.com/jquery/bootstrap-3.3.4.css" rel="stylesheet">
+		<link href="../css/mui.min.css" rel="stylesheet"/>
+		<style type="text/css">
+			.jq22-header {
+				margin-bottom: 15px;
+				font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans", "wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;
+			}
+			
+			.jq22-icon {
+				color: #fff;
+			}
+			.showhead {
+				width: 15px;
+				height: 22px;
+			}
+			
+			.mui-bar-nav {
+				background-color: #2494F1;
+				box-shadow: none;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			.mui-btn {
+				color: white !important;
+			}
+			.content-search{
+				background-color: white;
+				padding: 10px;
+				margin-top: 10px;
+			}
+			input{
+				margin-bottom: 0px !important;
+				background-color: ;
+			}
+			.mui-placeholder{
+				top: 10px !important;
+				
+			}
+			.treeview1-content{
+				margin-top: 10px;
+			}
+			.content-search::before {
+				top: 65% !important;
+				left: 10px !important;
+				}
+				.mui-icon-clear{
+					top: 18px !important;
+				}
+		</style>
+		<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	</head>
+
+	<body>
+<header class="mui-bar mui-bar-nav">
+			<button class="mui-action-back mui-btn  mui-btn-link mui-pull-left" >取消</button>
+			<h1 class="mui-title">选择客户</h1>
+			<button class="mui-btn  mui-btn-link mui-pull-right" onclick="addcar()">确定</button>
+		</header>
+		<div class="mui-content">
+			<div class="mui-input-row mui-search content-search">
+					<input type="search" class="mui-input-clear" placeholder="搜索客户">
+				</div>
+		<div id="treeview1" class="treeview1-content"></div>
+		</div>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/bootstrap-treeview.js"></script>
+		<script type="text/javascript" src="../js/api.js"></script>
+		<script type="text/javascript" src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			var defaultData;
+			var defaultData1;
+			var token = localStorage.getItem("token");
+			var listree = [];
+			var listree1 = [];
+//			mui.ajax(GetCustomer + "?token=" + token, {
+//
+//				type: 'get',
+//				dataType: "json",
+//				contentType: "application/json",
+//				success: function(data) {
+//
+//					defaultData = data.object.tree
+//					console.log(JSON.stringify(defaultData1));
+//					for(var i = 0; i < defaultData.length; i++) {
+//						console.log(defaultData[i].group_name)
+//
+//						//判断childCustomerModel这个参数是不是null，是的话就结束，不是，就在后面加node
+//						if(defaultData[i].childCustomerModel) {
+//							//不是null
+//							listree.push(new ObjStory(defaultData[i].group_name, defaultData[i].id));
+//						} else {
+//							//不加上node了
+//							listree.push(new ObjStory(defaultData[i].group_name, defaultData[i].id));
+//						}
+//					}
+//					console.log(JSON.stringify(listree))
+//				},
+//				error: function(xhr, type, errorThrown) {
+//					//异常处理；
+//					console.log(type);
+//				}
+//			})
+mui.ajax("http://m1api.chetxt.com:8083/Customer.asmx/Jsonp_GetChildTree", {
+				data:{
+					UserID:"3ab403f00d324cb9807dfbb7d8bd63ee",
+					TokenString:"gTx3vrWc4ihDunBFYh5MzrK0MXekWwn3LVpTahBGClWWS5dS+75WN6j1DU9XBW8OS4Vq27rL1+ca1CK45s6zcfcv+gM3RtEnJI+DL6ni+1dtU2WqcAVYnM8YytmYaUrPg6erjf1ZiVgVP9241Vv9Sdu0ez+bqKJhsH086AtnKsY="
+				},
+				type: 'post',
+				dataType: "json",
+				success: function(data) {
+defaultData1=data.children
+
+					console.log(JSON.stringify(data));
+					for(var i = 0; i < defaultData1.length; i++) {
+						console.log(defaultData1[i].text)
+
+						//判断childCustomerModel这个参数是不是null，是的话就结束，不是，就在后面加node
+						//判断是否含有children这个属性
+						if('children' in defaultData1[i]) {
+							//不是null
+							//继续给后面的数据追加node
+							
+							listree.push(new ObjStory(defaultData1[i].text, defaultData1[i].id,nextnode(defaultData1[i].children)));
+						} else {
+							//不加上node了
+							listree.push(new ObjStory1(defaultData1[i].text, defaultData1[i].id));
+						}
+					}
+					console.log(JSON.stringify(listree));
+					listree1.push(new ObjStory(data.text,data.id,listree))
+					$('#treeview1').treeview({
+				data: listree1
+			});
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(type);
+				}
+			})
+			function nextnode(dchildren){
+				var listnodetree = [];
+				//对下面的node进行处理
+				//遍历node数组
+				for(var i=0;i<dchildren.length;i++){
+					
+					if('children' in dchildren[i]){
+						//下面还有node
+						listnodetree.push(new ObjStory(dchildren[i].text,dchildren[i].id,nextnode(dchildren[i].children)));
+					}else{
+						listnodetree.push(new ObjStory1(dchildren[i].text,dchildren[i].id));
+					}
+				}
+				console.log(JSON.stringify(listnodetree))
+				return listnodetree;
+			}
+			function ObjStory(text, id, nodes) //声明对象
+			{
+				this.id = id;
+				this.text = text;
+				this.nodes = nodes;
+			}
+			function ObjStory1(text, id) //声明对象
+			{
+				this.id = id;
+				this.text = text;
+			}
+
+			var defaultData = [{
+					text: 'Parent 1',
+					id: '#parent1',
+					
+					tags: ['4'],
+					nodes: [{
+							text: 'Child 1',
+							id: '#child1',
+							state:{
+						expanded:true
+					},
+							tags: ['2'],
+							nodes: [{
+									text: 'Grandchild 1',
+									id: '#grandchild1',
+									tags: ['0']
+								},
+								{
+									text: 'Grandchild 2',
+									id: '#grandchild2',
+									tags: ['0']
+								}
+							]
+						},
+						{
+							text: 'Child 2',
+							id: '#child2',
+							tags: ['0']
+						}
+					]
+				},
+				{
+					text: 'Parent 2',
+					id: '#parent2',
+					tags: ['0']
+				},
+				{
+					text: 'Parent 3',
+					id: '#parent3',
+					tags: ['0']
+				},
+				{
+					text: 'Parent 4',
+					id: '#parent4',
+					tags: ['0'],
+					nodes: [{
+							text: 'Grandchild 1',
+							id: '#grandchild1',
+							tags: ['0']
+						},
+						{
+							text: 'Grandchild 2',
+							id: '#grandchild2',
+							tags: ['0']
+						}
+					]
+				},
+				{
+					text: 'Parent 5',
+					id: 'idid',
+					tags: ['0'],
+					nodes: [{
+							text: 'Grandchild 1',
+							id: 'wsid',
+							tags: ['0']
+						},
+						{
+							text: 'Grandchild 2',
+							id: '#grandchild2',
+							tags: ['0']
+						}
+					]
+				}
+			];
+
+			
+
+			function itemOnclick() {
+				if($(event.target).children().length == 0) {
+					//点击是+按钮
+					console.log("123as大多数123")
+				} else {
+					console.log("12312sadasdasd3")
+				}
+				//找到当前节点id  
+				if($(event.target).children(".glyphicon").hasClass("glyphicon-plus") || $(event.target).children(".glyphicon").hasClass("glyphicon-minus")) {
+					//					$(event.target).children(".glyphicon")[0].click();
+				}
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>开始安装</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!--<meta http-equiv="Access-Control-Allow-Origin" content="*">-->
+
+    <link rel="stylesheet" type="text/css" href="../css/base.min.css" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="../layer/layer.js"></script>
+    <link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+    <link rel="stylesheet" type="text/css" href="../../Public/template/green/css/webapp.css" />
+    <script src="http://wximg.qq.com/wxp/libs/wxmoment/0.0.4/wxmoment.min.js"></script>
+    <script type="text/javascript" src="../js/zDrag.js"></script>
+    <script type="text/javascript" src="../js/zDialog.js"></script>
+
+    <style>
+        .modal1 {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+        
+        .list-block .item-text {
+            font-size: .75rem;
+            color: #5f646e;
+            line-height: 1.05rem;
+            position: relative;
+            overflow: hidden;
+            height: 1.1rem;
+            text-overflow: ellipsis;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            display: -webkit-box;
+        }
+        
+        .mask {
+            position: absolute;
+            top: 0px;
+            filter: alpha(opacity=60);
+            background-color: #777;
+            z-index: 1002;
+            left: 0px;
+            opacity: 0.5;
+            -moz-opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body onload="onload()">
+
+
+
+
+    <div class="page" id="page-join-infinite-scroll">
+        <header class="bar bar-nav bg-main bg-inverse">
+            <a class="icon icon-left pull-left back"></a>
+            <h1 class="title color-white fs-2x fw-bold">开始安装</h1>
+        </header>
+        <div class="content infinite-scroll" data-distance="100">
+
+            <div class="block" id="starttou">
+                <div class="list-block media-list mv-no">
+                    <div class="bg-white">
+                        <div class="content-padded mb-no pv-0x">
+                            <div class="title-line"><span class="color-main">该订单共有<span id="allsl">0</span>台设备需要安装</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-container bg-no" id="needadd">
+                        <li class="mb-0x bg-white">
+                            <div class="item-content pr-1x bv">
+                                <!--<div class="item-media"><img src="../../Public/template/green/img/demo/thumb.jpg" style="width: 4rem;"></div>-->
+                                <div class="item-inner">
+                                    <div id="show-alltype" class="item-title-row">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="mb-0x bg-white">
+
+                            <div class="item-content">
+
+                                <div class="item-inner as-center after-no">
+                                    <div class="item-title-row">
+                                        <div class="item-title">请输入设备名:</div>
+                                        <input class="item-title" id="tiaoma" value="" style="margin-left: -20px; width: 40%;border-radius:15px;border:1px solid #000"
+                                        />
+                                        <!--<div class="controls">
+                                        <input id="choose" type="file" accept="image/*" capture="camera" style="display:none;" />
+                                        <label class="item-after fw-bold color-main" id="upLodaBtn" for="choose">扫描</label>
+                                        </div>-->
+                                        <div class="item-after fw-bold color-main" onclick="scan(this)">添加</div>
+                                        <!--<div class="search-input col-80">
+                                            <label class="icon icon-search" for="search"></label>
+                                            <input class="r-round" style="margin-left: 30px" type="search" id='tiaoma' placeholder='请输入设备名' autocomplete="on" />
+                                        </div>
+                                        <div class="col-20 text-center"><a class="item-after fw-bold color-main" href="javascript:void(0)" onclick="aaa(this)" id="submit">搜索</a></div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+
+                </div>
+            </div>
+            <!--<div class="content-padded" id="startse">
+                <p><a class="button button-big button-fill bg-main1" onclick="JH(this)" id="jihuo">激活</a></p>
+            </div>-->
+            <div class="bg-white" style="height: 170px;" id="showpicture">
+                <div class="content-padded mb-no pv-0x">
+
+                    <!--<div class="form-explain">-->
+                    <span style="height: .5rem;line-height: .5rem;font-size: .21rem;margin-left: 1.08rem;color: #747474;">请至少上传3张照片（车辆正面照、车架号、所有设备名）</span>
+                    <!--</div>-->
+                    <div id="person-info">
+
+                        <div class="form-group">
+                            <div class="form-item w photo">
+                                <!--<i class="zhaoxiangji"></i>-->
+                                <img class="zhaoxiangji" style="width: 40px; height: 40px; margin-top:40px;
+     " src="../../Public/template/green/img/create_founding_photo_default.png" />
+                                <form id="uploadForm" style="margin-top: -90px;margin-left: 40px">
+                                    <!--enctype="multipart/form-data" action="http://139.196.28.82:6677/InterFace.aspx?sid=verifyMember&did=1&ftype=1&suffix=jpg" method="post"-->
+                                    <!--<input type="submit" value="submit"/>-->
+                                    <div class="photo-list" id="photo-list-img">
+                                        <input class="" type="text" readonly="readonly" style="line-height: 4; margin-top: 40px;" />
+
+                                    </div>
+                                    <div class="file-list" id="picfilelist">
+                                        <input id="file-defect-photo0" name="fileToUpload" type="file" multiple="multiple" accept="image/*" class="hide fileToUpload"
+                                        />
+                                    </div>
+                                    <label style="margin-top: -70px" id="upLodaBtn" for="file-defect-photo0" class="iconfont icon-iconfontjia"></label>
+                                </form>
+                            </div>
+
+                            <!-- 编辑图片 -->
+                            <div class="swipeUp-modal modal1">
+                                <div class="modal-content" style="font-size: 0.6rem">
+                                    <div class="modal-body w" style="height: 60px;">
+                                        <ul>
+                                            <li id="show-img" style="height: 30px;line-height: 30px">查看大图</li>
+                                            <li id="delel-img" style="height: 30px;line-height: 30px"><span class="color-red">删除照片</span></li>
+                                        </ul>
+                                    </div>
+                                    <div id="close-modal" class="modal-footer" style="height: 30px;line-height: 30px">
+                                        <span>取消</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 编辑图片结束 -->
+                            <!-- 图片查看 -->
+                            <div class="showImg-modal modal1">
+                                <div class="modal-content" style="display: none">
+
+                                </div>
+                                <div class="show-box flex-container">
+                                    <div class="f1 text-center">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 图片查看结束 -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content-padded" id="tijiaobut">
+                <p><a class="button button-big button-fill bg-main1" onclick="JH(this)" id="tijiaopic">激活</a></p>
+            </div>
+
+
+
+
+        </div>
+        <div id="mask" class="mask" style="display:none"><img src="images/loading.gif" style="padding-left:35%;padding-top:50%" /></div>
+        <!--<div id="mask" class="mask" style="display:none"><div style="padding-left:35%;padding-top:50%;color: black;font-size: 18px" >上传中，请稍等……</div></div>-->
+    </div>
+
+
+    <script type="text/javascript">
+                                                                              var basePath = "../../Public/template/green";
+    </script>
+    <!--<script type="text/javascript" src="../../Public/template/green/js/loading.js"></script>-->
+    <script type="text/javascript" src="../../Public/template/green/sui/sm.min.js"></script>
+    <!--<script type="text/javascript" src="../../Public/template/green/js/webapp.js"></script>-->
+    <script src="../js/index.js"></script>
+    <script src="../js/my.js"></script>
+    <script src="../plugins/upLoad/js/lrz.bundle.js"></script>
+    <link rel="stylesheet" href="../plugins/mobiscroll/css/mobiscroll.2.13.2.css">
+    <script src="../plugins/mobiscroll/js/mobiscroll.2.13.2.js"></script>
+    <script type="text/javascript" src="JIC.js"></script>
+    <!--<script src="quagga.js" type="text/javascript"></script>
+    <script src="file_input.js" type="text/javascript"></script>-->
+    <script>
+        // $("#showpicture").hide();
+        // if (localStorage.getItem("canshowpic") == "can") {
+        //     $("#showpicture").show();
+        //     $("#tijiaobut").show();
+        //     $("#starttou").hide()
+        //     $("#startse").hide()
+        //     localStorage.removeItem("canshowpic")
+        // } else {
+        //     $("#showpicture").hide();
+        //     $("#tijiaobut").hide();
+        //     $("#starttou").show()
+        //     $("#startse").show()
+
+        // }
+        $("#jihuo").css("background-color", "#03ab9e");
+        $("#tijiaopic").css("background-color", "#03ab9e");
+        var errorpic = "";
+        var thisURL = document.URL;
+        // var WEBURL = "http://fk.chetxt.com:10086/WX/Setup"
+        var WEBURL = weburl()
+        var sllist = []
+        var canYZM = false
+        var loading;
+        var showcolor = true
+        var isfirst = true;
+        var canJH = true
+        var issuccess = 0;
+        var lxlist = []
+        var base64bp = "";
+        var now = [0, 0, 0, 0, 0]
+        var YXWZ = "";
+        var WXWZ = "";
+        var canWZJY = true;
+        // var getval = thisURL.split('?')[1];
+        // var showval = getval.split("=")[1];
+        var showval = localStorage.getItem("orderid")
+        var sbsl = localStorage.getItem("sbsl")
+        var allnumlist = sbsl.split("台,")
+        var allnum = 0
+        for (var i = 0; i < allnumlist.length - 1; i++) {
+            sllist.push(allnumlist[i])
+            allnum += parseInt(allnumlist[i])
+        }
+        var sblx = localStorage.getItem("sblx")
+        var allsb = sblx.split(",")
+        for (var i = 0; i < allsb.length - 1; i++) {
+            lxlist.push(allsb[i])
+        }
+
+        function onload() {
+
+            localStorage.removeItem("allSB")
+            var allsbstrr = ""
+            var data2 = {
+                orderid: localStorage.getItem("orderid")
+            }
+            //先看当前订单有没有数据
+            $.ajax({
+                url: WEBURL + '/getCache',
+                type: 'GET',
+                data: data2,
+                dataType: "json",
+                success: function (data) {
+                    var resultdata1 = data.resultdata
+                    if (data.type == "1") {
+                        debugger
+                        if (resultdata1.length == 0) {
+                            for (var j = 0; j < sllist.length; j++) {
+
+                                var a = now[j] + "/" + sllist[j]
+                                str += '<div class="item-title"><div style="float: left">' + lxlist[j] +
+                                    '：</div><div id="YX" style="float: left;color:red">' + a +
+                                    '</div></div>'
+
+                            }
+                            document.getElementById("allsl").innerHTML = allnum
+                            $("#show-alltype").append(str)
+                        } else {
+                            for (var i = 0; i < resultdata1.length; i++) {
+                                if (allsbstrr == "") {
+                                    allsbstrr += resultdata1[i].internalnum + "," + resultdata1[i].id + "," +
+                                        resultdata1[i].name + "," + "选择或手动输入" + "," + "未验证" + "," +
+                                        resultdata1[i].devicetype1 + "," + resultdata1[i].deviceid
+                                } else {
+                                    allsbstrr += ";" + resultdata1[i].internalnum + "," + resultdata1[i].id +
+                                        "," + resultdata1[i].name + "," + "选择或手动输入" + "," + "未验证" + "," +
+                                        resultdata1[i].devicetype1 + "," + resultdata1[i].deviceid
+                                }
+
+                            }
+                            localStorage.setItem("allSB", allsbstrr)
+                            var hasSBlist = allsbstrr.split(";")
+                            for (var i = 0; i < hasSBlist.length; i++) {
+                                var hasSBItem = hasSBlist[i].split(",")
+                                for (var j = 0; j < sllist.length; j++) {
+                                    if (lxlist[j] == hasSBItem[2].substring(0, 2)) {
+                                        now[j] = now[j] + 1
+                                    }
+                                }
+                                //可以在这里加判断
+                                // if(hasSBItem[2]="")
+                                $('#needadd').append('<li class="mb-0x bg-white" id="' + hasSBItem[0] +
+                                    '"><div class="item-content"><div class="item-inner as-center after-no"><div class="item-title-row" id=' +
+                                    hasSBItem[5] + '>' +
+                                    '<div class="item-title"><span> ' + hasSBItem[0] + '</span></div>' +
+                                    '<div class="item-after fw-bold color-main" style="margin-right: -100px;" id=' +
+                                    hasSBItem[1] + ' onclick="delete1(this)">删除</div>' +
+                                    '<div class="item-after fw-bold " id="' + hasSBItem[6] +
+                                    '" style="color:#03ab9e" onclick="JY(this)">检验</div></div></div></div>' +
+                                    '<div class="item-content pr-1x bv"><div class="item-inner">' +
+                                    '<div class="item-text" ><span>' + hasSBItem[2] +
+                                    ' :</span><span> ' + hasSBItem[0] + '</span></div><div>' +
+                                    '<div style="float: left;font-size:.75rem;color:#5f646e;line-height:1.05rem;height:1.05rem;">安装位置：<span style="color: red">*</span></div>' +
+                                    '<form><select name="' + hasSBItem[0] +
+                                    '" style="width: 150px;font-size:.75rem;color:#5f646e;line-height:1.05rem;height:1.05rem;" onchange="gradeChange(this)"id="select' +
+                                    hasSBItem[0] + '">' +
+                                    '<option >' + hasSBItem[3] + '</option>' +
+                                    '<option value="0">后座座椅下</option>' +
+                                    '<option value="1">副驾驶踏板</option>' +
+                                    '<option value="2">后备箱</option>' +
+                                    '<option value="3">主驾驶保险丝盒</option>' +
+                                    '<option value="4">手动输入</option>' +
+                                    '</select></form></div>' +
+                                    '<div class="item-text" id="yzjg">验证结果：<span style="color: red">' +
+                                    hasSBItem[4] + '</span></div></div></div></li>');
+
+                            }
+                            for (var j = 0; j < sllist.length; j++) {
+
+                                var a = now[j] + "/" + sllist[j]
+                                if (now[j] == sllist[j]) {
+                                    str += '<div class="item-title"><div style="float: left">' + lxlist[j] +
+                                        '：</div><div id="YX" style="float: left;color:green">' + a +
+                                        '</div></div>'
+                                } else {
+                                    str += '<div class="item-title"><div style="float: left">' + lxlist[j] +
+                                        '：</div><div id="YX" style="float: left;color:red">' + a +
+                                        '</div></div>'
+                                }
+
+
+                            }
+                            document.getElementById("allsl").innerHTML = allnum
+                            $("#show-alltype").append(str)
+                        }
+                    } else if (data.type == "0") {
+
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    }
+
+
+
+                },
+                error: function (data) {
+
+                }
+            })
+
+
+            var str = ""
+            var optionstr = ""
+            var hasSB = localStorage.getItem("allSB")
+            // if (hasSB) {
+            //     // canYZM = true
+
+            //     debugger
+
+            // }
+
+
+            //查看是否可以获取验证码
+            // var JYXG1=localStorage.getItem("allSB")
+            // var allsblost = JYXG1.split(";")
+            // if (allsblost.length == allnum) {
+            //     canYZM=true
+            //     for (var i = 0; i < allsblost.length; i++) {
+            //         var hasSBItem1 = allsblost[i].split(",")
+            //         if ("已验证" == hasSBItem1[4]) {
+            //             debugger
+
+            //         } else {
+            //             //不能
+            //             debugger
+            //             canYZM = false
+
+            //         }
+
+
+
+            //     }
+            // }
+        }
+
+        // onProgress: function(file, loaded, total) {
+        // 	var eleProgress = $("#uploadProgress_" + file.index), percent = (loaded / total * 100).toFixed(2) + '%';
+        // 	eleProgress.show().html(percent);
+        // },
+        ! function ($) {
+            "use strict";
+            var oCheckModal = document.querySelector(".check-modal"),
+                defectPhoto = document.getElementById('file-defect-photo0'),
+                $aLi = $(".modal-option li"),
+
+
+                dropDown = document.querySelectorAll(".icon-xia"),
+                oForm = document.getElementById("oForm");
+
+            /*缺陷图片上传*/
+            var $oPhoto = $("#person-info .photo"),
+                $fileList = $("#person-info .file-list"),
+                $upLodaBtn = $("#upLodaBtn"),
+                $photoList = $oPhoto.find(".photo-list"); //缩略图列表
+            /*new modal*/
+            var swipeUpModal = document.querySelector("#person-info .swipeUp-modal"),
+                showImgModal = document.querySelector("#person-info .showImg-modal");
+            var swipeUp = new modal(swipeUpModal),
+                showImg = new modal(showImgModal);
+
+            var closeModal = document.querySelector("#close-modal"),
+                delelImg = document.getElementById("delel-img"),
+                showImgLi = document.getElementById("show-img");
+            var imgIndex = 0,
+                inputArr = [0],
+                imgId = 0;
+
+            /*取localStorage中的缩略图*/
+            for (var i = 0; i < 5; i++) {
+                if (localStorage.getItem("defectPhoto" + i) != null) {
+                    var img = document.createElement("img");
+                    img.src = localStorage.getItem("defectPhoto" + i);
+                    //返回被点击的图片的index
+
+                    img.setAttribute("data-id", i);
+                    $photoList.append(img);
+                    $(img).on("touchstart", function () {
+                        swipeUp.show();
+                        imgIndex = $(this).index();
+                        imgId = this.getAttribute("data-id");
+                    })
+                }
+            }
+            //取完缓存图片后检测图片长度
+            if ($photoList.children().length > 5) {
+                $upLodaBtn.hide();
+            }
+            if ($photoList.children().length > 1) {
+                $photoList.children().eq(0).addClass("hide");
+                /*08-10改动*/
+                $photoList.parent().attr({
+                    "style": 'margin-top: -50px;margin-left: 40px'
+                });
+            }
+
+            defectPhoto.addEventListener('change', fileFn);
+
+            function fileFn() {
+                var arrFiles = [];
+                // debugger;
+                var $photoList = $oPhoto.find(".photo-list");
+                //上传图片不能多于5张
+                if ($photoList[0].childNodes.length + this.files.length > 8) {
+                    alert("图片不能多于5张！")
+                } else {
+                    for (var ii = 0; ii < this.files.length; ii++) {
+                        //一次性取多张图片
+                        arrFiles.push(this.files[ii]);
+                        // debugger;
+                        lrz(this.files[ii], {
+                            width: 640,
+                            quality: 0.9
+                        })
+                            .then(function (rst) {
+                                // 处理成功会执行
+                                var flll = rst.origin.size;
+                                // if (parseInt(flll) > 4 * 1000 * 1000) {
+                                //     alert("图片大于4M，请联系客服！");
+                                // } else {
+                                debugger;
+                                var fileId = $fileList.children().length;
+                                $fileList.each(function (index, item) {
+                                    console.log(index + "," + item)
+                                    // debugger
+                                })
+                                for (var i = 0; i < inputArr.length; i++) {
+                                    if (fileId == inputArr[i]) {
+                                        fileId++;
+                                    }
+                                }
+                                inputArr.push(fileId);
+                                var img = document.createElement("img");
+                                img.src = rst.base64;
+                                debugger
+                                base64bp = rst.base64;
+                                //添加预览图片和input-file
+                                // var quality =  50;
+                                // img.src = jic.compress(img,quality).src;
+                                // debugger
+                                // console.log(img.src)
+                                $photoList.append(img);
+                                // style="margin-top: -80px"
+                                var margintopnum = -80 - 15 * parseInt(fileId - 1)
+                                $("#upLodaBtn").attr("style", "margin-top:" + margintopnum + "px")
+                                //影藏原始三张图片
+
+
+                                debugger;
+                                //限制图片长度
+                                if ($photoList.children().length > 5) {
+                                    $upLodaBtn.hide();
+                                    // return false;
+                                }
+                                $fileList.append('<form id="tupian' + fileId + '"><input id="file-defect-photo' + fileId +
+                                    '" name="fileToUpload" type="file" multiple="multiple" accept="image/*" class="hide fileToUpload"></form>'
+                                );
+                                //改变id
+                                $upLodaBtn.attr({
+                                    "for": "file-defect-photo" + fileId
+                                });
+                                defectPhoto = document.getElementById("file-defect-photo" + fileId);
+                                // debugger;
+                                //给新的input加事件
+                                defectPhoto.addEventListener('change', fileFn);
+
+                                console.log(inputArr);
+                                $(img).on("touchstart", function () {
+                                    swipeUp.show();
+                                    //返回被点击的图片的index
+                                    imgIndex = $(this).index();
+                                    // debugger;
+                                })
+
+                                if ($photoList.children().length >= 0) {
+                                    $photoList.children().eq(0).addClass("hide");
+                                    /*08-10改动*/
+                                    $photoList.parent().attr({
+                                        "style": 'margin-top: -50px;margin-left: 40px'
+                                    });
+                                }
+                                // }
+                                //测试图片大小是否大于4M
+                                // debugger;
+                                // var fileId = $fileList.children().length;
+                                // $fileList.each(function (index, item) {
+                                //     console.log(index + "," + item)
+                                //     // debugger
+                                // })
+                                // for (var i = 0; i < inputArr.length; i++) {
+                                //     if (fileId == inputArr[i]) {
+                                //         fileId++;
+                                //     }
+                                // }
+                                // inputArr.push(fileId);
+                                // var img = document.createElement("img");
+                                // img.src = rst.base64;
+                                // //添加预览图片和input-file
+                                // // var quality =  50;
+                                // // img.src = jic.compress(img,quality).src;
+                                // // debugger
+                                // // console.log(img.src)
+                                // $photoList.append(img);
+                                // // style="margin-top: -80px"
+                                // var margintopnum = -80 - 15 * parseInt(fileId - 1)
+                                // $("#upLodaBtn").attr("style", "margin-top:" + margintopnum + "px")
+                                // debugger;
+                                // //限制图片长度
+                                // if ($photoList.children().length > 5) {
+                                //     $upLodaBtn.hide();
+                                //     // return false;
+                                // }
+                                // $fileList.append('<form id="tupian' + fileId + '"><input id="file-defect-photo' + fileId + '" name="fileToUpload" type="file" accept="image/*" class="hide fileToUpload"></form>');
+                                // //改变id
+                                // $upLodaBtn.attr({ "for": "file-defect-photo" + fileId });
+                                // defectPhoto = document.getElementById("file-defect-photo" + fileId);
+                                // // debugger;
+                                // //给新的input加事件
+                                // defectPhoto.addEventListener('change', fileFn);
+
+                                // console.log(inputArr);
+                                // $(img).on("touchstart", function () {
+                                //     swipeUp.show();
+                                //     //返回被点击的图片的index
+                                //     imgIndex = $(this).index();
+                                //     // debugger;
+                                // })
+
+                                // if ($photoList.children().length >= 0) {
+                                //     $photoList.children().eq(0).addClass("hide");
+                                //     /*08-10改动*/
+                                //     $photoList.parent().attr({ "style": 'margin-top: -50px;margin-left: 40px' });
+                                // }
+                            })
+                            .catch(function (err) {
+                                // 处理失败会执行
+                            })
+                            .always(function () {
+                                // 不管是成功失败，都会执行
+                            });
+                    }
+                }
+
+
+            }
+            //取消查看删除
+            $(swipeUpModal).on("touchstart", function (ev) {
+                //ev.target==jq来源元素
+                if (closeModal.contains(ev.target)) {
+                    swipeUpModal.style.display = "none";
+                } else if (delelImg.contains(ev.target)) {
+                    //移除图片
+                    $photoList.children().eq(imgIndex).remove();
+                    $fileList.children().eq(imgIndex - 1).remove();
+                    //同时移除localStorage中的缩略图
+                    localStorage.removeItem("defectPhoto" + (imgId));
+                    console.log("defectPhoto" + (imgId))
+                    inputArr.splice(imgIndex - 1, 1);
+                    console.log(inputArr);
+                    swipeUpModal.style.display = "none";
+                    //图片删完了显示描述文字
+                    if ($photoList.children().length == 1) {
+                        $photoList.children().eq(0).removeClass("hide");
+                        // $photoList.parent().attr({ "style": 'height: .9rem;line-height: .78rem;' });
+                        $photoList.parent().attr({
+                            "style": 'margin-top: -90px;margin-left: 40px;'
+                        });
+                        $("#upLodaBtn").attr("style", "margin-top:-80px")
+                    }
+                    if ($photoList.children().length < 6) {
+                        $upLodaBtn.show();
+                        if (isfirst) {
+                            isfirst = false;
+                        } else {
+                            var margintopnum1 = -80 - 15 * parseInt($photoList.children().length - 3)
+                            $("#upLodaBtn").attr("style", "margin-top:" + margintopnum1 + "px")
+                        }
+
+                    }
+                } else if (showImgLi.contains(ev.target)) {
+                    //查看大图
+                    showImgModal.children[1].children[0].innerHTML = '<img src="' + $photoList.children().eq(
+                        imgIndex).attr("src") + '" data-id="' + (imgId++) + '"/>';
+                    showImg.show();
+                }
+            });
+
+
+            /*表单提交验证*/
+            // var $mustInput = $(".mustInput");
+            // oForm.onsubmit = function () {
+            //     /*空值标记*/
+            //     var flag = 0;
+            //     $mustInput.each(function (index, item) {
+            //         if (this.value == "") {
+            //             forbidBox.call(this.parentNode, "show");
+            //             remind({
+            //                 obj: this,
+            //                 text: "此项不能为空"
+            //             });
+            //             flag++;
+            //         } else {
+            //             forbidBox.call(this.parentNode, "no");
+            //         }
+            //     })
+            //     /*有一个空则不能提交*/
+            //     if (flag) {
+            //         return false;
+            //     }
+            //     /*全部通过*/
+            //     if (flag == 0) {
+
+            //         /*存缩略图到localStorage中*/
+            //         $photoList.find("img").each(function (index, item) {
+            //             localStorage.setItem("defectPhoto" + index, this.src);
+            //         })
+            //         location.href = "personInfo.html";
+            //     }
+
+            // }
+
+
+        }(jQuery)
+
+        function delete1(e) {
+
+            // localStorage.removeItem("allSB")
+            var hasSB = localStorage.getItem("allSB")
+
+            var hasSBlist = hasSB.split(";")
+
+            var sd = ""
+            var sbType = e.parentNode.childNodes[0].innerText
+
+            var data2 = {
+                delid: e.id,
+                token: localStorage.getItem("Token")
+            };
+            debugger
+            $.ajax({
+                url: WEBURL + '/delDevice',
+                type: 'GET',
+                data: data2,
+                dataType: "json",
+                success: function (data) {
+                    //将颜色复原
+                    if (data.type == "1") {
+                        // var sdasdassdasdas = $(".item-title #YX")
+                        // for (var i = 0; i < sdasdassdasdas.length; i++) {
+                        //     sdasdassdasdas[i].style = "float:left;color:red"
+                        // }
+                        // canYZM = false
+                        var aaa = e.parentNode.parentNode.parentNode.parentNode.id;
+
+                        var kk = e.parentNode.parentNode.parentNode.parentNode;
+                        var kk1 = e.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[1].childNodes[
+                            1].childNodes[3].childNodes[1];
+                        debugger
+                        for (var j = 1; j < kk1.childNodes.length; j++) {
+                            var sblbtou = kk1.childNodes[j].childNodes[0].innerHTML
+                            var sblbtou1 = sblbtou.split("：")
+                            var sblb = kk.childNodes[1].childNodes[0].childNodes[0].childNodes[0].innerHTML
+                            var sblb1 = sblb.split(" :")
+
+                            if (sblb1[0].substring(0, 2) == sblbtou1[0]) {
+                                for (var i = 0; i < hasSBlist.length; i++) {
+                                    var hasSBItem = hasSBlist[i].split(",")
+
+                                    if (e.parentNode.childNodes[0].innerText == hasSBItem[0]) {
+                                        //相同的name
+                                    } else {
+                                        sd += hasSBlist[i]
+
+                                    }
+                                }
+                                debugger
+                                localStorage.setItem("allSB", sd)
+                                now[j - 1] = now[j - 1] - 1
+                                kk1.childNodes[j].childNodes[1].innerHTML = now[j - 1] + "/" + sllist[j - 1]
+                                kk1.childNodes[j].childNodes[1].style.color = "red"
+                            }
+                        }
+                        $("#" + aaa).remove();
+                    } else if (data.type == "0") {
+
+                    } else if (data.type == "3") {
+                        alert("程序异常！")
+                    }
+
+
+                },
+                error: function (data) {
+                    debugger
+                }
+            })
+
+        }
+
+        function gradeChange(choise) {
+            var sdqweqw = choise.parentNode.parentNode.parentNode.childNodes[2].childNodes[1]
+            sdqweqw.innerHTML = "未验证"
+            // sdqweqw.style = "color:red"
+            var allsbb = localStorage.getItem("allSB");
+            if (allsbb == "") {
+
+            } else {
+                var spallsb = allsbb.split(";")
+                allsbb = ""
+                for (var i = 0; i < spallsb.length; i++) {
+                    var sbml = spallsb[i].split(",")
+                    debugger
+                    var a213123 = choise.parentNode.parentNode.parentNode.childNodes[0].childNodes[1].innerHTML
+                    if (trim(sbml[0]) == trim(a213123)) {
+                        if (allsbb == "") {
+                            allsbb += sbml[0] + "," + sbml[1] + "," + sbml[2] + "," + sbml[3] + "," + "未验证" + "," + sbml[5] + "," + sbml[6]
+                        } else {
+                            allsbb += ";" + sbml[0] + "," + sbml[1] + "," + sbml[2] + "," + sbml[3] + "," + "未验证" + "," + sbml[5] + "," + sbml[6]
+                        }
+                    } else {
+                        if (allsbb == "") {
+                            allsbb += spallsb[i]
+                        } else {
+                            allsbb += ";" + spallsb[i]
+                        }
+
+                    }
+                }
+                localStorage.setItem("allSB", allsbb)
+            }
+            debugger
+            var sdasdas = choise.options[0]
+            choise.options[5].innerHTML = "手动输入";
+            // var selectCount = document.getElementById("select1").options;
+            // selectCount[5].innerHTML = "手动输入";
+
+            var options = $("#select" + choise.name + " option:selected"); //获取选中的项
+
+            if (options.val() == 4) {
+                var x;
+                var person = prompt("请输入具体位置", "");
+                debugger
+                // if (person != null && person != "") {
+                if (person == null) {
+                    pro();
+                } else if (trim(person) != "") {
+                    choise.options[5].innerHTML = person;
+                    choise.options[5].selected
+                } else {
+                    pro();
+                }
+            }
+
+            function pro() {
+                var person = prompt("安装位置不能为空，请输入具体位置", "");
+                debugger
+                // if (person != null && person != "") {
+                if (person == null) {
+                    pro();
+                } else if (trim(person) != "") {
+                    choise.options[5].innerHTML = person;
+                    choise.options[5].selected
+                } else {
+                    pro();
+                }
+            }
+        }
+
+        function trim(str) {
+            return str.replace(/(^\s+)|(\s+$)/g, "");
+        }
+
+        function scan(e) {
+            var source1
+            var data2
+            //通过扫描获取deviceid
+            //可以放在检验里面
+            if (document.getElementById("tiaoma").value == "" || document.getElementById("tiaoma").value == null) {
+                alert("请输入设备名！")
+
+            } else {
+                if (localStorage.getItem("source") == "需要携带") {
+                    source1 = "1"
+                    data2 = {
+                        device: document.getElementById("tiaoma").value,
+                        orderid: showval,
+                        source: source1,
+                        token: localStorage.getItem("Token")
+                    };
+                } else {
+                    source1 = "2"
+                    data2 = {
+                        device: document.getElementById("tiaoma").value,
+                        orderid: showval,
+                        source: source1,
+                        token: localStorage.getItem("Token")
+                    };
+                }
+
+                debugger
+                $.ajax({
+                    url: WEBURL + '/scanDevice',
+                    type: 'GET',
+                    data: data2,
+                    dataType: "json",
+                    success: function (data) {
+                        var resultdata1 = data.resultdata
+                        debugger
+                        if (data.type == "1") {
+                            var sbName = resultdata1[0].internalnum;
+                            var sbType = resultdata1[0].name
+                            var devicetype = resultdata1[0].category
+                            var deleteid = resultdata1[0].delid
+                            var deviceid = resultdata1[0].id
+                            // canYZM = true
+                            var kk = e.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[1]
+                                .childNodes[1].childNodes[3].childNodes[1];
+                            for (var j = 1; j < kk.childNodes.length; j++) {
+                                var sblb = kk.childNodes[j].childNodes[0].innerHTML
+                                if (now[j - 1] == sllist[j - 1]) {
+                                    debugger
+                                } else {
+                                    // canYZM = false;
+                                    debugger
+                                }
+                                var sblb1 = sblb.split("：")
+                                var sbType123 = sbType.substring(0, 2);
+                                if (sblb1[0] == sbType123) {
+                                    now[j - 1] = now[j - 1] + 1
+                                    if (now[j - 1] > sllist[j - 1]) {
+                                        alert("程序出错！请稍后尝试！")
+                                    } else {
+                                        //正常情况
+                                        kk.childNodes[j].childNodes[1].innerHTML = now[j - 1] + "/" +
+                                            sllist[j - 1]
+                                        if (now[j - 1] == sllist[j - 1]) {
+                                            kk.childNodes[j].childNodes[1].style.color = "green"
+                                        }
+                                        document.getElementById("tiaoma").value = ""
+                                        var sbYz = "未验证"
+                                        var sbWZ = "选择或手动输入"
+                                        var tiaoma1 = document.getElementById("tiaoma").value
+                                        $('#needadd').append('<li class="mb-0x bg-white" id="' + sbName +
+                                            '"><div class="item-content"><div class="item-inner as-center after-no"><div class="item-title-row" id=' +
+                                            devicetype + '>' +
+                                            '<div class="item-title" ><span> ' + sbName +
+                                            '</span></div>' +
+                                            '<div class="item-after fw-bold color-main" style="margin-right: -100px;" id=' +
+                                            deleteid + ' onclick="delete1(this)">删除</div>' +
+                                            '<div class="item-after fw-bold " id="' + deviceid +
+                                            '" style="color:#03ab9e" onclick="JY(this)">检验</div></div></div></div>' +
+                                            '<div class="item-content pr-1x bv"><div class="item-inner">' +
+                                            '<div class="item-text" ><span>' + sbType +
+                                            ' :</span><span> ' + sbName + '</span></div><div>' +
+                                            '<div style="float: left;font-size:.75rem;color:#5f646e;line-height:1.05rem;height:1.05rem;">安装位置：<span style="color: red">*</span></div>' +
+                                            '<form><select name="' + sbName +
+                                            '" style="width: 150px;font-size:.75rem;color:#5f646e;line-height:1.05rem;height:1.05rem;" onchange="gradeChange(this)"id="select' +
+                                            sbName + '">' +
+                                            '<option >' + sbWZ + '</option>' +
+                                            '<option value="0">后座座椅下</option>' +
+                                            '<option value="1">副驾驶踏板</option>' +
+                                            '<option value="2">后备箱</option>' +
+                                            '<option value="3">主驾驶保险丝盒</option>' +
+                                            '<option value="4">手动输入</option>' +
+                                            '</select></form></div>' +
+                                            '<div class="item-text" id="yzjg">验证结果：<span style="color: red">' +
+                                            sbYz + '</span></div></div></div></li>');
+                                        var allsbstr = localStorage.getItem("allSB")
+                                        if (allsbstr) {
+                                            localStorage.setItem("allSB", allsbstr + ";" + sbName + "," +
+                                                deleteid + "," + sbType + "," + sbWZ + "," + sbYz + "," +
+                                                devicetype + "," + deviceid)
+                                        } else {
+                                            localStorage.setItem("allSB", sbName + "," + deleteid + "," +
+                                                sbType + "," + sbWZ + "," + sbYz + "," + devicetype +
+                                                "," + deviceid)
+                                            debugger
+                                        }
+
+                                    }
+
+                                }
+                            }
+
+                        } else if (data.type == "0") {
+                            if (data.errorcode == "10000201") {
+                                alert("没有供应商信息")
+                            } else if (data.errorcode == "10000401") {
+                                alert("该设备已经出库")
+                            } else if (data.errorcode == "10000402") {
+                                alert("该设备已经绑定车辆")
+                            } else if (data.errorcode == "10000403") {
+                                alert("已经扫描过该设备号")
+                            } else if (data.errorcode == "10000404") {
+                                alert("订单设备表中无此型号设备")
+                            } else if (data.errorcode == "10000405") {
+                                alert("扫描设备号不属于该服务商")
+                            } else if (data.errorcode == "10000406") {
+                                alert("没有该设备")
+                            } else if (data.errorcode == "10000407") {
+                                alert("请使用客户自有库存设备！")
+                            } else if (data.errorcode == "10000408") {
+                                alert("客户下没有该设备")
+                            } else if (data.errorcode == "10000409") {
+                                alert("该订单没有指定客户")
+                            }
+                        } else if (data.type == "3") {
+                            alert("程序异常！")
+                        }
+
+
+                    },
+                    error: function () {
+                        alert("网络出错！")
+                    }
+                })
+
+            }
+
+
+            // $("#YX").attr("style", "float:left;color:black");
+            // document.getElementById("YX").innerHTML = "1/1"
+        }
+
+
+        //隐藏遮罩层  
+        function hideMask() {
+            debugger
+            $("#mask").hide();
+            // layer.close(loading)
+        }
+
+        function JH(e) {
+
+            // var t = '<div class="dv_dialog_box">';
+            //             t += ' <div class="dv_dialog">';
+            //             t += ' <div class="dv_title">确定删除该信息？</div>';
+            //             t += '<div class="dv_btn">';
+            //             t += '<button class="dialog_btn">删除</button>';
+            //             t += '<button class="dialog_btn">取消</button>';
+            //             t += '</div>';
+            //             t += ' </div>';
+            //             t += '</div>';
+            //             $(t).appendTo("body");
+            //             $(".dialog_btn").click(function () {
+            //                 $(".dv_dialog_box").remove();
+            //             });
+            debugger
+            $("#tijiaopic").css("background-color", "#D0D0D0");
+
+            setTimeout(function () {
+                e.style.backgroundColor = "#03ab9e";
+            }, 3000);
+            //预留遮罩层
+            $("#mask").css("height", $(document).height());
+            $("#mask").css("width", $(document).width());
+            $("#mask").show();
+
+            // setTimeout("hideMask();",3000);
+            debugger
+            // $("#jihuo").attr("onclick","")
+
+            if (canJH) {
+
+                canJH = false
+                var JYXG1 = localStorage.getItem("allSB")
+                if (JYXG1) {
+                    // alert("dsadas")
+                } else {
+                    hideMask()
+                    alert("请添加完整设备后激活！")
+                    canJH = true
+                }
+                var allsblost = JYXG1.split(";")
+                if (allsblost.length == allnum) {
+                    canYZM = true
+                    for (var i = 0; i < allsblost.length; i++) {
+                        var hasSBItem1 = allsblost[i].split(",")
+                        if ("已验证" == hasSBItem1[4]) {
+                            debugger
+                        } else {
+                            //不能
+                            debugger
+                            canYZM = false
+
+                        }
+                    }
+                }
+                if (canYZM) {
+                    //在下面进行操作
+                    // var listw123 = document.getElementById("picfilelist").childNodes
+                    // var sdads = document.getElementById("file-defect-photo0").files
+                    //判断是否有添加至少3张照片
+                    if (document.getElementsByTagName("img").length < 5) {
+                        if (document.getElementsByTagName("img").length == 2) {
+                            alert("当前已上传0张\n请至少上传3张照片（车辆正面照、车架号、所有设备名）")
+                        } else if (document.getElementsByTagName("img").length == 3) {
+                            alert("当前已上传1张\n请至少上传3张照片（车辆正面照、车架号、所有设备名）")
+                        } else if (document.getElementsByTagName("img").length == 4) {
+                            alert("当前已上传2张\n请至少上传3张照片（车辆正面照、车架号、所有设备名）")
+                        }
+                        // alert("请至少上传3张照片（车辆正面照、车架号、所有设备名）");
+                        hideMask()
+                        canJH = true
+                    } else {
+                        $.ajax({
+                            url: WEBURL + '/activeDevice' + "?orderid=" + showval + "&token=" + localStorage.getItem(
+                                "Token"),
+                            type: 'GET',
+                            dataType: "json",
+                            async: false,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (data) {
+                                // var spdata = data.message.split("|")
+                                if (data.type == "1") {
+
+                                    //调用提交图片接口
+                                    tijiaopic(e)
+                                    hideMask()
+                                    canJH = true
+                                    // layer.msg('激活成功，是否上传图片？', {
+                                    //     time: 0 //不自动关闭
+                                    //     , area: ['210px', '100px'] //宽高
+                                    //     , btn: ['是', '否']
+                                    //     , yes: function (index) {
+                                    //         layer.close(index);
+                                    //         $("#showpicture").show();
+                                    //         $("#tijiaobut").show();
+
+                                    //         // window.location.reload(); //刷新界面
+                                    //         // alert("请重新上传第" + shul + "张图片")
+                                    //         // localStorage.setItem("canshowpic", "can")
+                                    //         hideMask()
+                                    //     }, btn2: function (index) {
+                                    //         layer.close(index);
+                                    //         hideMask()
+                                    //         //要跳转到完成界面
+                                    //         localStorage.setItem("showfinish", "1")
+                                    //         localStorage.removeItem("carid")
+                                    //         localStorage.removeItem("sbsl")
+                                    //         localStorage.removeItem("sblx")
+                                    //         localStorage.removeItem("allSB")
+                                    //         localStorage.removeItem("orderid")
+                                    //         window.history.back()
+                                    //         // alert("激活成功！")
+                                    //         canJH = true
+                                    //         debugger
+                                    //     }
+                                    // })
+                                } else if (data.type == "0") {
+                                    hideMask()
+                                    window.location.reload(); //刷新界面
+                                    var errdata = data.message.split("|")
+                                    alert("激活失败：" + errdata[1])
+                                    canJH = true
+                                } else if (data.type == "3") {
+                                    hideMask()
+                                    window.location.reload(); //刷新界面
+                                    var errdata = data.message.split("|")
+                                    alert("激活失败：" + errdata[1])
+                                    canJH = true
+                                }
+                            },
+                            error: function (data) {
+                                var spdata = data.message.split("|")
+                                hideMask()
+                                window.location.reload(); //刷新界面
+                                alert("激活失败：" + spdata[1])
+                                canJH = true
+
+                            }
+                        });
+                    }
+
+                } else {
+                    hideMask()
+
+                    alert("请添加并验证通过全部设备后激活！")
+                    canJH = true
+                }
+            } else {
+                alert("已点击，请勿重复点击，请稍等！")
+                hideMask()
+
+            }
+
+
+        }
+
+        function getBlobBydataURI(dataURI, type) {
+            var binary = atob(dataURI.split(',')[1]);
+            var array = [];
+            for (var i = 0; i < binary.length; i++) {
+                array.push(binary.charCodeAt(i));
+            }
+            return new Blob([new Uint8Array(array)], {
+                type: type
+            });
+        }
+
+        function uploadpic(e) {
+            var $Blob = getBlobBydataURI(document.getElementsByTagName("img")[e].currentSrc, 'image/jpeg');
+            var formData = new FormData();
+            formData.append("files", $Blob, "file_" + Date.parse(new Date()) + ".jpeg");
+            //组建XMLHttpRequest 上传文件 
+            var request = new XMLHttpRequest();
+            //上传连接地址 
+            request.open("POST", WEBURL + '/uploadPicture?orderid=' + showval);
+            request.onreadystatechange = function () {
+                if (request.readyState == 4) {
+                    if (request.status == 200) {
+                        if (e == document.getElementsByTagName("img").length - 2) {
+                            localStorage.setItem("showfinish", "1")
+                            localStorage.removeItem("carid")
+                            localStorage.removeItem("sbsl")
+                            localStorage.removeItem("sblx")
+                            localStorage.removeItem("allSB")
+                            localStorage.removeItem("orderid")
+                            window.history.back()
+                            alert("激活且图片上传成功！")
+                        }
+
+                    } else {
+                        issuccess = issuccess + 1;
+
+                        if (issuccess >= 4) {
+                            //连续失败3次
+                            console.log("上传失败,检查上传地址是否正确");
+                            alert("激活成功，图片上传失败,请联系客服400-060-6708")
+                            localStorage.setItem("showfinish", "1")
+                            localStorage.removeItem("carid")
+                            localStorage.removeItem("sbsl")
+                            localStorage.removeItem("sblx")
+                            localStorage.removeItem("allSB")
+                            localStorage.removeItem("orderid")
+                            window.history.back()
+                        } else {
+                            uploadpic(e);
+                        }
+
+                    }
+                }
+            }
+            request.send(formData);
+        }
+        /** 
+         * 上传 
+         */
+        function tijiaopic(e) {
+            // var formData=base64bp;
+            // var formData =base64bp;
+            // var data2 = {
+            //             base64:formData
+            //         };
+            // $.ajax({
+            //     url: WEBURL + '/uploadPicturebase64?orderid=' + showval,
+            //     type: 'POST',
+            //     data: data2,
+            //     async: false,
+            //     cache: false,
+            //     dataType: "json",
+            //     contentType: false,
+            //     processData: false,
+            //     success: function (data) {
+            //         debugger
+            //         if (data.type == "1") {
+            //         } else if (data.type == "0") {
+
+            //         } else if (data.type == "3") {
+            //             alert("图片上传失败！")
+            //         }
+
+            //     },
+            //     error: function (data) {
+            //         debugger
+            //     }
+            // });
+            //base64 转 blob 
+            for (var aac = 1; aac < document.getElementsByTagName("img").length - 1; aac++) {
+                // alert(aac + "a")
+                uploadpic(aac)
+            }
+
+        }
+
+
+        // function tijiaopic(e) {
+        //     $("#mask").css("height", $(document).height());
+        //     $("#mask").css("width", $(document).width());
+        //     $("#mask").show();
+        //     //             loading=layer.load(1, {
+        //     //   shade: [0.1,'#fff'] //0.1透明度的白色背景
+        //     // });
+        //     var listw123 = document.getElementById("picfilelist").childNodes
+        //     if (listw123.length == "3") {
+        //         alert("请添加图片后提交！")
+        //         hideMask()
+        //     } else {
+
+        //         window.setTimeout(function () {
+        //             var listw123 = document.getElementById("picfilelist").childNodes
+        //             // var sdads = document.getElementById("file-defect-photo0").files
+        //             if (document.getElementById('file-defect-photo0')) {
+        //                 var sdads = document.getElementById("file-defect-photo0").files
+        //             } else {
+        //                 //不存在改id
+        //             }
+        //             for (var i = 1; i < listw123.length - 2; i++) {
+        //                 if (sdads) {
+        //                     if (i == listw123.length - 3) {
+        //                         listw123[i + 2][0].files = sdads
+        //                         var newid = listw123[i + 2].id
+        //                         var formData = new FormData($("#" + newid)[0]);
+
+        //                     } else {
+        //                         var newid = listw123[i + 2].id
+        //                         var formData = new FormData($("#" + newid)[0]);
+        //                     }
+        //                 } else {
+        //                     var newid = listw123[i + 1].id
+        //                     var formData = new FormData($("#" + newid)[0]);
+        //                 }
+        //                 $.ajax({
+        //                     // url: WEBURL + '/uploadPicture?carid=' + localStorage.getItem("carid") + "&userid=" + localStorage.getItem("userid"),
+        //                     url: WEBURL + '/uploadPicture?orderid=' + showval,
+        //                     // url: WEBURL + '/uploadPicture',
+        //                     type: 'POST',
+        //                     data: formData,
+        //                     async: false,
+        //                     cache: false,
+        //                     dataType: "json",
+        //                     contentType: false,
+        //                     processData: false,
+        //                     success: function (data) {
+        //                         debugger
+        //                         if (data.type == "1") {
+        //                             //这张图片上传成功
+        //                             //上传成功后，删除这张图片
+        //                         } else if (data.type == "0") {
+
+        //                         } else if (data.type == "3") {
+        //                             alert("图片上传失败！" + i)
+        //                             var ii = i + 1
+        //                             errorpic = errorpic + "," + ii
+        //                         }
+        //                         // $("#file-defect-photo"+i).remove();
+
+        //                         // var listall=document.getElementById("photo-list-img")
+        //                         // listall.removeChild(listall.childNodes[i]);
+        //                         // var spdata = data.data.split("|")
+
+        //                         if (i == listw123.length - 3) {
+        //                             var ii = i + 1
+        //                             // $("#file-defect-photo0").remove();
+        //                             //最后一张图片传完之后返回
+        //                             hideMask()
+        //                             //判断有没有没有上传成功的图片
+        //                             var errorpiclist = errorpic.split(",")
+        //                             if (errorpiclist.length == 1) {
+        //                                 localStorage.setItem("showfinish", "1")
+        //                                 localStorage.removeItem("carid")
+        //                                 localStorage.removeItem("sbsl")
+        //                                 localStorage.removeItem("sblx")
+        //                                 localStorage.removeItem("allSB")
+        //                                 localStorage.removeItem("orderid")
+        //                                 window.history.back()
+        //                                 alert("图片上传成功！")
+
+        //                             } else {
+        //                                 var shul = ""
+        //                                 for (ij = 1; ij < errorpiclist.length; ij++) {
+        //                                     shul = shul + " " + errorpiclist[ij] + " "
+        //                                 }
+        //                                 localStorage.setItem("canshowpic", "can")
+        //                                 window.location.reload(); //刷新界面
+        //                                 alert("请重新上传第" + shul + "张图片")
+
+        //                                 canJH = true
+        //                                 debugger
+        //                             }
+
+        //                         } else {
+        //                             debugger
+        //                         }
+        //                     },
+        //                     error: function (data) {
+        //                         if (i == listw123.length - 3) {
+        //                             //最后一张图片传完之后返回
+        //                             hideMask()
+        //                             alert("第1张图片上传失败")
+        //                             errorpic = "," + 1 + errorpic
+        //                             var errorpiclist = errorpic.split(",")
+        //                             var shul = ""
+        //                             for (ij = 1; ij < errorpiclist.length; ij++) {
+        //                                 shul = shul + " " + errorpiclist[ij] + " "
+        //                             }
+        //                             debugger
+        //                             localStorage.setItem("canshowpic", "can")
+        //                             window.location.reload(); //刷新界面
+        //                             alert("请重新上传第" + shul + "张图片")
+        //                             canJH = true
+        //                             debugger
+        //                         } else {
+        //                             var ii = i + 1
+        //                             alert("第" + ii + "张图片上传失败")
+        //                             errorpic = errorpic + "," + ii
+        //                         }
+
+
+        //                         // $("#div1").remove();
+
+        //                         // tupian" + i
+        //                     }
+        //                 });
+        //             }
+        //         }, 1000);
+        //     }
+
+
+        // }
+
+        function JY(e) {
+            //获取设备类型
+            e.style.color = "#D0D0D0";
+            setTimeout(function () {
+                e.style.color = "#03ab9e";
+            }, 3000);
+            var ds = e.parentNode.childNodes[0].innerText
+            var shileix = e.parentNode.parentNode.childNodes[0].id
+            //1是无线2是有线
+            debugger
+            if (shileix == "1") {
+                var nowWZ = $('#select' + ds + ' option:selected').text()
+                if (YXWZ == "") {
+                    //有线位置是空，继续
+                } else {
+                    //不为空，判断是否相同
+                    var YXWZL = YXWZ.split(",");
+                    for (var i = 0; i < YXWZL.length; i++) {
+                        var YXWZL123 = YXWZL[i].split(";")
+                        if (YXWZL123[1] == nowWZ) {
+                            canWZJY = false;
+                        }
+
+                    }
+                }
+            } else {
+                var nowWZ = $('#select' + ds + ' option:selected').text()
+                if (WXWZ == "") {
+                    //有线位置是空，继续
+                } else {
+                    //不为空，判断是否相同
+                    var WXWZL = WXWZ.split(",");
+                    for (var i = 0; i < WXWZL.length; i++) {
+                        var WXWZL123 = WXWZL[i].split(";")
+                        if (WXWZL123[1] == nowWZ) {
+                            canWZJY = false;
+                        }
+                    }
+                }
+            }
+            if (canWZJY) {
+                if ($('#select' + ds + ' option:selected').text() == "选择或手动输入" || $('#select' + ds + ' option:selected')
+                    .text() ==
+                    "手动输入") {
+                    alert("请先输入或选择安装位置！")
+                } else if ($('#select' + ds + ' option:selected').text() == "") {
+                    alert("安装位置不能为空")
+                } else {
+
+
+                    var ds = e.parentNode.childNodes[0].innerText
+                    var devicetype1 = e.parentNode.id
+                    var swe = document.getElementById("needadd").childNodes
+                    var allloc = ""
+
+                    for (var i = 0; i < swe.length - 5; i++) {
+
+                        var weiz = $('#select' + swe[i + 5].id + ' option:selected').text().replace(';', '');
+                        var sbdsd = swe[i + 5].childNodes[0].childNodes[0].childNodes[0].id
+                        //无用的了
+                        if (sbdsd == "23") {
+                            sbdsd = "无线"
+                        } else if (sbdsd == "22") {
+                            sbdsd = "有线"
+                        }
+                        // allloc = allloc + swe[i + 5].id + ":" + sbdsd + "/" + weiz + ";"
+                        if (weiz == "选择或手动输入" || weiz == "手动输入") {
+                            weiz = "";
+                        }
+                        allloc = allloc + swe[i + 5].id + ":" + weiz + ";"
+                        debugger
+
+                    }
+
+                    var data2 = {
+                        device: e.id,
+                        devicename: ds,
+                        token: localStorage.getItem("Token"),
+                        devicetype: devicetype1,
+                        carid: localStorage.getItem("carid"),
+                        // setupLocation:ds+":"+$('#select' + ds + ' option:selected').text()
+                        setupLocation: allloc
+                    };
+                    var JYXG = ""
+                    debugger
+
+                    $.ajax({
+                        url: WEBURL + '/checkDevice',
+                        type: 'GET',
+                        data: data2,
+                        dataType: "json",
+                        success: function (data) {
+                            debugger
+                            if (data.type == "1") {
+                                e.parentNode.parentNode.parentNode.parentNode.childNodes[1].childNodes[0].childNodes[
+                                    2].childNodes[1].innerHTML = "已验证"
+                                //当前设备的安装位置
+                                if (shileix == "1") {
+                                    //是无线
+                                    if (WXWZ == "") {
+                                        WXWZ += ds + ";" + $('#select' + ds + ' option:selected').text()
+                                    } else {
+                                        var WXZWlll = WXWZ.split(",");
+                                        WXWZ = "";
+                                        for (var j = 0; j < WXZWlll.length; j++) {
+                                            var WXZWlll2 = WXZWlll[j].split(";")
+                                            if (WXZWlll2[0] == ds) {
+                                                if (WXWZ == "") {
+                                                    WXWZ += ds + ";" + $('#select' + ds +
+                                                        ' option:selected').text()
+                                                } else {
+                                                    WXWZ += "," + ds + ";" + $('#select' + ds +
+                                                        ' option:selected').text()
+                                                }
+                                            } else {
+                                                if (WXWZ == "") {
+                                                    WXWZ = WXZWlll[j]
+                                                } else {
+                                                    WXWZ += "," + WXZWlll[j]
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else if (shileix == "2") {
+                                    //是有线
+                                    if (YXWZ == "") {
+                                        YXWZ += ds + ";" + $('#select' + ds + ' option:selected').text()
+                                    } else {
+                                        var YXZWlll = WXWZ.split(",");
+                                        YXWZ = "";
+                                        for (var j = 0; j < YXZWlll.length; j++) {
+                                            var YXZWlll2 = YXZWlll[j].split(";")
+                                            if (YXZWlll2[0] == ds) {
+                                                if (YXWZ == "") {
+                                                    YXWZ += ds + ";" + $('#select' + ds +
+                                                        ' option:selected').text()
+                                                } else {
+                                                    YXWZ += "," + ds + ";" + $('#select' + ds +
+                                                        ' option:selected').text()
+                                                }
+                                            } else {
+                                                if (YXWZ == "") {
+                                                    YXWZ = YXZWlll[j]
+                                                } else {
+                                                    YXWZ += "," + YXZWlll[j]
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //123
+                                    // if (YXWZ == "") {
+                                    //     YXWZ += $('#select' + ds + ' option:selected').text()
+                                    // } else {
+                                    //     YXWZ += "," + $('#select' + ds + ' option:selected').text()
+                                    // }
+                                }
+                                canYZM = true
+                                var hasSB = localStorage.getItem("allSB")
+                                if (hasSB) {
+                                    var hasSBlist = hasSB.split(";")
+                                    for (var i = 0; i < hasSBlist.length; i++) {
+                                        var hasSBItem = hasSBlist[i].split(",")
+
+                                        if (e.id == hasSBItem[6]) {
+                                            if (JYXG == "") {
+                                                JYXG += hasSBItem[0] + "," + hasSBItem[1] + "," + hasSBItem[
+                                                    2] +
+                                                    "," + $('#select' + ds + ' option:selected').text() +
+                                                    ",已验证" + "," + hasSBItem[5] + "," + hasSBItem[6]
+                                            } else {
+                                                JYXG += ";" + hasSBItem[0] + "," + hasSBItem[1] + "," +
+                                                    hasSBItem[2] + "," + $('#select' + ds +
+                                                        ' option:selected')
+                                                        .text() + ",已验证" + "," + hasSBItem[5] + "," + hasSBItem[
+                                                    6]
+                                            }
+                                            //相同的话修改值
+
+                                        } else {
+                                            //不同的话不变
+                                            if (JYXG == "") {
+                                                JYXG += hasSBlist[i]
+                                            } else {
+                                                JYXG += ";" + hasSBlist[i]
+                                            }
+                                        }
+                                    }
+                                    debugger
+
+                                }
+                                localStorage.setItem("allSB", JYXG)
+                                // 检验所有的状态
+                                var allsblost = localStorage.getItem("allSB")
+                                var allsblost = JYXG.split(";")
+                                showcolor = false
+                                if (allsblost.length == allnum) {
+                                    showcolor = true
+                                    for (var i = 0; i < allsblost.length; i++) {
+                                        var hasSBItem1 = allsblost[i].split(",")
+                                        if ("已验证" == hasSBItem1[4]) {
+
+                                        } else {
+                                            //不能
+                                            showcolor = false
+                                        }
+                                    }
+                                }
+                                if (showcolor) {
+                                    var sdasdassdasdas = $(".item-title #YX")
+                                    for (var i = 0; i < sdasdassdasdas.length; i++) {
+                                        sdasdassdasdas[i].style = "float:left;color:green"
+                                    }
+
+                                }
+                            } else if (data.type == "0") {
+                                //现在需要直接显示出具体的原因
+                                if (data.errorcode == "10000501") {
+                                    alert("2小时内无定位！")
+                                } else if (data.errorcode == "10000502") {
+                                    alert("状态为拔除，请重新安装！")
+                                } else if (data.errorcode == "10000503") {
+                                    alert("无线设备电量少于80%，请联系客服！")
+                                } else if (data.errorcode == "10000504") {
+                                    alert("电压小于11V，请确认接在常电上！")
+                                } else if (data.errorcode == "10000506") {
+                                    alert("无此车辆，请联系客服！")
+                                }
+                            } else if (data.type == "3") {
+                                alert("程序异常！")
+                            }
+
+
+                        },
+                        error: function (data) {
+
+                        }
+                    })
+
+
+                }
+            } else {
+                alert("有线和无线禁止安装在同一位置，请更换无线安装位置！")
+                canWZJY = true
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>

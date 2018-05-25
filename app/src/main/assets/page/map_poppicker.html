@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style type="text/css">
+			html,
+			body {
+				overflow: hidden;
+				background: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			mui.init()
+			//如果需要三级的列表，需要自定义数组，将获得的数据，自己弄成value,text,children的模式
+			//setData里面必须放的是对象
+
+			var persons = new Array();
+			for(var i = 0; i < 7; i++) {
+				var person = new Object();
+				person.value = 'Bill'+i;
+				person.text = 'Gates'+i;
+				var person1 = new Object();
+				person1.value = 'Bill'+i+"i";
+				person1.text = 'Gates'+i+"i";
+				var person2 = new Object();
+				person2.value = 'Bill11'+i+"i";
+				person2.text = 'Gates22'+i+"i";
+				var personchild1=new Array();
+				personchild1.push(person2);
+				person1.children=personchild1;
+				var personchild=new Array();
+				personchild.push(person1);
+				person.children=personchild;
+				persons.push(person);
+			}
+			debugger;
+			var picker = new mui.PopPicker({
+				layer: 3
+			});
+			picker.setData(cityData3);
+//			picker.setData(persons);
+			picker.show(function(selectItems) {
+				console.log(selectItems[0].text+","+selectItems[1].text+","+selectItems[2].text); //智子
+				console.log(selectItems[0].value); //zz 
+				//返回父页面进行操作
+				localStorage.setItem("selectItems_text", selectItems[0].text);
+				localStorage.setItem("selectItems_text1", selectItems[1].text);
+				localStorage.setItem("selectItems_text2", selectItems[2].text);
+				plus.webview.currentWebview().opener().evalJS('surequyu()');
+				
+			})
+			picker.cancel.addEventListener('tap', function(event) {
+				//监听取消按钮，可以直接到mui.poppicker.js里面查看
+				//直接搜索.mui-poppicker-btn-cancel
+				console.log("213");
+				plus.webview.currentWebview().close();
+			}, false);
+			
+		</script>
+	</body>
+
+</html>

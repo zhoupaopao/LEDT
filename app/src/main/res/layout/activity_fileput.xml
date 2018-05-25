@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="此页面主要为了展示文件存储功能，应该包括写入文件和读取文件"/>
+    <EditText
+        android:id="@+id/et_msg"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:background="@null"
+        android:layout_height="wrap_content"
+        android:hint="请输入你要存储的文件的内容"/>
+    <Button
+        android:id="@+id/write"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="写入"
+        android:layout_margin="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_radius_blue"/>
+    <Button
+        android:id="@+id/read"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="读取"
+        android:layout_margin="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_radius_blue"/>
+    <TextView
+        android:id="@+id/read_msg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="读取后的信息"/>
+
+    <TextView
+        android:id="@+id/file_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="当前文件路径"/>
+</LinearLayout>

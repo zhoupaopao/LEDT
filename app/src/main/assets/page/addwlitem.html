@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<!--这个布局是必须的，页面设置透明-->
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+		
+		<style type="text/css">
+			html,
+			body {
+				overflow: hidden;
+				background: none;
+			}
+			li {list-style-type:none;
+			padding: 5px;
+			}
+			
+			img{
+				/*设置透明度*/
+				width: 20px;
+				background-color: white;
+				padding: 5px;
+				/*filter:alpha(Opacity=60);
+				-moz-opacity:0.6;
+				opacity: 0.6*/
+				border:1px solid red;
+				/*设置了这个才能让他图片不缩小*/
+				box-sizing: content-box;
+			}
+		</style>
+	</head>
+
+	<body>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript">
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+			function plusReady() {
+				var self = plus.webview.currentWebview();
+    				var name = self.preload;//获得参数
+    				console.log(name);
+			}
+			window.onload = function() {
+//				document.getElementById('cz').innerHTML = 'one';
+				 
+			}
+			function yuanquan(){
+				plus.webview.currentWebview().opener().evalJS('yuanquan()');
+			}
+			function quyu(){
+				plus.webview.currentWebview().opener().evalJS('quyu()');
+//				var picker = new mui.PopPicker();
+//				picker.setData([{
+//					value: 'zz',
+//					text: '智子'
+//				}]);
+//				picker.show(function(selectItems) {
+//					console.log(selectItems[0].text); //智子
+//					console.log(selectItems[0].value); //zz 
+//				})
+			}
+			function xzqy(){
+				plus.webview.currentWebview().opener().evalJS('xzqy()');
+			}
+		</script>
+		<ul>
+			<li><img src="../img/u6193.png"/ onclick="yuanquan()"></li>
+			<li><img src="../img/u6197.png"/ onclick="quyu()"></li>
+			<li><img src="../img/u6201.png"/ onclick="xzqy()"></li>
+		</ul>
+	</body>
+
+</html>

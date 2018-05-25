@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.showhead {
+				width: 15px;
+				height: 22px;
+			}
+			
+			.mui-bar-nav {
+				background-color: #2494F1;
+				box-shadow: none;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			.mui-btn {
+				color: white !important;
+			}
+			
+			.item {
+				padding: 5px;
+			}
+			
+			.item-line1 {
+				padding: 3px 5px;
+				height: 26px;
+				line-height: 20px;
+				display: flex;
+				width: 100%;
+			}
+			
+			img {
+				width: 20px;
+			}
+			
+			.image2 {
+				line-height: 20px;
+				height: 20px;
+			}
+			
+			.delete {}
+			
+			.carlink-delete {
+				flex: 1;
+				text-align: right;
+			}
+			
+			.search {
+				width: 90%;
+				margin: 10px 5%;
+				height: 30px;
+				border: none;
+				border-radius: 15px;
+				text-align: center;
+			}
+			
+			.mui-scroll-wrapper {
+				top: 134px !important;
+			}
+			
+			li {
+				border-bottom: 1px solid #F5F4F8;
+			}
+			
+			.wl-all {
+				display: flex;
+				height: 40px;
+				line-height: 40px;
+				padding: 0px 10px;
+				background-color: white;
+				border-bottom: 1px solid #F5F4F8;
+			}
+			
+			.pl {
+				height: 20px;
+				margin-top: 10px;
+			}
+			
+			.fencename {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon  mui-pull-left">
+				<img id="showhead" class="showhead" src="../img/icon_back.png" />
+			</a>
+			<h1 class="mui-title">围栏管理</h1>
+			<button class="mui-btn  mui-btn-link mui-pull-right" onclick="addcar()">添加围栏</button>
+		</header>
+		<div class="mui-content">
+			<input placeholder="搜索围栏" class="search" />
+			<div class="wl-all">
+				<div id="wlnum" style="flex: 1;">围栏列表（共10个）</div>
+				<div id="plcl" style="display: flex;">
+					<img class="pl" src="../img/u5881.png" />
+					<div>批量处理</div>
+				</div>
+			</div>
+			<div id="scroll" class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view" id="asdas">
+						<!--<li id="newid">
+							<div class="item">
+								<div class="item-line1">
+									<div style="flex: 1;">深圳市福田车管所</div>
+									<div>2017-09-07</div>
+								</div>
+								<div class="item-line1" style="color: blue;font-size: 14px;">
+									<span>已关联<span>22</span>台车</span>
+								</div>
+								<div class="item-line1">
+									<img src="../img/u5920.png" />
+									<div class="image2">进</div>
+									<img style="margin-left: 20px;" src="../img/u5920.png" />
+									<div class="image2">出</div>
+									<div class="carlink-delete">
+										<img class="delete" src="../img/u5877.png" />
+										<img style="margin-left: 15px;" class="carlink" src="../img/u5877.png" />
+									</div>
+								</div>
+							</div>
+						</li>-->
+
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script type="text/javascript">
+			var nw = null;
+			mui.init();
+			var network = true;
+			if(mui.os.plus) {
+				mui.plusReady(function() {
+					if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+						network = false;
+					}
+				});
+			}
+			mui.plusReady(function() {
+				initData();
+			});
+
+			function initData() {
+				var token = localStorage.getItem("token");
+				console.log(token)
+				//这边没有使用分页
+				//获取围栏列表
+				mui.ajax("http://118.178.227.126:20200//fence/v1/getPageFence?token=" + token, {
+					data: {
+						"fencename": "",
+						'pagesize': 1000,
+						"page": 1
+					},
+					type: 'post',
+					dataType: "json",
+					contentType: "application/json",
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						if(data.success) {
+							//请求 成功
+							//给列表总数赋值
+							//给span赋值
+							//							document.getElementById("wlnum").innerText = "213";
+							$("#wlnum").html('围栏列表（共' + data.count + '个）');
+							var list = data.list;
+							var htmltext = "";
+							for(var i = 0; i < list.length; i++) {
+								var listitem = list[i];
+								var wltpye = "";
+								if(listitem.fencetype == 0) {
+									//出围栏
+									if(listitem.isactive == 0) {
+										//显示暗色
+										wltpye = '<img  src="../img/u5979.png" />' +
+											'<div class="image2">出</div>'
+									} else {
+										//显示亮色
+										wltpye = '<img  src="../img/u5920.png" />' +
+											'<div class="image2">出</div>'
+									}
+								} else if(listitem.fencetype == 1) {
+									//进围栏
+									if(listitem.isactive == 0) {
+										//显示暗色
+										wltpye = '<img  src="../img/u5979.png" />' +
+											'<div class="image2">进</div>'
+									} else {
+										//显示亮色
+										wltpye = '<img  src="../img/u5920.png" />' +
+											'<div class="image2">进</div>'
+									}
+								} else if(listitem.fencetype == 2) {
+									//进出围栏
+									if(listitem.isactive == 0) {
+										//显示暗色
+										wltpye = '<img src="../img/u5979.png" />' +
+											'<div class="image2">进</div>' +
+											'<img style="margin-left: 20px;" src="../img/u5979.png" />' +
+											'<div class="image2">出</div>';
+									} else {
+										//显示亮色
+										wltpye = '<img src="../img/u5920.png" />' +
+											'<div class="image2">进</div>' +
+											'<img style="margin-left: 20px;" src="../img/u5920.png" />' +
+											'<div class="image2">出</div>';
+									}
+
+								} else {
+									alert("未知错误")
+								}
+								htmltext = htmltext +
+									'<li  id="' + listitem.id + '">' +
+									'<div class="item">' +
+									'<div class="item-line1">' +
+									'<div class="fencename" style="flex: 1;">' + listitem.fencename + '</div>' +
+									'<div>2017-09-07</div>' +
+									'</div>' +
+									'<div class="item-line1" style="color: blue;font-size: 14px;">' +
+									'<span>已关联<span>22</span>台车</span>' +
+									'</div>' +
+									'<div class="item-line1">' +
+									wltpye +
+									'<div class="carlink-delete">' +
+									'<img class="delete" id="asd"  src="../img/u5877.png" />' +
+									'<img style="margin-left: 15px;"  class="carlink" src="../img/u5877.png" />' +
+									'</div>' +
+									'</div>' +
+									'</div>' +
+									'</li>';
+
+							}
+							$("ul").html(htmltext);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				})
+			}
+			mui('#scroll').scroll({
+				indicators: true //是否显示滚动条
+			});
+			function addcar(){
+				if(nw) {
+					return;
+				}
+				// 打开新窗口
+				nw = plus.webview.create('17.html', {
+					top: '46px',
+					bottom: '0px'
+				});
+				nw.addEventListener('close', function(e) {
+					initData();
+					nw = null;
+				}, false);
+				nw.show(); // 显示窗口
+			}
+			//通过这种方式获取动态添加的元素
+			$("ul").on("click", "li", function(e) {　
+				console.log((this).id)
+			});
+			$("ul").on("click", ".delete", function(e) {　　　　
+				//请求删除操作
+				//				deletee(e);
+				var id = this.parentNode.parentNode.parentNode.parentNode.id;
+				var btnArray = ['否', '是'];
+				mui.confirm('确定删除吗？', '删除提示', btnArray, function(e) {
+					if(e.index == 1) {
+						mui.ajax("http://118.178.227.126:20200/fence/v1/delFence", {
+							data: {
+								"token": localStorage.getItem("token"),
+								"id": id
+							},
+							type: "get",
+							dataType: "json",
+							success: function(data) {
+								console.log(JSON.stringify(data))
+								if(data.success) {
+									mui.toast("删除成功");
+									initData();
+								} else {
+									mui.toast("删除失败");
+								}
+							},
+							error: function(xhr, type, errorThrown) {
+								//异常处理；
+								console.log(type);
+							}
+
+						})
+					} else {
+						//取消
+					}
+				})
+				//通过如下冒泡方法可以终止事件，也就是不在执行下一个点击事件
+
+				e.stopPropagation(); //终止事件冒泡  
+			});
+			$("ul").on("click", ".carlink", function(e) {
+				//通过如下冒泡方法可以终止事件，也就是不在执行下一个点击事件
+				e.stopPropagation(); //终止事件冒泡  
+			});
+			//批量处理
+			$("#plcl").click(function() {
+				//				mui.openWindow({
+				//					url:"16.html",
+				//					id:"16.html"
+				//				})
+				if(nw) {
+					return;
+				}
+				// 打开新窗口
+				nw = plus.webview.create('16.html', {
+					top: '46px',
+					bottom: '0px'
+				});
+				nw.addEventListener('close', function(e) {
+					initData();
+					nw = null;
+				}, false);
+				nw.show(); // 显示窗口
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,255 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+		<style>
+			.showhead {
+				width: 14px;
+				height: 20px;
+				margin-top: 2px;
+			}
+			
+			.mui-bar-nav {
+				background: linear-gradient(#23B5F2, #72ABFD);
+				/*background-color: #23B5F2;*/
+				height: 140px;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			.accountimg {
+				margin-top: 18px;
+				width: 60px;
+				height: 60px;
+			}
+			
+			.accountmsg {
+				margin-top: 44px;
+				height: 96px;
+				/*line-height: 96px;*/
+				position: relative;
+			}
+			
+			.accounttex {
+				position: absolute;
+				height: 20px;
+				letter-spacing: 0.36px;
+				font-family: .PingFangSC-Regular;
+				width: 60%;
+				margin-left: 25px;
+				margin-top: 48px;
+				font-size: 9pt;
+				color: white;
+				line-height: 20px;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				/*overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;*/
+			}
+			
+			.accounttext {
+				margin-top: 23px;
+				position: absolute;
+				height: 25px;
+				font-family: .SFNSDisplay;
+				letter-spacing: 0.5px;
+				margin-left: 25px;
+				font-size: 16pt;
+				color: white;
+			}
+			
+			.accounttoright {
+				position: absolute;
+				right: 10px;
+				width: 14px;
+				height: 20px;
+				top: 38px;
+			}
+			
+			.mui-content {
+				padding-top: 140px !important;
+			}
+			
+			.mui-table-view-cell {}
+			/*.mui-navigate-right{
+				padding: 20px !important;
+			}*/
+			
+			.mui-bottom {
+				position: absolute;
+				background-color: white;
+				bottom: 0px;
+				width: 100%;
+				height: 60px;
+				padding: 8px 20px;
+			}
+			
+			.mui-bottom .exit {
+				width: 100%;
+				height: 100%;
+				background-color: #2494F1;
+				font-size: 15px;
+				color: #FFFFFF;
+				letter-spacing: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon  mui-pull-left">
+				<img id="showhead" class="showhead" src="../img/icon_back.png" onclick="go();" />
+			</a>
+			<h1 class="mui-title">我的</h1>
+			<div class="accountmsg" onclick="accountmsg()">
+				<img class="accountimg" src="../img/icon_account.png" />
+				<span class="accounttext">GZESC001</span>
+				<span class="accounttex">车好多旧机动车经纪（北京）有限公司</span>
+				<img class="accounttoright" src="../img/icon_right_light.png" />
+			</div>
+		</header>
+		<div class="mui-content">
+			<!--<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right">
+						<img class="mui-media-object mui-pull-left" src="../images/cbd.jpg">
+						<div class="mui-media-body">
+							CBD
+							<p class='mui-ellipsis'>烤炉模式的城，到黄昏，如同打翻的调色盘一般.</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a class='mui-navigate-right' href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../images/yuantiao.jpg">
+						<div class="mui-media-body">
+							远眺
+							<p class='mui-ellipsis'>静静的看这个世界，最后终于疯了</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a class="mui-navigate-right">
+						<img class="mui-media-object mui-pull-left" src="../images/shuijiao.jpg">
+						<div class="mui-media-body">
+							幸福
+							<p class='mui-ellipsis'>能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+						</div>
+					</a>
+				</li>
+			</ul> -->
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="account1">
+					<img src="../img/accout1.png" style="float: left;width: 20px;" />
+					<span style="margin-left: 15px;">账户余额</span>
+					<span style="color: #ED7161;position: absolute;right: 50px;">0.00</span><span style="position: absolute;right: 30px;">元</span>
+				</li>
+				<li class="mui-table-view-cell" id="account2">
+					<img src="../img/accout2.png" style="float: left;width: 20px;" />
+					<a class="mui-navigate-right" style="position:absolute;float: left;margin-left:20px;width: 90%;">
+						消息通知
+					</a>
+					<!--<a class="mui-navigate-right" style="margin-left:20px;width: 90%;">
+						消息通知
+					</a>-->
+				</li>
+
+			</ul>
+			<ul class="mui-table-view" id="ul1" style="margin-top: 10px;">
+				<li class="mui-table-view-cell">
+					<img src="../img/accout3.png" style="float: left;width: 20px;" />
+					<a class="mui-navigate-right" style="position:absolute;float: left;margin-left:20px;width: 90%;">
+						客服热线
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<img src="../img/accout4.png" style="float: left;width: 20px;" />
+					<a class="mui-navigate-right" style="position:absolute;float: left;margin-left:20px;width: 90%;">
+						关于我们
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="mui-bottom">
+			<input class="exit" type="button" onclick="exit()" value="退出登录" />
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.min.js"></script>
+		<script src="../layer/layer.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/immersed.js" ></script>
+		<script type="text/javascript">
+			
+
+			function go() {
+				back();
+				//这个代表页面被返回，不住校
+				//mui.back这个页面被销毁
+			}
+			mui('#ul1').on('tap', 'li', function() {
+				console.log("ul1");
+				//this上下文就是li
+				//业务代码
+				var e = this.children[1].innerHTML.trim();
+				if(e == "客服热线") {
+					mui.openWindow({
+						url: "6.html",
+						id: "6.html"
+					})
+					mui.toast(e.trim());
+				} else if(e == "关于我们") {
+					mui.toast(e.trim());
+					mui.openWindow({
+						url: "7.html",
+						id: "7.html"
+					})
+				} else {
+					mui.toast("其他")
+				}
+
+			});
+
+			function exit() {
+				var btnArray = ['否', '是'];
+				mui.confirm('确定退出？', '提示', btnArray, function(e) {
+					if(e.index == 1) {
+						mui.toast("退出了");
+						 var h=plus.webview.getWebviewById( plus.runtime.appid );
+						 plus.webview.show(h)
+
+					} else {
+						mui.toast("取消");
+					}
+				})
+			}
+
+			function accountmsg() {
+				mui.openWindow({
+					url: '9.html',
+					id: '9.html'
+				})
+			}
+			$('#account1').click(function() {
+				mui.toast('231');
+			});
+			$('#account2').click(function() {
+				mui.toast('消息通知');
+				mui.openWindow({
+					url: '5.html',
+					id: '5.html'
+				})
+
+			});
+		</script>
+	</body>
+
+</html>

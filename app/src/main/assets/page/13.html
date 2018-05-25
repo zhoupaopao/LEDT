@@ -1,0 +1,707 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.showhead {
+				width: 15px;
+				height: 22px;
+			}
+			
+			.mui-bar-nav {
+				background-color: #2494F1;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			
+			.mui-content1 {
+				padding-top: 44px;
+				position: relative;
+				color: #4A4A4A;
+				font-size: 13px;
+			}
+			
+			.bottom-position {
+				position: fixed;
+				bottom: 10px;
+				height: 40px;
+				width: 60%;
+				margin-left: 20%;
+				border-radius: 10px;
+				text-align: center;
+				line-height: 40px;
+				background-color: #2494F1;
+			}
+			
+			.bottom-position1 {
+				position: fixed;
+				bottom: 0px;
+				height: 60px;
+				width: 100%;
+				background-color: white;
+				
+			}
+			
+			.item-title {
+				height: 44px;
+				line-height: 24px;
+				padding: 10px;
+				font-size: 14px;
+			}
+			
+			.mui-table-view-cell {
+				height: 44px;
+				padding: 12px;
+				line-height: 20px;
+			}
+			/*.mui-control-content {
+				height: 150px;
+			}*/
+			
+			.inputclass {
+				line-height: 20px;
+				height: 20px;
+				border: none;
+				font-size: 13px;
+				width: 200px;
+			}
+			
+			.item-second {
+				position: absolute;
+				left: 30%;
+			}
+			
+			.item-first {
+				position: absolute;
+				margin-left: 10px;
+			}
+			
+			.item-third {
+				position: absolute;
+				right: 10px;
+			}
+			
+			.btn-block {
+				border: none !important;
+				height: 20px !important;
+				line-height: 20px !important;
+				padding: 0px !important;
+				margin-bottom: 0px !important;
+				color: #4A4A4A !important;
+				font-size: 13px !important;
+			}
+			
+			.pic-text {
+				margin-top: 10px;
+				font-size: 13px;
+				color: #4A4A4A;
+				height: 40px;
+				letter-spacing: 0.43px;
+				line-height: 40px;
+				background: white;
+				padding-left: 20px;
+			}
+			
+			.pic-list {
+				height: 200px;
+			}
+			.face-img{
+				width: 50px;
+				height: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon  mui-pull-left">
+				<img id="showhead" class="showhead" src="../img/icon_back.png" />
+			</a>
+			<h1 class="mui-title">新增车辆</h1>
+		</header>
+		<div class="mui-content1">
+			<div class="item-title">
+				借款人信息
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="account1">
+					<div class="item-first">
+						<span style=";color: red;">*</span>
+						<span>姓名</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入姓名" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell" id="account2">
+					<div class="item-first">
+						<span>性别</span>
+					</div>
+					<div class="item-second">
+						<input id='showUserPicker' class="btn-block" type="button" value="男" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>证件类型</span>
+					</div>
+					<div class="item-second">
+						<input id='showUserCard' class="btn-block" type="button" value="身份证" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>证件号码</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入证件号码(选填)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>手机号码</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入手机号码(选填)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>家庭住址</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="选填" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>工作地址</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="选填" />
+					</div>
+				</li>
+			</ul>
+			<div class="item-title">
+				车辆信息
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="account1">
+					<div class="item-first">
+						<span style=";color: red;">*</span>
+						<span>车架号</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入17位车架号(必填)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>车牌号</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入车牌号(选填)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>选择车型</span>
+					</div>
+					<div class="item-second">
+						<input id='showCartyle' class="btn-block" type="button" value="无敌大精钢" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>车辆颜色</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入车辆颜色(选填)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>行驶里程</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入行驶里程数(选填)" />
+					</div>
+					<div class="item-third">
+						<span>公里</span>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>使用年限</span>
+					</div>
+					<div class="item-second">
+						<input id='showCarUseAge' class="btn-block" type="button" value="一年" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>借款金额</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入金额(如：22.22)" />
+					</div>
+					<div class="item-third">
+						<span>万元</span>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>借款日期</span>
+					</div>
+					<div class="item-second">
+						<input id='showStartTime' class="btn-block" type="button" value="开始时间" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+
+					<div class="item-second">
+						<input id='showEndTime' class="btn-block" type="button" value="结束时间" />
+					</div>
+				</li>
+			</ul>
+			<div class="item-title">
+				安装信息
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span style=";color: red;">*</span>
+						<span>所属客户</span>
+					</div>
+					<div class="item-second">
+						<input id='showAccount' class="btn-block" type="button" value="请选择" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span style=";color: red;">*</span>
+						<span>联系人</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入店面联系人姓名(必选)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span style=";color: red;">*</span>
+						<span>联系电话</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入店面联系人电话(必选)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>安装工</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入安装工姓名(选填)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>手机号码</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入安装工手机号码(选填)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span>备注</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="备注" />
+					</div>
+				</li>
+			</ul>
+			<div class="item-title">
+				设备信息
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span style=";color: red;">*</span>
+						<span>设备名称</span>
+					</div>
+					<div class="item-second">
+						<input class="inputclass" placeholder="请输入设备名称(必选)" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span style=";color: red;">*</span>
+						<span>设备类型</span>
+					</div>
+					<div class="item-second">
+						<input id='showSbType' class="btn-block" type="button" value="请选择" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="item-first">
+						<span style=";color: red;">*</span>
+						<span>设备安装位置</span>
+					</div>
+					<div class="item-second">
+						<input id='showSbAddress' class="btn-block" type="button" value="请选择" />
+					</div>
+				</li>
+			</ul>
+			<div class="pic-text">
+				<span>添加车辆及安装照片(最多上传5张)</span>
+			</div>
+			<div class="pic-list" id="piclist">
+				<input type="button" value="选择图片" onclick="choosepic()" />
+				<img class="face-img" id="faceImg"/>
+			</div>
+			<!--列表高度动态获取，可以让列表显示在指定位置-->
+			<!--<div id="item1" class="mui-control-content mui-active">
+				<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-1
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-2
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-3
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-4
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-5
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-6
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-7
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-8
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-9
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-10
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-11
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-12
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-13
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-14
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-15
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-16
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-17
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-18
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-19
+							</li>
+							<li class="mui-table-view-cell">
+								第一个选项卡子项-20
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>-->
+		</div>
+		<div class="bottom-position1">
+			<div class="bottom-position" onclick="paizhao()">保存</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js" ></script>
+		<script type="text/javascript">
+			//			var height=window.screen.height-40-44-20;
+			//			document.getElementById("item1").style.height=height+"px";
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					//普通示例
+					var userPicker = new $.PopPicker();
+					var startyear;
+					var startmonth;
+					var startday;
+					userPicker.setData([{
+						value: 'ywj',
+						text: '男'
+					}, {
+						value: 'aaa',
+						text: '女'
+					}]);
+					var userPicker1 = new $.PopPicker();
+					userPicker1.setData([{
+						value: 'ywj',
+						text: '身份证'
+					}, {
+						value: 'aaa',
+						text: '军官证'
+					}]);
+					var userPicker2 = new $.PopPicker();
+					userPicker2.setData([{
+						value: 'ywj',
+						text: '无敌大精钢'
+					}, {
+						value: 'aaa',
+						text: '超级小金刚'
+					}]);
+					var userPicker3 = new $.PopPicker();
+					userPicker3.setData([{
+						value: 'ywj',
+						text: '一年'
+					}, {
+						value: 'aaa',
+						text: '二年'
+					}, {
+						value: 'aaa',
+						text: '三年'
+					}]);
+					var userPicker4 = new $.PopPicker();
+					userPicker4.setData([{
+						value: 'ywj',
+						text: '有线'
+					}, {
+						value: 'aaa',
+						text: '无线'
+					}, {
+						value: 'aaa',
+						text: 'OBD'
+					}]);
+					var userPicker5 = new $.PopPicker();
+					userPicker5.setData([{
+						value: 'ywj',
+						text: '电瓶'
+					}, {
+						value: 'aaa',
+						text: '电动机'
+					}, {
+						value: 'aaa',
+						text: '车座下'
+					}]);
+
+					var showUserPickerButton = doc.getElementById('showUserPicker');
+					var userResult = doc.getElementById('userResult');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							//							userResult.innerText = JSON.stringify(items[0]);
+							showUserPickerButton.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					var showUserCard = doc.getElementById('showUserCard');
+					showUserCard.addEventListener('tap', function(event) {
+						userPicker1.show(function(items) {
+							//							userResult.innerText = JSON.stringify(items[0]);
+							showUserCard.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					var showCartyle = doc.getElementById('showCartyle');
+					showCartyle.addEventListener('tap', function(event) {
+						userPicker2.show(function(items) {
+							//							userResult.innerText = JSON.stringify(items[0]);
+							showCartyle.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					var showCarUseAge = doc.getElementById('showCarUseAge');
+					showCarUseAge.addEventListener('tap', function(event) {
+						userPicker3.show(function(items) {
+							//							userResult.innerText = JSON.stringify(items[0]);
+							showCarUseAge.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					var showStartTime = doc.getElementById('showStartTime');
+					showStartTime.addEventListener('tap', function(event) {
+						var dDate = new Date();
+						var year = dDate.getFullYear(); //年
+						var month = dDate.getMonth(); //月
+						var day = dDate.getDay(); //日
+						console.log(year + "-" + month + "-" + day)
+						console.log(dDate.toLocaleDateString())
+						dDate.setFullYear(year, month, day + 1);
+						//				var minDate = new Date();
+						//				minDate.setFullYear(2010, 0, 1);//设置最小时间
+						//				var maxDate = new Date();
+						//				maxDate.setFullYear(2100, 11, 31);//设置最大时间
+						plus.nativeUI.pickDate(function(e) {
+							var d = e.date;
+							showStartTime.value = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+							startyear = d.getFullYear();
+							startmonth = d.getMonth();
+							startday = d.getDate();
+						}, function(e) {
+							//							showStartTime.value = "您没有选择日期";
+						}, {
+							title: "请选择日期",
+							date: dDate
+							//							minDate: minDate,
+							//							maxDate: maxDate
+						});
+					}, false);
+
+					var showEndTime = doc.getElementById('showEndTime');
+					showEndTime.addEventListener('tap', function(event) {
+						var dDate = new Date();
+						var year = dDate.getFullYear(); //年
+						var month = dDate.getMonth(); //月
+						var day = dDate.getDay(); //日
+						console.log(year + "-" + month + "-" + day)
+						console.log(dDate.toLocaleDateString())
+						dDate.setFullYear(year, month, day + 1);
+						var minDate = new Date();
+						minDate.setFullYear(startyear, startmonth, startday); //设置最小时间
+						//				var maxDate = new Date();
+						//				maxDate.setFullYear(2100, 11, 31);//设置最大时间
+						plus.nativeUI.pickDate(function(e) {
+							var d = e.date;
+							showEndTime.value = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+
+						}, function(e) {
+							//							showStartTime.value = "您没有选择日期";
+						}, {
+							title: "请选择日期",
+							date: dDate,
+							minDate: minDate
+							//							maxDate: maxDate
+						});
+					}, false);
+					var showAccount = doc.getElementById('showAccount');
+					showAccount.addEventListener('tap', function(event) {
+						mui.openWindow({
+							url: "chooseaccount.html",
+							id: "chooseaccount.html"
+						})
+					}, false);
+					var showSbType = doc.getElementById('showSbType');
+					showSbType.addEventListener('tap', function(event) {
+						userPicker4.show(function(items) {
+							showSbType.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+					var showSbAddress = doc.getElementById('showSbAddress');
+					showSbAddress.addEventListener('tap', function(event) {
+						userPicker5.show(function(items) {
+							showSbAddress.value = items[0].text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+
+				});
+			})(mui, document);
+
+			function paizhao() {
+				mui.openWindow({
+					url: "shisui-master/index.html",
+					id: "shisui"
+				})
+			}
+			//添加图片的按钮
+			function choosepic() {
+				var btnArray = [{
+					title: "拍照"
+				}, {
+					title: "相册"
+				}];
+				plus.nativeUI.actionSheet({
+					title: "选择照片",
+					cancel: "取消",
+					buttons: btnArray
+				}, function(e) {
+					var index = e.index;
+					var text = "-1";
+					switch(index) {
+						case 0:
+							text = "0";
+							break;
+						case 1:
+							text = "1";
+							break;
+						case 2:
+							text = "2";
+							break;
+					}
+					//根据选择的index来判断执行什么操作
+					console.log(index)
+					if(index == "1") {
+						//拍照
+							var cmr = plus.camera.getCamera();
+							cmr.captureImage(function(p) {
+								plus.io.resolveLocalFileSystemURL(p, function(entry) {
+									setImg(entry.toLocalURL());
+								}, function(e) {});
+							}, function(e) {}, {
+								index: 1,
+								filename: "_doc/camera/"
+							});
+					} else if(index == "2") {
+						//相册
+						plus.gallery.pick(function(path){setImg(path);},function(e){},{filter:'image'});
+
+					} else {
+						alert("qx");
+					}
+				});
+			}
+
+			function setImg(src) {
+//				$('#faceImg').attr('src', src);
+				$('#piclist').append('<img class="face-img" src='+src+' id="faceImg"/>');
+			}
+			mui('#scroll').scroll({
+				indicators: true //是否显示滚动条
+			});
+		</script>
+	</body>
+
+</html>

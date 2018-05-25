@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.showhead {
+				width: 15px;
+				height: 22px;
+			}
+			
+			.mui-bar-nav {
+				background-color: #2494F1;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+			/*.line{
+				display: flex;
+				padding: 5px;
+				border: 1px solid #000;
+			}*/
+			/*flex的尝试使用,类似linearlayout*/
+			/*.line-1{
+				flex: 1;
+				text-align: center;
+			}
+			.line-2{
+				flex: 1;
+				text-align: center;
+			}
+			.line-3{
+				flex: 1;
+				text-align: center;
+			}*/
+			
+			li {
+				display: flex;
+				padding: 15px;
+				border-bottom: 1px solid #F5F4F8;
+			}
+			
+			.line-1 {
+				font-size: 14px;
+				color: #4A4A4A;
+				line-height: 20px;
+			}
+			
+			.line-2 {
+				flex: 1;
+				font-size: 14px;
+				color: #4A4A4A;
+				line-height: 20px;
+				padding-right: 10px;
+			}
+			
+			.line-3 {
+				font-size: 14px;
+				color: #4A4A4A;
+				line-height: 20px;
+				height: 20px;
+			}
+			
+			.mui-table-view1 {
+				position: relative;
+				margin-top: 0;
+				margin-bottom: 0;
+				padding-left: 0;
+				list-style: none;
+				background-color: #fff;
+				margin-top: 15px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon  mui-pull-left">
+				<img id="showhead" class="showhead" src="../img/icon_back.png" />
+			</a>
+			<h1 class="mui-title">账户信息</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li>
+					<div class="line-1">登录账号</div>
+					<div align="right" class="line-2"></div>
+					<div class="line-3">213231</div>
+				</li>
+				<li onclick="changename()">
+					<div class="line-1">姓名</div>
+					<div class="line-2" align="right">老王</div>
+					<img src="../img/icon_go.png" class="line-3"></img>
+				</li>
+				<li>
+					<div class="line-1">手机号码</div>
+					<div class="line-2" align="right">110119120</div>
+					<img src="../img/icon_go.png" class="line-3"></img>
+				</li>
+				<li>
+					<div class="line-1">邮箱</div>
+					<div class="line-2" align="right">110119120@qq.com</div>
+					<img src="../img/icon_go.png" class="line-3"></img>
+				</li>
+				<li>
+					<div class="line-1">所属客户</div>
+					<div class="line-2" align="right"></div>
+					<div class="line-3">车好多旧机动车经纪（北京）有限公司</div>
+				</li>
+			</ul>
+			<ul class="mui-table-view1">
+				<li>
+					<div class="line-1">修改密码</div>
+					<div class="line-2" align="right"></div>
+					<img src="../img/icon_go.png" class="line-3"></img>
+				</li>
+			</ul>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			var lilist = document.getElementsByTagName("li");
+			for(var i = 0; i < lilist.length; i++) {(
+				function(j) {
+					lilist[j].onclick = function() {
+						if(j==1){
+							mui.openWindow({
+								url:"10.html",
+								id:'10.html'
+							})
+						}else if(j==2){
+							
+						}else if(j==3){
+							
+						}else if(j==5){
+							
+						}else{
+							
+						}
+					};
+				})(i)
+			}
+		</script>
+	</body>
+
+</html>

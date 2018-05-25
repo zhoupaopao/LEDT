@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <RadioGroup
+        android:id="@+id/rg"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:orientation="vertical">
+        <RadioButton
+            android:id="@+id/rb1"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:checked="true"
+            android:button="@null"
+            android:background="@drawable/imagebutton"/>
+        <RadioButton
+            android:id="@+id/rb2"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/imagebutton"/>
+        <RadioButton
+            android:id="@+id/rb3"
+            android:layout_width="50dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:background="@drawable/imagebutton"/>
+    </RadioGroup>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="这是使用background控制的显示"/>
+</LinearLayout>

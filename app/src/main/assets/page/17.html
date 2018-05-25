@@ -1,0 +1,393 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+		<style>
+			#map {
+				width: 100%;
+				position: fixed;
+				top: 45px;
+				bottom: 0px;
+				line-height: 200px;
+				text-align: center;
+				background: #FFFFFF;
+			}
+			
+			.ipos {
+				background: no-repeat center center url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAsCAYAAAAn4+taAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAwNC8wMS8xNExYUU4AAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzbovLKMAAACTklEQVRoge2YO2gUURSGv7PjEkULO4UoFooIFgtzprAPWMiWKewSTadgYWEhBjHCloGUQtYHaGEjGAQtUmgnZO9YpsqC2NgYIwjRInMscoPrYkzhGTIs8zdnzoP578ewM/eumBmjoMZ+L8BLNUjVVINUTTVI1VSDVE0jA3KgjJuGEE6LyI2iKC6JyBkzWxORF8ADVV0rw1O891ohhCngPnDyL+1PZjabZdkTV1OcQUIIV4CHMf0JvAK+A0eANjAWe1dV9ZGbMY6/kTzPzwHzMV0VkZaqTgLTqjopIi1gNfbnQwhnvbzBEcTMbgFHgXURaRdFsRFCWAa+hhCWi6LYEJE2sB7nbnp5g+9b62KMIU3Tvoh0gQm2Fz0hIt00TftAADCztqO3K8h4jJsAZnZ+sDmQ/wAQkXEc5QnyJcZjACLybLApIk/j5YmheRd5gryLMev1elOqesfMrpvZczO7pqqzvV5vGmgNzbvIDUREXsbLRES6IYTbzWZzMcuyy0mSPA4h3BWRxR3PgXkff6/vSJ7nx83sPXBqoLwJFEACHByofxSRC2mafnYxx/GJxEW9GSofAg7zJwTAa08I8N80doG9HrHx++vvJlcQVV0xs6V/zZjZkqquePpCOdv4OWBrl96WiNwrwdMfJMuyHFjYpb2gqh+8PaG8g9Uc0B+q9WO9FJUCoqrfgBm2X73EOBPrpai0o66qvgU6Me3EvDSVctTdUZIknaIoxhqNRmfv6f+T+1F3vzQy/6LUIFVTDVI11SBVUw1SNdUgVdPIgPwCtt+2JPQRVicAAAAASUVORK5CYII=);
+				background-size: 50px 44px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header">
+			<div class="nvbt iback" onclick="back();"></div>
+			<div class="nvtt">应用内置地图</div>
+			<div class="nvbt ipos" onclick="changesize()"></div>
+		</header>
+		<div id="map">地图加载中...</div>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=yRlOWQNdv02qx7QP3SaYkGcfcCGcMnRC"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/immersed.js"></script>
+		<!--和楼上有重叠-->
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+
+		<script type="text/javascript">
+			//添加围栏页面
+			mui.init()
+			var ws = null,
+				wo = null;
+			var em = null,
+				map = null,
+				pcenter = null;
+			var pos1 = null;
+			var markers = [],
+				i = 0;
+			//当前多边形围栏的点数
+			var qynum = 0;
+			//当前多边形围栏的数组
+			var qylist = new Array();
+			var isquyu = false;
+			var iscircle = false;
+			var isarea = false;
+			var polygonObjj;
+var circleObj;
+			function plusReady() {
+				if(!em || ws) {
+					return
+				};
+				// 获取窗口对象
+				ws = plus.webview.currentWebview();
+				wo = ws.opener();
+				//高德地图坐标为(116.3974357341,39.9085574220), 百度地图坐标为(116.3975,39.9074)
+				//				pcenter = new plus.maps.Point(116.3975, 39.9074);
+				pos1 = new plus.maps.Point(120.405479, 31.59092);
+				setTimeout(function() {
+					//map为地图控件的id
+					map = new plus.maps.Map("map");
+					map.showUserLocation(true);
+					//					map.setCenter(pos1);
+					map.centerAndZoom(pos1, 12);
+					map.onclick = function(point) {
+						
+						//						alert(JSON.stringify(point))
+						if(isquyu) {
+
+							//是区域多边形
+
+							//这是第一个点
+							var marker = new plus.maps.Marker(point);
+							marker.setIcon("../img/icon_blue.png");
+							var bubble = new plus.maps.Bubble("这是个点");
+							marker.setBubble(bubble);
+							map.addOverlay(marker);
+							qylist.push(point);
+							if(qylist.length == 3) {
+								console.log("2312312");
+								polygonObjj = new plus.maps.Polygon(qylist);
+								// 设置多边形边框为红色
+								polygonObjj.setStrokeColor("#ff0000");
+								// 设置多边形边框为半透明
+								polygonObjj.setStrokeOpacity(0.5);
+								// 设置多边形的填充颜色为红色
+								polygonObjj.setFillColor("#ff0000");
+								// 设置多边形填充色为半透明
+								polygonObjj.setFillOpacity(0.5);
+								//讲这个多边形显示
+								map.addOverlay(polygonObjj);
+							} else if(qylist.length > 3) {
+								polygonObjj.setPath(qylist);
+							}
+						} else if(iscircle) {
+							map.clearOverlays();
+							var marker = new plus.maps.Marker(point);
+							marker.setIcon("../img/icon_blue.png");
+							var bubble = new plus.maps.Bubble("这是个点");
+							marker.setBubble(bubble);
+							map.addOverlay(marker);
+							//圆形围栏
+							var pointt = new BMap.Point(point.getLng(), point.getLat());
+							var geoc = new BMap.Geocoder();
+							geoc.getLocation(pointt, function(rs) {
+								console.log(JSON.stringify(rs))
+								var addComp = rs.addressComponents;
+								alert(addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+							});
+							circleObj = new plus.maps.Circle(point, 1000);
+							circleObj.setStrokeColor("#ff0000");
+							void circleObj.setStrokeOpacity(0.5);
+							// 设置圆圈的填充颜色为红色
+							circleObj.setFillColor("#ff0000");
+							// 设置圆圈填充颜色为半透明
+							circleObj.setFillOpacity(0.5);
+							map.addOverlay(circleObj);
+							var wsub = plus.webview.create('circleradius.html', 'circleradius', {
+					//					bottom: "0px",
+					right: "15%",
+					padding: "0px",
+					width: "70%",
+					bottom: "10%",
+					//					top: topoffset,
+					height: "100px",
+					position: 'absolute',
+					scrollIndicator: 'none',
+					background: 'transparent'
+				});
+				console.log(JSON.stringify(wsub));
+				ws.append(wsub);
+						}
+					}
+					createSubview();
+					createMarker();
+					//尝试多边形覆盖物
+					//					createStroke();
+					//					// 创建子窗口
+					//					createSubview();
+				}, 300);
+				// 显示页面并关闭等待框
+				ws.show("pop-in");
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener("plusready", plusReady, false);
+			}
+			// DOMContentloaded事件处理
+			document.addEventListener("DOMContentLoaded", function() {
+				em = document.getElementById("map");
+				window.plus && plusReady();
+			}, false);
+
+			function createMarker() {
+				// 创建地理区域对象
+				//				var bounds = new plus.maps.Bounds(new plus.maps.Point(120.405479, 31.59092), new plus.maps.Point(116.111, 36.401));
+				//				map.addOverlay(bounds);
+			}
+
+			function createStroke() {
+				var points = new Array(new plus.maps.Point(116.0, 39.0), new plus.maps.Point(115.0, 38.0), new plus.maps.Point(117.0, 38.0));
+				var polygonObj = new plus.maps.Polygon(points);
+				// 设置多边形边框为红色
+				polygonObj.setStrokeColor("#ff0000");
+				// 设置多边形边框为半透明
+				polygonObj.setStrokeOpacity(0.5);
+				// 设置多边形的填充颜色为红色
+				polygonObj.setFillColor("#ff0000");
+				// 设置多边形填充色为半透明
+				polygonObj.setFillOpacity(0.5);
+				//讲这个多边形显示
+				map.addOverlay(polygonObj);
+				//多加个顶点
+				points.push(new plus.maps.Point(114.0, 39.0))
+				polygonObj.setPath(points);
+
+			}
+			function changesize(){
+				var ra=localStorage.getItem("circleradius");
+				map.removeOverlay(circleObj);
+				circleObj.setRadius(parseInt(ra));
+				map.addOverlay(circleObj)
+			}
+			function createSubview() {
+				// 创建加载内容窗口
+				var topoffset = '44px';
+				if(plus.navigator.isImmersedStatusbar()) { // 兼容immersed状态栏模式
+					topoffset = (Math.round(plus.navigator.getStatusbarHeight()) + 44) + 'px';
+				}
+				console.log(topoffset)
+				var wsub = plus.webview.create('addwlitem.html', 'subb', {
+					//					bottom: "0px",
+					right: "0px",
+					padding: "0px",
+					width: "100px",
+					top: "40%",
+					//					top: topoffset,
+					height: "160px",
+					position: 'absolute',
+					scrollIndicator: 'none',
+					background: 'transparent'
+				});
+				console.log(JSON.stringify(wsub));
+				ws.append(wsub);
+			}
+
+			function addMarker() {
+				var marker = new plus.maps.Marker(new plus.maps.Point(116.347496 + 0.001 * i, 39.970191 + 0.001 * i));
+				marker.setIcon("/logo.png");
+				marker.setLabel("HBuilder");
+				var bubble = new plus.maps.Bubble("打造最好的HTML5移动开发工具");
+				marker.setBubble(bubble);
+				map.addOverlay(marker);
+				markers.push(marker);
+				i++;
+			}
+
+			function yuanquan() {
+				var sdaaaa = plus.webview.getWebviewById("circleradius");
+				plus.webview.close(sdaaaa);
+				map.clearOverlays();
+				mui.toast("请在地图上选择一个中心点");
+				iscircle = true;
+				isarea = false;
+				isquyu = false;
+				
+				
+			}
+
+			function xzqy() {
+				map.clearOverlays();
+				var sdaaaa = plus.webview.getWebviewById("map_poppicker");
+				plus.webview.close(sdaaaa);
+				//普通示例
+				iscircle = false;
+				isarea = true;
+				isquyu = false;
+				console.log("quyu")
+				//重新再写个子页面
+				var wsub = plus.webview.create('map_poppicker.html', 'map_poppicker', {
+					//					bottom: "0px",
+					right: "0px",
+					padding: "0px",
+					width: "100%",
+					bottom: "0px",
+					//					top: topoffset,
+					height: "242px",
+					position: 'absolute',
+					scrollIndicator: 'none',
+					background: 'transparent'
+				});
+				console.log(JSON.stringify(wsub));
+				ws.append(wsub);
+			}
+
+			function surequyu() {
+				//区域选择完毕执行
+				map.clearOverlays();
+				var sdaaaa = plus.webview.getWebviewById("map_poppicker");
+				plus.webview.close(sdaaaa);
+				var selectitem_text = localStorage.getItem("selectItems_text");
+				var selectItems_text1 = localStorage.getItem("selectItems_text1");
+				var selectItems_text2 = localStorage.getItem("selectItems_text2");
+				var selectItems_all = selectitem_text + selectItems_text1 + selectItems_text2;
+				var bdary = new BMap.Boundary();
+				bdary.get(selectItems_all, function(rs) {
+					var count = rs.boundaries.length; //行政区域的点有多少个
+					if(count === 0) {
+						alert('未能获取当前输入行政区域');
+						return;
+					}
+					var alllon = 0.0;
+					var alllat = 0.0;
+					var lengthh = 0;
+					//			alert(rs.boundaries[0]);
+					var ppoints = new Array();
+					for(var i = 0; i < rs.boundaries.length; i++) {
+						var boundary = rs.boundaries[i];
+						var boundarylist = boundary.split(";")
+						for(var j = 0; j < boundarylist.length; j++) {
+							var bblist = boundarylist[j].split(",");
+							//0,1分别是对应的坐标，但是当前是字符串类型
+							console.log(parseFloat(bblist[0]) + "|" + parseFloat(bblist[1]));
+							ppoints.push(new plus.maps.Point(parseFloat(bblist[0]), parseFloat(bblist[1])));
+							alllat = alllat + parseFloat(bblist[0]);
+							alllon = alllon + parseFloat(bblist[1]);
+							lengthh++;
+						}
+						console.log(boundarylist[0])
+					}
+					var polygonObj = new plus.maps.Polygon(ppoints);
+					// 设置多边形边框为红色
+					polygonObj.setStrokeColor("#ff0000");
+					// 设置多边形边框为半透明
+					polygonObj.setStrokeOpacity(0.5);
+					// 设置多边形的填充颜色为红色
+					polygonObj.setFillColor("#ff0000");
+					// 设置多边形填充色为半透明
+					polygonObj.setFillOpacity(0.5);
+					//讲这个多边形显示
+					map.addOverlay(polygonObj);
+					var newpoint = new plus.maps.Point(alllat / lengthh, alllon / lengthh);
+					map.setCenter(newpoint);
+					map.setZoom(12);
+				})
+				mui.toast(selectitem_text);
+			}
+
+			function quyu() {
+				map.clearOverlays();
+				isquyu = true;
+				isarea = false;
+				iscircle = false;
+				mui.toast("请在地图上选择至少3个点");
+				//				storageAddress(116.0,39.0);
+				//				var points = new Array(new plus.maps.Point(120.304,31.621),new plus.maps.Point(120.304,30.621),new plus.maps.Point(120.304,30.621));
+				//				var polygonObj = new plus.maps.Polygon(points);
+				//				// 设置多边形边框为红色
+				//				polygonObj.setStrokeColor("#ff0000");
+				//				// 设置多边形边框为半透明
+				//				polygonObj.setStrokeOpacity(0.5);
+				//				// 设置多边形的填充颜色为红色
+				//				polygonObj.setFillColor("#ff0000");
+				//				// 设置多边形填充色为半透明
+				//				polygonObj.setFillOpacity(0.5);
+				//				//讲这个多边形显示
+				//				map.addOverlay(polygonObj);
+
+			}
+			/**
+			 * 反向地址解析并存储设备地址信息
+			 * 使用经纬度，通过百度js接口，再次获取地址信息
+			 * @param {Object} p
+			 */
+			function storageAddress(longitude, latitude) {
+				mui.ajax('https://api.map.baidu.com/geocoder/v2/', {
+					data: {
+						ak: 'yRlOWQNdv02qx7QP3SaYkGcfcCGcMnRC',
+						location: latitude + ',' + longitude,
+						output: 'json',
+						pois: 0,
+						coordtype: 'gcj02ll'
+					},
+					async: true,
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 30000, //超时时间设置为10秒；
+					crossDomain: true,
+					success: function(data) {
+						if(data.status == 0) {
+							//              var p = localStorageGetJSON('position');
+							var address = {
+								country: data.result.addressComponent.country,
+								province: data.result.addressComponent.province,
+								city: data.result.addressComponent.city,
+								district: data.result.addressComponent.district,
+								street: data.result.addressComponent.street
+							};
+							//              p.address = address;
+							//              localStorageSetJSON('position',p);//把城市信息补上
+							console.log(JSON.stringify(address));
+						} else {
+							mui.toast('反向地址解析失败:' + data.status);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//          alert('反向地址解析失败:'+type+' '+errorThrown);
+						console.log('反向地址解析失败:' + type + ' ' + errorThrown);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>
