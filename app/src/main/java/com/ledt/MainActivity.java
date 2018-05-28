@@ -375,6 +375,12 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent();
             intent.setClass(this,FilePutActivity.class);
             startActivity(intent);
+        }else if(v.getId()==R.id.refresh){
+
+        }else if(v.getId()==R.id.location){
+
+        }else if(v.getId()==R.id.sever){
+
         }
 
     }

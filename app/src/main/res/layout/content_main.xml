@@ -232,6 +232,38 @@
                 android:onClick="cl"
                 android:text="尝试使用数据库" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/refresh"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="上拉刷新，下拉加载" />
+
+            <Button
+                android:id="@+id/location"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="定位,无地图模块" />
+            <!--之所以其他的都是大写，是因为textAllCaps-->
+            <Button
+                android:id="@+id/sever"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="sever服务" />
+        </LinearLayout>
     </LinearLayout>
     <TextView
         android:id="@+id/hello"

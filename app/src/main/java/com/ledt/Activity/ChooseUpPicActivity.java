@@ -89,7 +89,8 @@ public class ChooseUpPicActivity extends Activity implements ImagePickerAdapter.
     private ImagePickerAdapter adapter;
     private ArrayList<ImageItem> selImageList; //当前选择的所有图片
     private int maxImgCount = 8;               //允许选择图片最大数
-    private String url =  "http://ring.thinghigh.cn/index.php//api/v1/upImg";
+//    private String url =  "http://ring.thinghigh.cn/index.php//api/v1/upImg";
+private String url = "http://project.thinghigh.cn/index.php/api/v1/uploadTxt";
      private BuildBean dialog;
 //    RecyclerView
     @Override
@@ -142,9 +143,10 @@ public class ChooseUpPicActivity extends Activity implements ImagePickerAdapter.
         String imgba=Bitmap2StrByBase64(bmp);
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-//                .addFormDataPart("file", "head_image", fileBody)
-                .addFormDataPart("base64", "data:image/jpeg;base64,"+imgba)
-                .addFormDataPart("imagetype", imageType)
+                .addFormDataPart("image[]", "123.jpg", fileBody)
+                //下面这个是传送base64文件的
+//                .addFormDataPart("image[]", "data:image/jpeg;base64,"+imgba)
+//                .addFormDataPart("imagetype", imageType)
                 .build();
         Request request = new Request.Builder()
                 .url(url)
@@ -158,15 +160,17 @@ public class ChooseUpPicActivity extends Activity implements ImagePickerAdapter.
             public void onFailure(Call call, IOException e) {
                 Log.i("onFailure", "onFailure: ");
                 Toast.makeText(ChooseUpPicActivity.this,"上传失败",Toast.LENGTH_SHORT).show();
-//                DialogUIUtils.dismiss();
+                DialogUIUtils.dismiss();
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String htmlStr = response.body().string();
-                Log.i("result", "http://ring.thinghigh.cn"+htmlStr);
+//                Log.i("result", "http://ring.thinghigh.cn"+htmlStr);
                 com.alibaba.fastjson.JSONObject jsonObject= (com.alibaba.fastjson.JSONObject) JSON.parse(htmlStr);
-                String img_name=jsonObject.getString("data");
+                com.alibaba.fastjson.JSONObject datamsg=jsonObject.getJSONObject("data");
+                String img_name=datamsg.getString("path");
+//                String img_name=jsonObject.getString("data");
 //                Toast.makeText(ChooseUpPicActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
                 final String IMAGE_URL=img_name;
                 Log.i("result", IMAGE_URL);
@@ -242,9 +246,9 @@ public class ChooseUpPicActivity extends Activity implements ImagePickerAdapter.
     }
 
     public static Object setImgByStr(String imgStr,String imgName){
-        String url =  "ring.thinghigh.cn/index.php//api/v1/upImg";
+        String url =  "http://project.thinghigh.cn/index.php/api/v1/uploadTxt";
         Map<String,Object> params = new HashMap<String, Object>();
-        params.put("base64",imgStr);
+        params.put("image[]",imgStr);
         return getValues(params, url);
     }
     public static Object getValues(Map<String, Object> params, String url) {
