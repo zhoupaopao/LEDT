@@ -1,10 +1,14 @@
 package com.ledt.Activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +23,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
 /**
  * Created by Lenovo on 2018/5/24.
  */
@@ -30,10 +36,12 @@ public class FilePutActivity extends Activity {
     private TextView read_msg;
     private TextView file_path;
     Context context=null;
+    private static final int BAIDU_READ_PHONE_STATE =100;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fileput);
+        checkPermission();
         initView();
         initListener();
     }
@@ -54,11 +62,11 @@ public class FilePutActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String message=et_msg.getText().toString().trim();
-                writeFileData("test.txt",message);
+//                writeFileData("test.txt",message);
                 //这个方法能够很好的创建文件夹，文件。
                 //同时最终能找到这个文件，读取是只需要用这个路径就行
-//                String filePath = "/sdcard/Test/";
-//                writeTxtToFile(message, filePath, "test1.txt");
+                String filePath = "/sdcard/Test/";
+                writeTxtToFile(message, filePath, "test1.txt");
             }
         });
         read.setOnClickListener(new View.OnClickListener() {
@@ -66,16 +74,16 @@ public class FilePutActivity extends Activity {
             public void onClick(View view) {
                 //读取文件内容
                 String mmm=readFileData("test.txt");
-                read_msg.setText(mmm);
-                String path1=context.getCacheDir().getPath();
-                Log.i("onClick: ", path1);
-                String path=context.getFilesDir().getPath();
-//                String path="/sdcard/Test/test1.txt";
+//                read_msg.setText(mmm);
+//                String path=context.getFilesDir().getPath();
+                String path="/sdcard/Test/test1.txt";
                 file_path.setText(path+"/test.txt");
                 Log.i("onClick: ", path);
                 //读取指定路径的文件的内容
                 //这个读取的方式两种方法存入的都可以读取
-               String res= loadFromSDFile(path+"/test.txt");
+//               String res= loadFromSDFile(path+"/test.txt");
+                String res= loadFromSDFile(path);
+                read_msg.setText(res);
                 Log.i("onClick: ", res);
             }
         });
@@ -97,6 +105,41 @@ public class FilePutActivity extends Activity {
         }
         return result;
     }
+    private void checkPermission() {
+        //检查权限（NEED_PERMISSION）是否被授权 PackageManager.PERMISSION_GRANTED表示同意授权
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PERMISSION_GRANTED|| ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PERMISSION_GRANTED) {
+            //用户已经拒绝过一次，再次弹出权限申请对话框需要给用户一个解释
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission
+                    .WRITE_EXTERNAL_STORAGE)) {
+                //当用户拒绝过一次后，再次请求的时候需要给用户提醒
+                Toast.makeText(this, "请开通相关权限，否则无法正常使用本应用！", Toast.LENGTH_SHORT).show();
+            }
+            //申请权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE}, BAIDU_READ_PHONE_STATE);
+
+//            checkPermission();
+        } else {
+            Toast.makeText(this, "授权成功！", Toast.LENGTH_SHORT).show();
+            Log.e("checkPermission", "checkPermission: 已经授权！");
+        }
+    }
+//用户点击拒绝权限后的事件
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 100) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (grantResults[i] == PERMISSION_GRANTED) {
+                    Toast.makeText(this, "" + "权限" + permissions[i] + "申请成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "" + "权限" + permissions[i] + "申请失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
     //向指定的文件中写入指定的数据
     public void writeFileData(String filename, String content){
 
