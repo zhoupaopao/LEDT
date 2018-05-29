@@ -93,6 +93,7 @@
         <activity android:name="com.ledt.Activity.NavigationListActivity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="com.ledt.Activity.FilePutActivity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="com.ledt.Activity.ZDActivity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.ledt.Activity.HttpActivity" android:configChanges="keyboardHidden|orientation" />
         <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen"/>

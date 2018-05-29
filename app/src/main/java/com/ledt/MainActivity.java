@@ -35,6 +35,7 @@ import com.ledt.Activity.CoverActivity;
 import com.ledt.Activity.DataTimeActivity;
 import com.ledt.Activity.DialogUiActivity;
 import com.ledt.Activity.FilePutActivity;
+import com.ledt.Activity.HttpActivity;
 import com.ledt.Activity.JpushActivity;
 import com.ledt.Activity.LinearRecyclerViewActivity;
 import com.ledt.Activity.NavigationListActivity;
@@ -355,7 +356,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(v.getId()==R.id.request_interface){
             Intent intent=new Intent();
-            intent.setClass(this,ChooseUpPicActivity.class);
+            intent.setClass(this,HttpActivity.class);
             startActivity(intent);
         }else if(v.getId()==R.id.viewpager_fragment){
             Intent intent=new Intent();
