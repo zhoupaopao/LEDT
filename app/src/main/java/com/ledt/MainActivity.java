@@ -385,6 +385,8 @@ public class MainActivity extends AppCompatActivity
             //启动服务
         }else if(v.getId()==R.id.list_lan){
             //列表图片懒加载
+        }else if(v.getId()==R.id.shyc){
+            //列表上滑隐藏
         }
 
     }

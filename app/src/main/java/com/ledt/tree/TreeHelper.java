@@ -1,7 +1,7 @@
 package com.ledt.tree;
 
 import com.ledt.R;
-import com.zhy.tree.bean.Node;
+
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -43,11 +43,17 @@ public class TreeHelper
 	{
 
 		nodes.add(node);
-		if (defaultExpandLeval >= currentLevel)
+		//这里可以用来显示当前默认显示多少级
+//		if (defaultExpandLeval >= currentLevel)
+//		{
+//			node.setExpand(true);
+//		}
+		if (node.isExpand())
 		{
 			node.setExpand(true);
+		}else{
+			node.setExpand(false);
 		}
-
 		if (node.isLeaf())
 			return;
 		for (int i = 0; i < node.getChildren().size(); i++)
@@ -89,6 +95,8 @@ public class TreeHelper
 			int id = -1;
 			int pId = -1;
 			String label = null;
+			String status=null;
+			boolean isExpand=false;
 			Class<? extends Object> clazz = t.getClass();
 			Field[] declaredFields = clazz.getDeclaredFields();
 			for (Field f : declaredFields)
@@ -108,13 +116,26 @@ public class TreeHelper
 					f.setAccessible(true);
 					label = (String) f.get(t);
 				}
-				if (id != -1 && pId != -1 && label != null)
+				if (f.getAnnotation(TreeNodeUseid.class) != null)
+				{
+					f.setAccessible(true);
+					status= (String) f.get(t);
+					if(status!=null){
+						if(status.equals("closed")){
+							isExpand=false;
+						}else{
+							isExpand=true;
+						}
+					}
+
+				}
+				if (id != -1 && pId != -1 && label != null&status!=null)
 				{
 					break;
 				}
 			}
 
-			node = new Node(id, pId, label);
+			node = new Node(id, pId, label,isExpand);
 			nodes.add(node);
 		}
 

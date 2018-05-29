@@ -11,8 +11,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ledt.R;
+import com.ledt.tree.Node;
 import com.ledt.tree.TreeListViewAdapter;
-import com.zhy.tree.bean.Node;
+
 
 
 public class SimpleTreeAdapter<T> extends TreeListViewAdapter<T>

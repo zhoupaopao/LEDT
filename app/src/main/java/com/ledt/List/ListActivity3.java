@@ -12,11 +12,12 @@ import android.widget.Toast;
 import com.ledt.Bean.FileBean;
 import com.ledt.R;
 import com.ledt.adapter.SimpleTreeAdapter;
+import com.ledt.tree.Node;
 import com.ledt.tree.TreeListViewAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.zhy.tree.bean.Node;
+
 
 
 import org.apache.http.Header;
@@ -129,28 +130,28 @@ public class ListActivity3 extends Activity {
                 Toast.LENGTH_SHORT).show();
 
         // id , pid , label , 其他属性
-        mDatas.add(new FileBean(1, 0, "文件管理系统"));
-        mDatas.add(new FileBean(2, 1, "游戏"));
-        mDatas.add(new FileBean(3, 1, "文档"));
-        mDatas.add(new FileBean(4, 1, "程序"));
-        mDatas.add(new FileBean(5, 2, "war3"));
-        mDatas.add(new FileBean(6, 2, "刀塔传奇"));
-        mDatas.add(new FileBean(13, 6, "刀塔传奇1"));
-        mDatas.add(new FileBean(14, 6, "刀塔传奇2"));
-        mDatas.add(new FileBean(7, 4, "面向对象"));
-        mDatas.add(new FileBean(8, 4, "非面向对象"));
+        mDatas.add(new FileBean(1, 0, "文件管理系统","12"));
+        mDatas.add(new FileBean(2, 1, "游戏","12"));
+        mDatas.add(new FileBean(3, 1, "文档","12"));
+        mDatas.add(new FileBean(4, 1, "程序","12"));
+        mDatas.add(new FileBean(5, 2, "war3","12"));
+        mDatas.add(new FileBean(6, 2, "刀塔传奇","12"));
+        mDatas.add(new FileBean(13, 6, "刀塔传奇1","12"));
+        mDatas.add(new FileBean(14, 6, "刀塔传奇2","12"));
+        mDatas.add(new FileBean(7, 4, "面向对象","12"));
+        mDatas.add(new FileBean(8, 4, "非面向对象","12"));
 
-        mDatas.add(new FileBean(9, 7, "C++"));
-        mDatas.add(new FileBean(10, 7, "JAVA"));
-        mDatas.add(new FileBean(11, 7, "Javascript"));
-        mDatas.add(new FileBean(12, 8, "C语言"));
-        mDatas.add(new FileBean(15, 12, "C语言1"));
-        mDatas.add(new FileBean(16, 12, "C语言2"));
-        mDatas.add(new FileBean(17, 12, "C语言3"));
-        mDatas.add(new FileBean(18, 12, "C语言4"));
+        mDatas.add(new FileBean(9, 7, "C++","12"));
+        mDatas.add(new FileBean(10, 7, "JAVA","12"));
+        mDatas.add(new FileBean(11, 7, "Javascript","12"));
+        mDatas.add(new FileBean(12, 8, "C语言","12"));
+        mDatas.add(new FileBean(15, 12, "C语言1","12"));
+        mDatas.add(new FileBean(16, 12, "C语言2","12"));
+        mDatas.add(new FileBean(17, 12, "C语言3","12"));
+        mDatas.add(new FileBean(18, 12, "C语言4","12"));
 
-        mDatas.add(new FileBean(19, 1, "新的"));
-        mDatas.add(new FileBean(20, 19, "新的"));
-        mDatas.add(new FileBean(21, 19, "新的"));
+        mDatas.add(new FileBean(19, 1, "新的","12"));
+        mDatas.add(new FileBean(20, 19, "新的","12"));
+        mDatas.add(new FileBean(21, 19, "新的","12"));
     }
 }

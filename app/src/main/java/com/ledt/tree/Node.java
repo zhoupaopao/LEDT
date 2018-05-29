@@ -42,12 +42,13 @@ public class Node
 	{
 	}
 
-	public Node(int id, int pId, String name)
+	public Node(int id, int pId, String name,boolean isExpand)
 	{
 		super();
 		this.id = id;
 		this.pId = pId;
 		this.name = name;
+		this.isExpand=isExpand;
 	}
 
 	public int getIcon()
