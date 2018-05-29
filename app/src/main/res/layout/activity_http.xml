@@ -15,5 +15,5 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="如果有什么特殊需求，如要加请求头，参数要是对象的，可以参考hive项目的工单创建接口"/>
+        android:text="如果有什么特殊需求，如要加请求头，参数要是对象的，可以参考hive项目的工单创建接口，其中有对象参数"/>
 </LinearLayout>
