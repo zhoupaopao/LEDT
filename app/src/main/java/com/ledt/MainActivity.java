@@ -45,6 +45,7 @@ import com.ledt.Activity.ShowAndHideActivity;
 import com.ledt.Activity.ShowPICActivity;
 import com.ledt.Activity.WebViewActivity;
 import com.ledt.Activity.WeilanActivity;
+import com.ledt.Activity.ZDActivity;
 import com.ledt.List.ListActivity1;
 import com.ledt.List.ListActivity2;
 import com.ledt.List.ListActivity3;
@@ -186,6 +187,7 @@ public class MainActivity extends AppCompatActivity
                 Log.i("onSuccess: ",jsonObject.toString() );
                 SharedPreferences.Editor editor=sp.edit();
                 editor.putString("token",jsonObject.getString("Token"));
+                editor.putString("userid",jsonObject.getString("UserID"));
                 editor.commit();
                 DialogUIUtils.showToast("123");
                 DialogUIUtils.showToast("默认的Toast弹出方式");
@@ -349,7 +351,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(v.getId()==R.id.Fold_list){
             Intent intent=new Intent();
-            intent.setClass(this,ChooseUpPicActivity.class);
+            intent.setClass(this,ZDActivity.class);
             startActivity(intent);
         }else if(v.getId()==R.id.request_interface){
             Intent intent=new Intent();
@@ -380,7 +382,9 @@ public class MainActivity extends AppCompatActivity
         }else if(v.getId()==R.id.location){
 
         }else if(v.getId()==R.id.sever){
-
+            //启动服务
+        }else if(v.getId()==R.id.list_lan){
+            //列表图片懒加载
         }
 
     }

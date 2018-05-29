@@ -264,6 +264,38 @@
                 android:onClick="cl"
                 android:text="sever服务" />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/list_lan"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="列表图片懒加载" />
+
+            <!--<Button-->
+                <!--android:id="@+id/location"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:textSize="@dimen/button_size"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:onClick="cl"-->
+                <!--android:text="定位,无地图模块" />-->
+            <!--&lt;!&ndash;之所以其他的都是大写，是因为textAllCaps&ndash;&gt;-->
+            <!--<Button-->
+                <!--android:id="@+id/sever"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:textSize="@dimen/button_size"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:onClick="cl"-->
+                <!--android:text="sever服务" />-->
+        </LinearLayout>
     </LinearLayout>
     <TextView
         android:id="@+id/hello"
