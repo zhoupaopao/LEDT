@@ -44,6 +44,7 @@ import com.ledt.Activity.RadioGroupActivity;
 import com.ledt.Activity.RecyclerViewActivity;
 import com.ledt.Activity.ShowAndHideActivity;
 import com.ledt.Activity.ShowPICActivity;
+import com.ledt.Activity.ViewPagerActivity;
 import com.ledt.Activity.WebViewActivity;
 import com.ledt.Activity.WeilanActivity;
 import com.ledt.Activity.ZDActivity;
@@ -360,7 +361,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(v.getId()==R.id.viewpager_fragment){
             Intent intent=new Intent();
-            intent.setClass(this,ChooseUpPicActivity.class);
+            intent.setClass(this,ViewPagerActivity.class);
             startActivity(intent);
         }else if(v.getId()==R.id.match_page){
             Intent intent=new Intent();
