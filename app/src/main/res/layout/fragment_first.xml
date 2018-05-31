@@ -11,8 +11,7 @@
     android:id="@+id/txt_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:text="呵呵"
+    android:text="可以动态添加页面，同时fragment可以调用activity里面的方法，同时也能设置导航栏是需要全显示，还是滚动显示"
     android:textSize="20sp"/>
 
 

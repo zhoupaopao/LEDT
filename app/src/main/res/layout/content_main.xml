@@ -192,7 +192,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:onClick="cl"
-                android:text="多个导航栏的页面，可以动态添加页面" />
+                android:text="打开immersionbarApp,配置状态栏和标题栏" />
             <Button
                 android:id="@+id/activity_fragment"
                 android:layout_width="0dp"

@@ -95,6 +95,8 @@
         <activity android:name="com.ledt.Activity.ZDActivity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="com.ledt.Activity.HttpActivity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="com.ledt.Activity.ViewPagerActivity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.ledt.Activity.FragmentPageActivity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.ledt.Activity.MapOverLayoutActivity" android:configChanges="keyboardHidden|orientation" />
         <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen"/>

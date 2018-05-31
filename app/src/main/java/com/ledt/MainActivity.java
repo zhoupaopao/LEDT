@@ -6,6 +6,7 @@ package com.ledt;
  * 查看activity和fragment的生命周期
  */
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -35,9 +36,11 @@ import com.ledt.Activity.CoverActivity;
 import com.ledt.Activity.DataTimeActivity;
 import com.ledt.Activity.DialogUiActivity;
 import com.ledt.Activity.FilePutActivity;
+import com.ledt.Activity.FragmentPageActivity;
 import com.ledt.Activity.HttpActivity;
 import com.ledt.Activity.JpushActivity;
 import com.ledt.Activity.LinearRecyclerViewActivity;
+import com.ledt.Activity.MapOverLayoutActivity;
 import com.ledt.Activity.NavigationListActivity;
 import com.ledt.Activity.OkHttpActivity;
 import com.ledt.Activity.RadioGroupActivity;
@@ -364,23 +367,27 @@ public class MainActivity extends AppCompatActivity
             intent.setClass(this,ViewPagerActivity.class);
             startActivity(intent);
         }else if(v.getId()==R.id.match_page){
-            Intent intent=new Intent();
-            intent.setClass(this,ChooseUpPicActivity.class);
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            ComponentName cn = new ComponentName("com.gyf.immersionbar", "com.gyf.immersionbar.activity.MainActivity");
+            intent.setComponent(cn);
             startActivity(intent);
         }else if(v.getId()==R.id.activity_fragment){
             Intent intent=new Intent();
-            intent.setClass(this,ChooseUpPicActivity.class);
+            intent.setClass(this,FragmentPageActivity.class);
             startActivity(intent);
         }else if(v.getId()==R.id.map_overlay){
             Intent intent=new Intent();
-            intent.setClass(this,ChooseUpPicActivity.class);
+            intent.setClass(this,MapOverLayoutActivity.class);
             startActivity(intent);
         }else if(v.getId()==R.id.file_put){
             Intent intent=new Intent();
             intent.setClass(this,FilePutActivity.class);
             startActivity(intent);
+        }else if(v.getId()==R.id.SQL_test){
+            //数据库的使用
         }else if(v.getId()==R.id.refresh){
-
+            //上拉刷新下拉加载
         }else if(v.getId()==R.id.location){
 
         }else if(v.getId()==R.id.sever){

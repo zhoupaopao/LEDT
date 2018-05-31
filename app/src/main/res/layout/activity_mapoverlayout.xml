@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.baidu.mapapi.map.MapView>
+
+
+    <!--clickable这个属性决定这下方地图能否点击-->
+    <TextView
+        android:layout_centerInParent="true"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:background="@color/light_blue"
+        android:text="点我 啊"/>
+</RelativeLayout>
