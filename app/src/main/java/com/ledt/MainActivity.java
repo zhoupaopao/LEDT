@@ -45,6 +45,7 @@ import com.ledt.Activity.NavigationListActivity;
 import com.ledt.Activity.OkHttpActivity;
 import com.ledt.Activity.RadioGroupActivity;
 import com.ledt.Activity.RecyclerViewActivity;
+import com.ledt.Activity.RefreshActivity;
 import com.ledt.Activity.ShowAndHideActivity;
 import com.ledt.Activity.ShowPICActivity;
 import com.ledt.Activity.ViewPagerActivity;
@@ -388,6 +389,9 @@ public class MainActivity extends AppCompatActivity
             //数据库的使用
         }else if(v.getId()==R.id.refresh){
             //上拉刷新下拉加载
+            Intent intent=new Intent();
+            intent.setClass(this,RefreshActivity.class);
+            startActivity(intent);
         }else if(v.getId()==R.id.location){
 
         }else if(v.getId()==R.id.sever){

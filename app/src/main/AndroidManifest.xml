@@ -97,6 +97,10 @@
         <activity android:name="com.ledt.Activity.ViewPagerActivity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="com.ledt.Activity.FragmentPageActivity" android:configChanges="keyboardHidden|orientation" />
         <activity android:name="com.ledt.Activity.MapOverLayoutActivity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.ledt.Activity.RefreshActivity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.ledt.Activity.RefreshJCBBActivity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.ledt.Activity.RefreshSJBBActivity" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.ledt.Activity.RefreshZDYBBActivity" android:configChanges="keyboardHidden|orientation" />
         <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen"/>
