@@ -286,15 +286,15 @@
                 android:onClick="cl"
                 android:text="列表上滑隐藏，标题栏动画，颜色渐变" />
             <!--&lt;!&ndash;之所以其他的都是大写，是因为textAllCaps&ndash;&gt;-->
-            <!--<Button-->
-                <!--android:id="@+id/sever"-->
-                <!--android:textAllCaps="false"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:textSize="@dimen/button_size"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="cl"-->
-                <!--android:text="sever服务" />-->
+            <Button
+                android:id="@+id/sylist"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="有索引的列表" />
         </LinearLayout>
     </LinearLayout>
     <TextView

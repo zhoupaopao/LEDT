@@ -49,7 +49,7 @@ public class RecyclerViewActivity extends Activity {
     private void initView() {
         xRefreshView=findViewById(R.id.xrefreshview);
         names=new ArrayList<>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<18;i++){
             names.add("name"+i);
         }
         recyclerView=findViewById(R.id.recycleview);

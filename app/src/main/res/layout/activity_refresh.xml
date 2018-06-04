@@ -18,4 +18,9 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="自定义版本"/>
+    <Button
+        android:id="@+id/openapp_xrefreshview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="打开更多类型的刷新加载"/>
 </LinearLayout>

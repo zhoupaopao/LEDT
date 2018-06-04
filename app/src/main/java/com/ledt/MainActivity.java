@@ -400,6 +400,8 @@ public class MainActivity extends AppCompatActivity
             //列表图片懒加载
         }else if(v.getId()==R.id.shyc){
             //列表上滑隐藏
+        }else if(v.getId()==R.id.sylist){
+            //带有索引的列表
         }
 
     }
