@@ -373,6 +373,7 @@ private String url = "http://project.thinghigh.cn/index.php/api/v1/uploadTxt";
     @Override
     public void onItemClick(View view, int position) {
         Log.i("onItemClick: ",position+"21" );
+        //要进行application注册
         switch (position) {
 
             case IMAGE_ITEM_ADD:
@@ -418,6 +419,7 @@ private String url = "http://project.thinghigh.cn/index.php/api/v1/uploadTxt";
                 break;
         }
     }
+    //要么在application中注册，要么就在这里进行注册，不然会报空指针
     private void initImagePicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader( new GlideImageLoader1());   //设置图片加载器
