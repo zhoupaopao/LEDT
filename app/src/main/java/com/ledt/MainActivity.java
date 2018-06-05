@@ -39,13 +39,16 @@ import com.ledt.Activity.FilePutActivity;
 import com.ledt.Activity.FragmentPageActivity;
 import com.ledt.Activity.HttpActivity;
 import com.ledt.Activity.JpushActivity;
+import com.ledt.Activity.LeftBackActivity;
 import com.ledt.Activity.LinearRecyclerViewActivity;
+import com.ledt.Activity.LocationNoMap;
 import com.ledt.Activity.MapOverLayoutActivity;
 import com.ledt.Activity.NavigationListActivity;
 import com.ledt.Activity.OkHttpActivity;
 import com.ledt.Activity.RadioGroupActivity;
 import com.ledt.Activity.RecyclerViewActivity;
 import com.ledt.Activity.RefreshActivity;
+import com.ledt.Activity.SYActivity;
 import com.ledt.Activity.ShowAndHideActivity;
 import com.ledt.Activity.ShowPICActivity;
 import com.ledt.Activity.ViewPagerActivity;
@@ -393,6 +396,10 @@ public class MainActivity extends AppCompatActivity
             intent.setClass(this,RefreshActivity.class);
             startActivity(intent);
         }else if(v.getId()==R.id.location){
+            //无地图模块定位
+            Intent intent=new Intent();
+            intent.setClass(this,LocationNoMap.class);
+            startActivity(intent);
 
         }else if(v.getId()==R.id.sever){
             //启动服务
@@ -402,6 +409,14 @@ public class MainActivity extends AppCompatActivity
             //列表上滑隐藏
         }else if(v.getId()==R.id.sylist){
             //带有索引的列表
+            Intent intent=new Intent();
+            intent.setClass(this,SYActivity.class);
+            startActivity(intent);
+        }else if(v.getId()==R.id.left_back){
+            //侧滑返回
+            Intent intent=new Intent();
+            intent.setClass(this,LeftBackActivity.class);
+            startActivity(intent);
         }
 
     }

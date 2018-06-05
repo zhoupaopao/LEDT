@@ -28,4 +28,56 @@
     <string name="loading">正在加载...</string>
     <string name="load_succeed">加载成功</string>
     <string name="load_fail">加载失败</string>
+
+
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="setting">设置</string>
+    <string name="cancel">取消</string>
+    <declare-styleable name="StickyListHeadersListView">
+
+        <!-- Android attributes -->
+        <attr name="android:clipToPadding" />
+        <attr name="android:padding" />
+        <attr name="android:paddingLeft" />
+        <attr name="android:paddingTop" />
+        <attr name="android:paddingRight" />
+        <attr name="android:paddingBottom" />
+
+        <!-- ListView attributes -->
+        <attr name="android:fadingEdgeLength" />
+        <attr name="android:requiresFadingEdge" />
+        <attr name="android:cacheColorHint" />
+        <attr name="android:choiceMode" />
+        <attr name="android:drawSelectorOnTop" />
+        <attr name="android:fastScrollEnabled" />
+        <attr name="android:listSelector" />
+        <attr name="android:scrollingCache" />
+        <attr name="android:scrollbarStyle" />
+        <attr name="android:divider" />
+        <attr name="android:dividerHeight" />
+
+        <!-- StickyListHeaders attributes -->
+        <attr name="hasStickyHeaders" format="boolean" />
+        <attr name="isDrawingListUnderStickyHeader" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RainDropView">
+        <attr name="max_circle_radius" format="dimension" />
+        <attr name="min_circle_radius" format="dimension" />
+        <attr name="waterdrop_color" format="color" />
+        <attr name="topcircle_x" format="dimension" />
+        <attr name="topcircle_y" format="dimension" />
+        <attr name="bottomcircle_x" format="dimension" />
+        <attr name="bottomcircle_y" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="GifView">
+        <attr name="gif" format="reference" />
+        <attr name="paused" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTheme">
+        <attr name="gifViewStyle" format="reference" />
+    </declare-styleable>
 </resources>

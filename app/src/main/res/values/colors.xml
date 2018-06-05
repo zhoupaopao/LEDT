@@ -18,4 +18,5 @@
     <color name="orange">#FF7F00</color>
     <color name="nol">#FFFFFF</color>
     <color name="select">#FFE6BE</color>
+    <color name="partTranslucent">#39000000</color>
 </resources>
