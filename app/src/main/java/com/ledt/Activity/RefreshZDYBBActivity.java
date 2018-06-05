@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
+import com.andview.refreshview.XRefreshViewFooter;
 import com.ledt.R;
 import com.ledt.adapter.ScrollAdapter;
 import com.ledt.utils.DensityUtil;
@@ -46,8 +47,12 @@ public class RefreshZDYBBActivity extends Activity {
         linearLayout=findViewById(R.id.linearlayout);
         changestyle=findViewById(R.id.changestyle);
         recycler_view_test_rv=findViewById(R.id.recycler_view_test_rv);
+        recycler_view_test_rv.setHasFixedSize(true);
         xscreshview=findViewById(R.id.xscreshview);
-        arrayList.add("123");
+        for(int i=0;i<5;i++){
+            arrayList.add(i+"123");
+        }
+
         adapter=new ScrollAdapter(arrayList,this);
     }
 
@@ -87,15 +92,24 @@ public class RefreshZDYBBActivity extends Activity {
         layoutManager = new LinearLayoutManager(this);
         recycler_view_test_rv.setLayoutManager(layoutManager);
         recycler_view_test_rv.setAdapter(adapter);
+        adapter.setCustomLoadMoreView(new XRefreshViewFooter(this));
         configXRfreshView(xscreshview, new XRefreshView.SimpleXRefreshListener() {
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        xscreshview.stopLoadMore();
+                    }
+                },1000);
+//                xscreshview.stopLoadMore();
             }
 
             @Override
             public void onRefresh(boolean isPullDown) {
                 super.onRefresh(isPullDown);
+                xscreshview.stopRefresh();
             }
         });
         configXRfreshView(xrefreshview,new XRefreshView.SimpleXRefreshListener(){
