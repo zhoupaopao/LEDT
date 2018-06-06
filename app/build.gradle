@@ -75,4 +75,6 @@ dependencies {
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
     //侧滑返回
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    compile project(':calendar')
+    compile project(':common')
 }

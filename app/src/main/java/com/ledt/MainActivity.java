@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.dou361.dialogui.DialogUIUtils;
 import com.dou361.dialogui.bean.BuildBean;
+import com.ledt.Activity.CalendarActivity;
 import com.ledt.Activity.CarouselActivity;
 import com.ledt.Activity.ChooseUpPicActivity;
 import com.ledt.Activity.CoverActivity;
@@ -403,6 +404,7 @@ public class MainActivity extends AppCompatActivity
 
         }else if(v.getId()==R.id.sever){
             //启动服务
+
         }else if(v.getId()==R.id.list_lan){
             //列表图片懒加载
         }else if(v.getId()==R.id.shyc){
@@ -417,6 +419,15 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent();
             intent.setClass(this,LeftBackActivity.class);
             startActivity(intent);
+        }else if(v.getId()==R.id.calendar){
+            //日历控件
+            Intent intent=new Intent();
+            intent.setClass(this,CalendarActivity.class);
+            startActivity(intent);
+        }else if(v.getId()==R.id.showleft){
+            //展示左侧列表
+        }else if(v.getId()==R.id.hand_calendar){
+            //手动实现日历
         }
 
     }

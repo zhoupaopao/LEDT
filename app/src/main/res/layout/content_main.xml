@@ -309,24 +309,39 @@
                 android:onClick="cl"
                 android:text="侧滑返回" />
 
-            <!--<Button-->
-                <!--android:id="@+id/shyc"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:textSize="@dimen/button_size"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="cl"-->
-                <!--android:text="列表上滑隐藏，标题栏动画，颜色渐变" />-->
+            <Button
+                android:id="@+id/calendar"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="日历控件" />
             <!--&lt;!&ndash;&lt;!&ndash;之所以其他的都是大写，是因为textAllCaps&ndash;&gt;&ndash;&gt;-->
-            <!--<Button-->
-                <!--android:id="@+id/sylist"-->
-                <!--android:textAllCaps="false"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:textSize="@dimen/button_size"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="cl"-->
-                <!--android:text="有索引的列表" />-->
+            <Button
+                android:id="@+id/showleft"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="展示左侧列表" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/hand_calendar"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="手动实现日历，方便熟悉数据库，日历，task，左侧列表使用" />
+
+
         </LinearLayout>
     </LinearLayout>
     <TextView
