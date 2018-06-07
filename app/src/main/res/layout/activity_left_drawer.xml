@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:id="@+id/main_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:title="沉浸式（ImmersionBar）"
+            app:titleTextColor="@android:color/white" />
+        <Button
+            android:id="@+id/showleft"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="展示左侧列表"/>
+        <ImageView
+            android:id="@+id/xuanzhuan"
+            android:layout_width="60dp"
+            android:src="@mipmap/search"
+            android:layout_height="60dp" />
+    </LinearLayout>
+
+    <include layout="@layout/drawer_left" />
+</android.support.v4.widget.DrawerLayout>

@@ -213,6 +213,12 @@
             android:name=".Activity.ServiceActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity
+            android:name=".Activity.UpTouchActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
+            android:name=".Activity.LeftDrawerActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen" />
         <!-- <activity android:name="com.ledt.List.ListActivity2" android:configChanges="keyboardHidden|orientation" /> -->
@@ -237,7 +243,13 @@
                 <category android:name="com.ledt" />
             </intent-filter>
         </service>
-        <service android:name=".Service.MyService"/>
+        <!--<service android:name=".Service.MyyService"></service>-->
+        <service android:name=".Service.Sssservice"/>
+        <!--<service-->
+            <!--android:nacom.ledt.Service.MyyServiceevice"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false"></service>-->
+        <service android:name=".Service.HorizonService"></service>
         <receiver android:name=".receiver.MyReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.EDIT"/>
@@ -326,7 +338,7 @@
             android:name="JPUSH_APPKEY"
             android:value="08907382a5099eae085f76c5" /> <!-- </>值来自开发者平台取得的AppKey -->
         <service
-            android:name=".Service.MyService"
+            android:name=".Service.MyyService"
             android:enabled="true"
             android:exported="true"></service>
     </application>

@@ -2,20 +2,21 @@ package com.ledt.Service;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
+import android.app.Service;
 import android.os.IBinder;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.ledt.receiver.MyReceiver;
 
-public class MyService extends Service {
+public class MyyService extends Service {
     AlarmManager manager;
     PendingIntent pendingIntent1;
-    public MyService() {
+    public MyyService() {
     }
-
+    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
@@ -56,6 +57,7 @@ public class MyService extends Service {
     public void onDestroy() {
         Log.i("打印时间", "onDestroy: ");
         super.onDestroy();
+        manager.cancel(pendingIntent1);
     }
 
     @Override

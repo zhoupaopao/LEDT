@@ -22,10 +22,11 @@ android {
     }
     defaultConfig {
         applicationId "com.ledt"
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion 15
+        targetSdkVersion 26
         versionCode 2
         versionName "1.0"
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 JPUSH_PKGNAME : applicationId,
@@ -77,4 +78,6 @@ dependencies {
     compile 'me.imid.swipebacklayout.lib:library:1.0.0'
     compile project(':calendar')
     compile project(':common')
+    //圆形imageView
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }

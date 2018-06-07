@@ -41,6 +41,7 @@ import com.ledt.Activity.FragmentPageActivity;
 import com.ledt.Activity.HttpActivity;
 import com.ledt.Activity.JpushActivity;
 import com.ledt.Activity.LeftBackActivity;
+import com.ledt.Activity.LeftDrawerActivity;
 import com.ledt.Activity.LinearRecyclerViewActivity;
 import com.ledt.Activity.LocationNoMap;
 import com.ledt.Activity.MapOverLayoutActivity;
@@ -50,6 +51,7 @@ import com.ledt.Activity.RadioGroupActivity;
 import com.ledt.Activity.RecyclerViewActivity;
 import com.ledt.Activity.RefreshActivity;
 import com.ledt.Activity.SYActivity;
+import com.ledt.Activity.ServiceActivity;
 import com.ledt.Activity.ShowAndHideActivity;
 import com.ledt.Activity.ShowPICActivity;
 import com.ledt.Activity.ViewPagerActivity;
@@ -404,11 +406,15 @@ public class MainActivity extends AppCompatActivity
 
         }else if(v.getId()==R.id.sever){
             //启动服务
-
+            Intent intent=new Intent();
+            intent.setClass(this,ServiceActivity.class);
+            startActivity(intent);
         }else if(v.getId()==R.id.list_lan){
             //列表图片懒加载
+
         }else if(v.getId()==R.id.shyc){
             //列表上滑隐藏
+
         }else if(v.getId()==R.id.sylist){
             //带有索引的列表
             Intent intent=new Intent();
@@ -426,6 +432,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(v.getId()==R.id.showleft){
             //展示左侧列表
+            Intent intent=new Intent();
+            intent.setClass(this,LeftDrawerActivity.class);
+            startActivity(intent);
         }else if(v.getId()==R.id.hand_calendar){
             //手动实现日历
         }

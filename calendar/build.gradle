@@ -1,18 +1,16 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '26.0.2'
 
+    compileSdkVersion compile_sdk_version
+    buildToolsVersion build_tools_version
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 24
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,7 +21,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:24.2.1'
-    compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.github.promeg:tinypinyin:1.0.0' // ~80KB
+    compile project(':common')
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'joda-time:joda-time:2.9.4'
 }
