@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="使用的线程池的方法进行加载的，实际使用用slide框架更好"/>
+    <ListView
+        android:id="@+id/piclist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+
+</android.support.constraint.ConstraintLayout>

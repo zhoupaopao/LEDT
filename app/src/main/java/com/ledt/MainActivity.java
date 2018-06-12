@@ -47,6 +47,7 @@ import com.ledt.Activity.LocationNoMap;
 import com.ledt.Activity.MapOverLayoutActivity;
 import com.ledt.Activity.NavigationListActivity;
 import com.ledt.Activity.OkHttpActivity;
+import com.ledt.Activity.PicLoadActivity;
 import com.ledt.Activity.RadioGroupActivity;
 import com.ledt.Activity.RecyclerViewActivity;
 import com.ledt.Activity.RefreshActivity;
@@ -54,6 +55,8 @@ import com.ledt.Activity.SYActivity;
 import com.ledt.Activity.ServiceActivity;
 import com.ledt.Activity.ShowAndHideActivity;
 import com.ledt.Activity.ShowPICActivity;
+import com.ledt.Activity.SqlActivity;
+import com.ledt.Activity.UpTouchActivity;
 import com.ledt.Activity.ViewPagerActivity;
 import com.ledt.Activity.WebViewActivity;
 import com.ledt.Activity.WeilanActivity;
@@ -393,6 +396,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(v.getId()==R.id.SQL_test){
             //数据库的使用
+            Intent intent=new Intent();
+            intent.setClass(this,SqlActivity.class);
+            startActivity(intent);
         }else if(v.getId()==R.id.refresh){
             //上拉刷新下拉加载
             Intent intent=new Intent();
@@ -411,10 +417,14 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(v.getId()==R.id.list_lan){
             //列表图片懒加载
-
+            Intent intent=new Intent();
+            intent.setClass(this,PicLoadActivity.class);
+            startActivity(intent);
         }else if(v.getId()==R.id.shyc){
             //列表上滑隐藏
-
+            Intent intent=new Intent();
+            intent.setClass(this,UpTouchActivity.class);
+            startActivity(intent);
         }else if(v.getId()==R.id.sylist){
             //带有索引的列表
             Intent intent=new Intent();

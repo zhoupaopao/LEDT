@@ -216,6 +216,12 @@
             android:name=".Activity.UpTouchActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity
+            android:name=".Activity.PicLoadActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
+            android:name=".Activity.SqlActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
             android:name=".Activity.LeftDrawerActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity
