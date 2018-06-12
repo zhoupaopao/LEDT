@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class MyDBOpenHelper extends SQLiteOpenHelper {
     public MyDBOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        super(context,"my.db",null,1);
     }
 
     @Override

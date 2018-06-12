@@ -2,11 +2,13 @@ package com.ledt.Activity;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ledt.R;
 import com.ledt.helper.MyDBOpenHelper;
@@ -24,6 +26,7 @@ public class SqlActivity extends Activity implements View.OnClickListener{
     Button sql_search;
     MyDBOpenHelper myDBOpenHelper;
     SQLiteDatabase db;
+    private StringBuilder sb;
     private int i = 1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,18 +66,40 @@ public class SqlActivity extends Activity implements View.OnClickListener{
         db=myDBOpenHelper.getWritableDatabase();
         switch (v.getId()){
             case R.id.sql_start:
-                ContentValues contentValues=new ContentValues();
-                contentValues.put("name","haha"+i);
-                i++;
 
                 break;
             case R.id.sql_insert:
+                ContentValues contentValues=new ContentValues();
+                contentValues.put("name","haha"+i);
+                i++;
+                //参数依次是：表名，强行插入null值得数据列的列名，一行记录的数据
+                db.insert("person", null, contentValues);
+                Toast.makeText(this, "插入完毕~", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sql_delete:
+                //参数依次是表名，以及where条件与约束
+                //用处是删除personid=3的那条数据
+                db.delete("person","personid=?",new String[]{"3"});
                 break;
             case R.id.sql_change:
+                ContentValues contentValues1=new ContentValues();
+                contentValues1.put("name","yayay");
+                db.update("person",contentValues1,"name=?",new String[]{"haha1"});
                 break;
             case R.id.sql_search:
+                sb=new StringBuilder();
+                //参数依次是:表名，列名，where约束条件，where中占位符提供具体的值，指定group by的列，进一步约束
+                //指定查询结果的排序方式
+                Cursor cursor=db.query("person",null, null, null, null, null, null);
+                if(cursor.moveToFirst()){
+                    do {
+                        int pid=cursor.getInt(cursor.getColumnIndex("personid"));
+                        String name=cursor.getString(cursor.getColumnIndex("name"));
+                        sb.append("id:"+pid+":"+name+"\n");
+                    }while (cursor.moveToNext());
+                }
+                cursor.close();
+                Toast.makeText(this, sb.toString(), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
