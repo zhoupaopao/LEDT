@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -24,6 +25,10 @@ public class SqlActivity extends Activity implements View.OnClickListener{
     Button sql_delete;
     Button sql_change;
     Button sql_search;
+    Button open_sw;
+    Button sql_update;
+
+
     MyDBOpenHelper myDBOpenHelper;
     SQLiteDatabase db;
     private StringBuilder sb;
@@ -43,11 +48,15 @@ public class SqlActivity extends Activity implements View.OnClickListener{
         sql_delete=findViewById(R.id.sql_delete);
         sql_change=findViewById(R.id.sql_change);
         sql_search=findViewById(R.id.sql_search);
+        open_sw=findViewById(R.id.open_sw);
+        sql_update=findViewById(R.id.sql_update);
         sql_search.setOnClickListener(this);
         sql_start.setOnClickListener(this);
         sql_insert.setOnClickListener(this);
         sql_delete.setOnClickListener(this);
         sql_change.setOnClickListener(this);
+        open_sw.setOnClickListener(this);
+        sql_update.setOnClickListener(this);
         myDBOpenHelper=new MyDBOpenHelper(this,"my.db",null,1);
 
 
@@ -70,7 +79,7 @@ public class SqlActivity extends Activity implements View.OnClickListener{
                 break;
             case R.id.sql_insert:
                 ContentValues contentValues=new ContentValues();
-                contentValues.put("name","haha"+i);
+                contentValues.put("name",i);
                 i++;
                 //参数依次是：表名，强行插入null值得数据列的列名，一行记录的数据
                 db.insert("person", null, contentValues);
@@ -101,6 +110,24 @@ public class SqlActivity extends Activity implements View.OnClickListener{
                 cursor.close();
                 Toast.makeText(this, sb.toString(), Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.sql_update:
+                myDBOpenHelper.onUpgrade(db,1,2);
+                break;
+            case R.id.open_sw:
+                //开启事物
+                //列子，用户1给用户2转10块钱
+                db.beginTransaction();
+                try{
+                    db.execSQL("update person set name=name-1 where personid=13");
+                    db.execSQL("update person set name=name+1 where personid=12");
+                    db.setTransactionSuccessful();//设置事物标志为true，表示提交事物
+                    Log.i("onClick: ", "setTransactionSuccessful: ");
+                }finally {
+                    db.endTransaction();
+                    Log.i("onClick: ", "endTransaction: ");
+                }
+                break;
+
         }
     }
 }

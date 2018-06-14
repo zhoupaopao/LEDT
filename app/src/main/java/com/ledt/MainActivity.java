@@ -46,6 +46,7 @@ import com.ledt.Activity.LinearRecyclerViewActivity;
 import com.ledt.Activity.LocationNoMap;
 import com.ledt.Activity.MapOverLayoutActivity;
 import com.ledt.Activity.NavigationListActivity;
+import com.ledt.Activity.NewWebviewActivity;
 import com.ledt.Activity.OkHttpActivity;
 import com.ledt.Activity.PicLoadActivity;
 import com.ledt.Activity.RadioGroupActivity;
@@ -58,6 +59,7 @@ import com.ledt.Activity.ShowPICActivity;
 import com.ledt.Activity.SqlActivity;
 import com.ledt.Activity.UpTouchActivity;
 import com.ledt.Activity.ViewPagerActivity;
+import com.ledt.Activity.WebServiceActivity;
 import com.ledt.Activity.WebViewActivity;
 import com.ledt.Activity.WeilanActivity;
 import com.ledt.Activity.ZDActivity;
@@ -447,6 +449,17 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(v.getId()==R.id.hand_calendar){
             //手动实现日历
+        }else if(v.getId()==R.id.webview){
+            //webview使用
+            Intent intent=new Intent();
+            intent.setClass(this,NewWebviewActivity.class);
+            startActivity(intent);
+
+        }else if(v.getId()==R.id.webservice){
+            //使用soap获取webservice的天气信息
+            Intent intent=new Intent();
+            intent.setClass(this,WebServiceActivity.class);
+            startActivity(intent);
         }
 
     }

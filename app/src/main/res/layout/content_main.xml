@@ -354,24 +354,24 @@
                 android:onClick="cl"
                 android:text="尝试使用soap" />
 
-            <!--<Button-->
-                <!--android:id="@+id/calendar"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:textSize="@dimen/button_size"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="cl"-->
-                <!--android:text="日历控件" />-->
+            <Button
+                android:id="@+id/webview"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="webview使用" />
             <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;之所以其他的都是大写，是因为textAllCaps&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
-            <!--<Button-->
-                <!--android:id="@+id/showleft"-->
-                <!--android:textAllCaps="false"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:textSize="@dimen/button_size"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="cl"-->
-                <!--android:text="展示左侧列表" />-->
+            <Button
+                android:id="@+id/webservice"
+                android:textAllCaps="false"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="使用webservice获取天气信息" />
         </LinearLayout>
     </LinearLayout>
     <TextView

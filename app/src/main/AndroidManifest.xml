@@ -222,6 +222,12 @@
             android:name=".Activity.SqlActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity
+            android:name=".Activity.NewWebviewActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
+            android:name=".Activity.WebServiceActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
             android:name=".Activity.LeftDrawerActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity

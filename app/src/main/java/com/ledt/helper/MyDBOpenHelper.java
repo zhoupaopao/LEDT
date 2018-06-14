@@ -26,6 +26,13 @@ public class MyDBOpenHelper extends SQLiteOpenHelper {
         //软件版本号发生改变时调用
         //向已有的表中添加列
         Log.i("onUpgrade: ", "版本升级 ");
-        db.execSQL("ALTER TABLE person ADD phone VARCHAR(12) NULL");
+        switch (newVersion){
+            case 2:
+                //添加列
+                db.execSQL("ALTER TABLE person ADD phonee VARCHAR(12) NULL");
+                break;
+
+        }
+
     }
 }
