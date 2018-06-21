@@ -228,6 +228,9 @@
             android:name=".Activity.WebServiceActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity
+            android:name=".Activity.RealCalendarActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
             android:name=".Activity.LeftDrawerActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.jimmy.common.data.JeekDBConfig;
 import com.ledt.R;
 import com.ledt.helper.MyDBOpenHelper;
 
@@ -99,7 +100,8 @@ public class SqlActivity extends Activity implements View.OnClickListener{
                 sb=new StringBuilder();
                 //参数依次是:表名，列名，where约束条件，where中占位符提供具体的值，指定group by的列，进一步约束
                 //指定查询结果的排序方式
-                Cursor cursor=db.query("person",null, null, null, null, null, null);
+                Cursor cursor=db.query("person",null, String.format("%s=? and %s=? ", "personid",
+                        "name"), new String[]{"8","haha3"}, null, null, null);
                 if(cursor.moveToFirst()){
                     do {
                         int pid=cursor.getInt(cursor.getColumnIndex("personid"));

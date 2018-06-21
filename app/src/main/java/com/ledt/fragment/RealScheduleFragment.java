@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-
 import com.jeek.calendar.widget.calendar.OnCalendarClickListener;
 import com.jeek.calendar.widget.calendar.schedule.ScheduleLayout;
 import com.jeek.calendar.widget.calendar.schedule.ScheduleRecyclerView;
@@ -38,7 +37,7 @@ import java.util.List;
 /**
  * Created by Jimmy on 2016/10/11 0011.
  */
-public class ScheduleFragment extends BaseFragment implements OnCalendarClickListener, View.OnClickListener,
+public class RealScheduleFragment extends BaseFragment implements OnCalendarClickListener, View.OnClickListener,
         OnTaskFinishedListener<List<Schedule>>, SelectDateDialog.OnSelectDateListener {
 
     private ScheduleLayout slSchedule;
@@ -51,8 +50,8 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
     private int mCurrentSelectYear, mCurrentSelectMonth, mCurrentSelectDay;
     private long mTime;
 
-    public static ScheduleFragment getInstance() {
-        return new ScheduleFragment();
+    public static RealScheduleFragment getInstance() {
+        return new RealScheduleFragment();
     }
 
     @Nullable
@@ -199,13 +198,15 @@ public class ScheduleFragment extends BaseFragment implements OnCalendarClickLis
         mCurrentSelectYear = year;
         mCurrentSelectMonth = month;
         mCurrentSelectDay = day;
-        if (mActivity instanceof CalendarActivity) {
-            ((CalendarActivity) mActivity).resetMainTitleDate(year, month, day);
-        }
+        //用于设置标题时间的
+//        if (mActivity instanceof CalendarActivity) {
+//            ((CalendarActivity) mActivity).resetMainTitleDate(year, month, day);
+//        }
     }
 
     @Override
     public void onTaskFinished(List<Schedule> data) {
+        //这里获取到task的值
         mScheduleAdapter.changeAllData(data);
         rLNoTask.setVisibility(data.size() == 0 ? View.VISIBLE : View.GONE);
         updateTaskHintUi(data.size());

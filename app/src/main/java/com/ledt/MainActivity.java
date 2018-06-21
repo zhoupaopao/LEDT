@@ -50,6 +50,7 @@ import com.ledt.Activity.NewWebviewActivity;
 import com.ledt.Activity.OkHttpActivity;
 import com.ledt.Activity.PicLoadActivity;
 import com.ledt.Activity.RadioGroupActivity;
+import com.ledt.Activity.RealCalendarActivity;
 import com.ledt.Activity.RecyclerViewActivity;
 import com.ledt.Activity.RefreshActivity;
 import com.ledt.Activity.SYActivity;
@@ -449,7 +450,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }else if(v.getId()==R.id.hand_calendar){
             //手动实现日历
-
+            Intent intent=new Intent();
+            intent.setClass(this,RealCalendarActivity.class);
+            startActivity(intent);
         }else if(v.getId()==R.id.webview){
             //webview使用
             Intent intent=new Intent();

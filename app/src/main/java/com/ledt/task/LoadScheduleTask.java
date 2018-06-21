@@ -7,6 +7,7 @@ import com.jimmy.common.bean.Schedule;
 import com.jimmy.common.data.ScheduleDao;
 import com.jimmy.common.listener.OnTaskFinishedListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +29,8 @@ public class LoadScheduleTask extends BaseAsyncTask<List<Schedule>> {
     @Override
     protected List<Schedule> doInBackground(Void... params) {
         ScheduleDao dao = ScheduleDao.getInstance(mContext);
-        return dao.getScheduleByDate(mYear, mMonth,mDay);
+        List<Schedule> schedules = new ArrayList<>();
+        schedules =dao.getScheduleByDate(mYear, mMonth,mDay);
+        return schedules;
     }
 }
