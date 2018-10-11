@@ -8,18 +8,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="这里尝试使用recycleView，左滑删除功能在左侧列表里面"/>
+    <RadioGroup
+        android:id="@+id/car_status"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/status_all"
+            android:checked="true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:button="@null"
+            android:text="全部"/>
+        <RadioButton
+            android:id="@+id/status_yuqi"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:button="@null"
+            android:text="逾期"/>
+        <RadioButton
+            android:id="@+id/status_zdgz"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:button="@null"
+            android:text="重点关注"/>
+    </RadioGroup>
+
     <com.andview.refreshview.XRefreshView
         android:id="@+id/xrefreshview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycleview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        android:background="@color/white"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
     </com.andview.refreshview.XRefreshView>
 
 </LinearLayout>

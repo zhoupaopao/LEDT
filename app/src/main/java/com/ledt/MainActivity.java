@@ -70,6 +70,8 @@ import com.ledt.List.ListActivity3;
 import com.ledt.List.ListActivity4;
 import com.ledt.List.MyListview;
 import com.ledt.Login.LoginActivity;
+import com.ledt.task.ContactInterface;
+import com.ledt.task.PostTask;
 import com.ledt.viewpager.VPager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -464,6 +466,22 @@ public class MainActivity extends AppCompatActivity
             Intent intent=new Intent();
             intent.setClass(this,WebServiceActivity.class);
             startActivity(intent);
+        }else if(v.getId()==R.id.postall){
+            //统一请求回调
+             new PostTask().PostTask(MainActivity.this, new ContactInterface() {
+                 @Override
+                 public void callBackByTel(String answer) {
+                     Log.i("callBackByTel: ", answer);
+                     Toast.makeText(MainActivity.this,"这是统一请求后返回的回调方法"+answer,Toast.LENGTH_SHORT).show();
+                 }
+             });
+//             new PostTask().setCallBack("231","ques",new ContactInterface(){
+//
+//                 @Override
+//                 public void callBackByTel(String answer) {
+//                     Log.i("callBackByTel: ", answer);
+//                 }
+//             });
         }
 
     }

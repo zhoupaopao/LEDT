@@ -24,6 +24,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.dou361.dialogui.DialogUIUtils;
 import com.dou361.dialogui.bean.BuildBean;
 import com.dou361.dialogui.bean.TieBean;
@@ -110,7 +114,39 @@ private String url = "http://project.thinghigh.cn/index.php/api/v1/uploadTxt";
     }
 
     private void initData() {
+        dialog=DialogUIUtils.showLoading(ChooseUpPicActivity.this, "加载中...", false, true, true, true);
+        dialog.show();
+//        new Thread(new Runnable(){
+//            @Override
+//            public void run() {
+//                final Drawable drawable = loadImageFromNetwork("http://101.37.119.32:20209/2018/09/14/10/09/14/1536890949891-a519d6e8c4f342119f0046cf3b14b7b7.jpg");
 
+                // post() 特别关键，就是到UI主线程去更新图片
+//                last_pic.post(new Runnable(){
+//                    @Override
+//                    public void run() {
+                        // TODO Auto-generated method stub
+                        Glide.with(ChooseUpPicActivity.this).load("http://101.37.119.32:20209/2018/09/14/10/09/14/1536890949891-a519d6e8c4f342119f0046cf3b14b7b7.jpg").listener(new RequestListener<String, GlideDrawable>() {
+                            @Override
+                            public boolean onException(Exception e, String model, Target<GlideDrawable> target,
+                                                       boolean isFirstResource) {
+                                return false;
+                            }
+
+                            @Override
+                            public boolean onResourceReady(GlideDrawable resource, String model,
+                                                           Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                                dialog.dialog.dismiss();
+
+                                return false;
+                            }
+                        }).into(last_pic);
+//                        last_pic.setImageDrawable(drawable) ;
+
+//                    }}) ;
+//            }
+//
+//        }).start()  ;
     }
 
     private void initListener() {
@@ -197,8 +233,8 @@ private String url = "http://project.thinghigh.cn/index.php/api/v1/uploadTxt";
     private Drawable loadImageFromNetwork(String imageUrl)
     {
         Drawable drawable = null;
-        String []imglist=imageUrl.split("/");
-        String imgname=imglist[imglist.length-1];
+//        String []imglist=imageUrl.split("/");
+        String imgname="1233.jpg";
         try {
             // 可以在这里通过文件名来判断，是否本地有此图片
             drawable = Drawable.createFromStream(
