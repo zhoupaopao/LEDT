@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -36,6 +38,7 @@ import com.ledt.Activity.ChooseUpPicActivity;
 import com.ledt.Activity.CoverActivity;
 import com.ledt.Activity.DataTimeActivity;
 import com.ledt.Activity.DialogUiActivity;
+import com.ledt.Activity.DownloadActivity;
 import com.ledt.Activity.FilePutActivity;
 import com.ledt.Activity.FragmentPageActivity;
 import com.ledt.Activity.HttpActivity;
@@ -58,6 +61,7 @@ import com.ledt.Activity.ServiceActivity;
 import com.ledt.Activity.ShowAndHideActivity;
 import com.ledt.Activity.ShowPICActivity;
 import com.ledt.Activity.SqlActivity;
+import com.ledt.Activity.SynchronizedActivity;
 import com.ledt.Activity.UpTouchActivity;
 import com.ledt.Activity.ViewPagerActivity;
 import com.ledt.Activity.WebServiceActivity;
@@ -145,6 +149,17 @@ public class MainActivity extends AppCompatActivity
         Login();
 
     }
+    Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if(msg.what==1){
+                System.out.println(msg.getData().getString("value"));
+                Toast.makeText(MainActivity.this,msg.getData().getString("value"),Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
 
     @Override
     public String getHttpTaskKey() {
@@ -302,7 +317,7 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
-    public void cl(View v){
+    public void cl(View v) throws InterruptedException {
         Log.i("CoverActivity", v.getId()+"");
         if( v.getId()==R.id.cover){
 //            Log.i("CoverActivity", "1");
@@ -482,6 +497,31 @@ public class MainActivity extends AppCompatActivity
 //                     Log.i("callBackByTel: ", answer);
 //                 }
 //             });
+        }else if(v.getId()==R.id.waitthread){
+            //等待线程完成后再执行其他的
+            System.out.println("main start");
+            Toast.makeText(MainActivity.this,"main start",Toast.LENGTH_SHORT).show();
+            Thread t1 = new Thread(new Worker("thread-1"));
+//            Thread t2 = new Thread(new Worker("thread-2"));
+
+            t1.start();
+            t1.join();
+//            t2.start();
+//
+//
+//            t2.join();
+            Toast.makeText(MainActivity.this,"main end",Toast.LENGTH_SHORT).show();
+            System.out.println("main end");
+        }else if(v.getId()==R.id.Synchronized){
+            //Synchronized使用同步方法
+            Intent intent=new Intent();
+                intent.setClass(this,SynchronizedActivity.class);
+            startActivity(intent);
+        }else if(v.getId()==R.id.downloadfile){
+            //下载文件
+            Intent intent=new Intent();
+            intent.setClass(this,DownloadActivity.class);
+            startActivity(intent);
         }
 
     }
@@ -530,5 +570,41 @@ public class MainActivity extends AppCompatActivity
     }
     public void showToast(CharSequence msg) {
         DialogUIUtils.showToastLong(msg.toString());
+    }
+    class Worker implements Runnable
+    {
+
+        private String name;
+
+        public Worker(String name)
+        {
+            this.name = name;
+        }
+
+        @Override
+        public void run()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                try
+                {
+                    Thread.sleep(1000);
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+                Message msg=new Message();
+                msg.what=1;
+                Bundle bundle=new Bundle();
+                bundle.putString("value",name);
+                msg.setData(bundle);
+                handler.sendMessage(msg);
+//                System.out.println(name);
+                Log.i("run: ", name);
+
+            }
+        }
+
     }
 }

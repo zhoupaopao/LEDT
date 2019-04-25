@@ -1,6 +1,7 @@
 package com.ledt.Application;
 
 import android.app.Application;
+import android.os.Build;
 
 import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
@@ -13,6 +14,8 @@ import com.lzy.imagepicker.loader.ImageLoader;
 import com.lzy.imagepicker.view.CropImageView;
 import com.zxy.recovery.core.Recovery;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,6 +58,7 @@ public class MyApplication extends Application   {
         //最好放到 Application oncreate执行
         //图片选择功能
         initImagePicker();
+        disableAPIDialog();
     }
     private void initImagePicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();
@@ -69,5 +73,20 @@ public class MyApplication extends Application   {
         imagePicker.setFocusHeight(800);                      //裁剪框的高度。单位像素（圆形自动取宽高最小值）
         imagePicker.setOutPutX(1000);                         //保存文件的宽度。单位像素
         imagePicker.setOutPutY(1000);                         //保存文件的高度。单位像素
+    }
+    private void disableAPIDialog(){
+
+        if (Build.VERSION.SDK_INT < 28)return;
+        try {
+            Class clazz = Class.forName("android.app.ActivityThread");
+            Method currentActivityThread = clazz.getDeclaredMethod("currentActivityThread");
+            currentActivityThread.setAccessible(true);
+            Object activityThread = currentActivityThread.invoke(null);
+            Field mHiddenApiWarningShown = clazz.getDeclaredField("mHiddenApiWarningShown");
+            mHiddenApiWarningShown.setAccessible(true);
+            mHiddenApiWarningShown.setBoolean(activityThread, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

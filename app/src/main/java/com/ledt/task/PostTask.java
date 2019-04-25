@@ -3,6 +3,7 @@ package com.ledt.task;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.dou361.dialogui.DialogUIUtils;
@@ -45,7 +46,7 @@ public class PostTask{
         params = new RequestParams((HttpCycleContext) context);
         params.addFormDataPart("username","test");
         params.addFormDataPart("password","654654");
-        HttpRequest.post(Api.Login,params,new JsonHttpRequestCallback(){
+        HttpRequest.post(Api.Login,params,500,new JsonHttpRequestCallback(){
             @Override
             protected void onSuccess(Headers headers, JSONObject jsonObject) {
                 super.onSuccess(headers, jsonObject);
@@ -71,6 +72,7 @@ public class PostTask{
             public void onFailure(int errorCode, String msg) {
                 super.onFailure(errorCode, msg);
                 Log.i("onSuccess: ","失败");
+                Toast.makeText(context,"请求超时",Toast.LENGTH_SHORT).show();
             }
         });
 

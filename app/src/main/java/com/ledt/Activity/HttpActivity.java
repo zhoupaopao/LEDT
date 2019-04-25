@@ -3,6 +3,8 @@ package com.ledt.Activity;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.ledt.adapter.NewSimpleTreeAdapter;
 import com.ledt.tree.TreeListViewAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.SyncHttpClient;
 
 import org.apache.http.Header;
 
@@ -54,7 +57,56 @@ public class HttpActivity extends Activity {
         token=sp.getString("token","");
         userid=sp.getString("userid","");
     }
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            Bundle data = msg.getData();
+            String val = data.getString("value");
+            Log.i("mylog", "请求结果为-->" + val);
+            // TODO
+            // UI界面的更新等相关操作
+        }
+    };
+    /**
+     * 网络操作相关的子线程
+     */
+    Runnable networkTask = new Runnable() {
 
+        @Override
+        public void run() {
+            // TODO
+            // 在这里进行 http request.网络请求相关操作
+            SyncHttpClient client=new SyncHttpClient();
+//                AsyncHttpClient client=new AsyncHttpClient();
+            com.loopj.android.http.RequestParams params=new com.loopj.android.http.RequestParams();
+            params.put("UserID",userid);
+            params.put("TokenString",token);
+            params.setContentEncoding("UTF-8");
+            client.post(Api.GET_CHILD_TREE, params, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int i, Header[] headers, byte[] bytes) {
+                    try {
+                        String json=new String(bytes,"UTF-8").toString().trim();
+                        DialogUIUtils.showToast(json);
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+
+                }
+            });
+            Message msg = new Message();
+            Bundle data = new Bundle();
+            data.putString("value", "请求结果");
+            msg.setData(data);
+            handler.sendMessage(msg);
+        }
+    };
     private void initListener() {
         okhttp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,28 +150,30 @@ public class HttpActivity extends Activity {
         asynchttp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AsyncHttpClient client=new AsyncHttpClient();
-                com.loopj.android.http.RequestParams params=new com.loopj.android.http.RequestParams();
-                params.put("UserID",userid);
-                params.put("TokenString",token);
-                params.setContentEncoding("UTF-8");
-                client.post(Api.GET_CHILD_TREE, params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int i, Header[] headers, byte[] bytes) {
-                        try {
-                            String json=new String(bytes,"UTF-8").toString().trim();
-                            DialogUIUtils.showToast(json);
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    @Override
-                    public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
-
-                    }
-                });
+                new Thread(networkTask).start();
+//                SyncHttpClient client=new SyncHttpClient();
+////                AsyncHttpClient client=new AsyncHttpClient();
+//                com.loopj.android.http.RequestParams params=new com.loopj.android.http.RequestParams();
+//                params.put("UserID",userid);
+//                params.put("TokenString",token);
+//                params.setContentEncoding("UTF-8");
+//                client.post(Api.GET_CHILD_TREE, params, new AsyncHttpResponseHandler() {
+//                    @Override
+//                    public void onSuccess(int i, Header[] headers, byte[] bytes) {
+//                        try {
+//                            String json=new String(bytes,"UTF-8").toString().trim();
+//                            DialogUIUtils.showToast(json);
+//                        } catch (UnsupportedEncodingException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int i, Header[] headers, byte[] bytes, Throwable throwable) {
+//
+//                    }
+//                });
             }
         });
     }
