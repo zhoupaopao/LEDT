@@ -13,8 +13,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,6 +28,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -98,13 +103,13 @@ import okhttp3.Headers;
 import static com.dou361.dialogui.DialogUIUtils.showToast;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,HttpCycleContext {
+        implements NavigationView.OnNavigationItemSelectedListener, HttpCycleContext {
     protected final String HTTP_TASK_KEY = "HttpTaskKey_" + hashCode();
     private TextView hello;
     private ActionBarDrawerToggle toggle;
     private ImageView toolBarIcon;
     private DrawerLayout mDrawerLayout;
-    SharedPreferences sp=null;
+    SharedPreferences sp = null;
     private BuildBean dialog;
     Context mContext;
 
@@ -115,10 +120,10 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         mContext = getApplication();
         DialogUIUtils.init(mContext);
-        sp=getSharedPreferences("Userinfo", MODE_PRIVATE);
+        sp = getSharedPreferences("Userinfo", MODE_PRIVATE);
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        hello= (TextView) findViewById(R.id.hello);
+        hello = (TextView) findViewById(R.id.hello);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //        toolbar.setTitle("My Title");
@@ -149,13 +154,14 @@ public class MainActivity extends AppCompatActivity
         Login();
 
     }
-    Handler handler=new Handler(){
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            if(msg.what==1){
+            if (msg.what == 1) {
                 System.out.println(msg.getData().getString("value"));
-                Toast.makeText(MainActivity.this,msg.getData().getString("value"),Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, msg.getData().getString("value"), Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -212,17 +218,17 @@ public class MainActivity extends AppCompatActivity
 //        });
         Log.i("Login: ", "Login: ");
         RequestParams params;
-         params = new RequestParams(MainActivity.this);
-        params.addFormDataPart("username","test");
-        params.addFormDataPart("password","654654");
-        HttpRequest.post(Api.Login,params,new JsonHttpRequestCallback(){
+        params = new RequestParams(MainActivity.this);
+        params.addFormDataPart("username", "test");
+        params.addFormDataPart("password", "654654");
+        HttpRequest.post(Api.Login, params, new JsonHttpRequestCallback() {
             @Override
             protected void onSuccess(Headers headers, JSONObject jsonObject) {
                 super.onSuccess(headers, jsonObject);
-                Log.i("onSuccess: ",jsonObject.toString() );
-                SharedPreferences.Editor editor=sp.edit();
-                editor.putString("token",jsonObject.getString("Token"));
-                editor.putString("userid",jsonObject.getString("UserID"));
+                Log.i("onSuccess: ", jsonObject.toString());
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("token", jsonObject.getString("Token"));
+                editor.putString("userid", jsonObject.getString("UserID"));
                 editor.commit();
                 DialogUIUtils.showToast("123");
                 DialogUIUtils.showToast("默认的Toast弹出方式");
@@ -233,7 +239,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onStart() {
                 super.onStart();
-                dialog= DialogUIUtils.showLoading(MainActivity.this, "加载中...", false, false, true, true);
+                dialog = DialogUIUtils.showLoading(MainActivity.this, "加载中...", false, false, true, true);
                 dialog.show();
             }
 
@@ -280,21 +286,21 @@ public class MainActivity extends AppCompatActivity
 //        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(this,"设置",Toast.LENGTH_LONG).show();
-            Intent intent=new Intent();
+            Toast.makeText(this, "设置", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent();
             intent.setClass(this, VPager.class);
             startActivity(intent);
             return true;
-        }else if(id ==android.R.id.home){
+        } else if (id == android.R.id.home) {
             toggle.onOptionsItemSelected(item);
-        } else if(id == R.id.action_edit){
-            Toast.makeText(this,"编辑",Toast.LENGTH_LONG).show();
-            Intent intent=new Intent();
+        } else if (id == R.id.action_edit) {
+            Toast.makeText(this, "编辑", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent();
             intent.setClass(this, LoginActivity.class);
             startActivity(intent);
             return true;
-        }else if(id == R.id.action_share){
-            Toast.makeText(this,"分享",Toast.LENGTH_LONG).show();
+        } else if (id == R.id.action_share) {
+            Toast.makeText(this, "分享", Toast.LENGTH_LONG).show();
             JPushInterface.setAlias(this, "aaa",
                     new TagAliasCallback() {
 
@@ -317,179 +323,179 @@ public class MainActivity extends AppCompatActivity
 
         return super.onOptionsItemSelected(item);
     }
+
     public void cl(View v) throws InterruptedException {
-        Log.i("CoverActivity", v.getId()+"");
-        if( v.getId()==R.id.cover){
+        Log.i("CoverActivity", v.getId() + "");
+        if (v.getId() == R.id.cover) {
 //            Log.i("CoverActivity", "1");
-            Intent intent=new Intent();
+            Intent intent = new Intent();
             Log.i("CoverActivity", "1");
             intent.setClass(MainActivity.this, CoverActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.abc){
-            Intent intent=new Intent();
+        } else if (v.getId() == R.id.abc) {
+            Intent intent = new Intent();
             intent.setClass(MainActivity.this, DataTimeActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.showwebView){
-            Intent intent=new Intent();
+        } else if (v.getId() == R.id.showwebView) {
+            Intent intent = new Intent();
             intent.setClass(MainActivity.this, WebViewActivity.class);
             startActivity(intent);
-        }
-        else if(v.getId()==R.id.popup){
+        } else if (v.getId() == R.id.popup) {
             Log.i("CoverActivity", "3");
-            Intent intent =new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, MyListview.class);
             startActivity(intent);
 //            Intent intent=new Intent();
 //            intent.setClass(MainActivity.this, popupActivity.class);
 //            startActivity(intent);
-        }else if(v.getId()==R.id.showhide){
-                        Intent intent=new Intent();
+        } else if (v.getId() == R.id.showhide) {
+            Intent intent = new Intent();
             intent.setClass(MainActivity.this, ShowAndHideActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.showpic){
-            Intent intent=new Intent();
+        } else if (v.getId() == R.id.showpic) {
+            Intent intent = new Intent();
             intent.setClass(MainActivity.this, ShowPICActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.weilan){
+        } else if (v.getId() == R.id.weilan) {
             //围栏
-            Intent intent=new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, WeilanActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.Carousel){
+        } else if (v.getId() == R.id.Carousel) {
             //围栏
-            Intent intent=new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, CarouselActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.recycler){
-            Intent intent=new Intent();
-            intent.setClass(this,RecyclerViewActivity.class);
+        } else if (v.getId() == R.id.recycler) {
+            Intent intent = new Intent();
+            intent.setClass(this, RecyclerViewActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.radio_group){
-            Intent intent=new Intent();
-            intent.setClass(this,RadioGroupActivity.class);
+        } else if (v.getId() == R.id.radio_group) {
+            Intent intent = new Intent();
+            intent.setClass(this, RadioGroupActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.dialogui){
-            Intent intent=new Intent();
-            intent.setClass(this,DialogUiActivity.class);
+        } else if (v.getId() == R.id.dialogui) {
+            Intent intent = new Intent();
+            intent.setClass(this, DialogUiActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.tuisong){
-            Intent intent=new Intent();
-            intent.setClass(this,JpushActivity.class);
+        } else if (v.getId() == R.id.tuisong) {
+            Intent intent = new Intent();
+            intent.setClass(this, JpushActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.pic_chose_upload){
-            Intent intent=new Intent();
-            intent.setClass(this,ChooseUpPicActivity.class);
+        } else if (v.getId() == R.id.pic_chose_upload) {
+            Intent intent = new Intent();
+            intent.setClass(this, ChooseUpPicActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.Navigation_list){
-            Intent intent=new Intent();
-            intent.setClass(this,NavigationListActivity.class);
+        } else if (v.getId() == R.id.Navigation_list) {
+            Intent intent = new Intent();
+            intent.setClass(this, NavigationListActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.Fold_list){
-            Intent intent=new Intent();
-            intent.setClass(this,ZDActivity.class);
+        } else if (v.getId() == R.id.Fold_list) {
+            Intent intent = new Intent();
+            intent.setClass(this, ZDActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.request_interface){
-            Intent intent=new Intent();
-            intent.setClass(this,HttpActivity.class);
+        } else if (v.getId() == R.id.request_interface) {
+            Intent intent = new Intent();
+            intent.setClass(this, HttpActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.viewpager_fragment){
-            Intent intent=new Intent();
-            intent.setClass(this,ViewPagerActivity.class);
+        } else if (v.getId() == R.id.viewpager_fragment) {
+            Intent intent = new Intent();
+            intent.setClass(this, ViewPagerActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.match_page){
+        } else if (v.getId() == R.id.match_page) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             ComponentName cn = new ComponentName("com.gyf.immersionbar", "com.gyf.immersionbar.activity.MainActivity");
             intent.setComponent(cn);
             startActivity(intent);
-        }else if(v.getId()==R.id.activity_fragment){
-            Intent intent=new Intent();
-            intent.setClass(this,FragmentPageActivity.class);
+        } else if (v.getId() == R.id.activity_fragment) {
+            Intent intent = new Intent();
+            intent.setClass(this, FragmentPageActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.map_overlay){
-            Intent intent=new Intent();
-            intent.setClass(this,MapOverLayoutActivity.class);
+        } else if (v.getId() == R.id.map_overlay) {
+            Intent intent = new Intent();
+            intent.setClass(this, MapOverLayoutActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.file_put){
-            Intent intent=new Intent();
-            intent.setClass(this,FilePutActivity.class);
+        } else if (v.getId() == R.id.file_put) {
+            Intent intent = new Intent();
+            intent.setClass(this, FilePutActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.SQL_test){
+        } else if (v.getId() == R.id.SQL_test) {
             //数据库的使用
-            Intent intent=new Intent();
-            intent.setClass(this,SqlActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, SqlActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.refresh){
+        } else if (v.getId() == R.id.refresh) {
             //上拉刷新下拉加载
-            Intent intent=new Intent();
-            intent.setClass(this,RefreshActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, RefreshActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.location){
+        } else if (v.getId() == R.id.location) {
             //无地图模块定位
-            Intent intent=new Intent();
-            intent.setClass(this,LocationNoMap.class);
+            Intent intent = new Intent();
+            intent.setClass(this, LocationNoMap.class);
             startActivity(intent);
 
-        }else if(v.getId()==R.id.sever){
+        } else if (v.getId() == R.id.sever) {
             //启动服务
-            Intent intent=new Intent();
-            intent.setClass(this,ServiceActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, ServiceActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.list_lan){
+        } else if (v.getId() == R.id.list_lan) {
             //列表图片懒加载
-            Intent intent=new Intent();
-            intent.setClass(this,PicLoadActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, PicLoadActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.shyc){
+        } else if (v.getId() == R.id.shyc) {
             //列表上滑隐藏
-            Intent intent=new Intent();
-            intent.setClass(this,UpTouchActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, UpTouchActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.sylist){
+        } else if (v.getId() == R.id.sylist) {
             //带有索引的列表
-            Intent intent=new Intent();
-            intent.setClass(this,SYActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, SYActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.left_back){
+        } else if (v.getId() == R.id.left_back) {
             //侧滑返回
-            Intent intent=new Intent();
-            intent.setClass(this,LeftBackActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, LeftBackActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.calendar){
+        } else if (v.getId() == R.id.calendar) {
             //日历控件
-            Intent intent=new Intent();
-            intent.setClass(this,CalendarActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, CalendarActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.showleft){
+        } else if (v.getId() == R.id.showleft) {
             //展示左侧列表
-            Intent intent=new Intent();
-            intent.setClass(this,LeftDrawerActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, LeftDrawerActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.hand_calendar){
+        } else if (v.getId() == R.id.hand_calendar) {
             //手动实现日历
-            Intent intent=new Intent();
-            intent.setClass(this,RealCalendarActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, RealCalendarActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.webview){
+        } else if (v.getId() == R.id.webview) {
             //webview使用
-            Intent intent=new Intent();
-            intent.setClass(this,NewWebviewActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, NewWebviewActivity.class);
             startActivity(intent);
 
-        }else if(v.getId()==R.id.webservice){
+        } else if (v.getId() == R.id.webservice) {
             //使用soap获取webservice的天气信息
-            Intent intent=new Intent();
-            intent.setClass(this,WebServiceActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, WebServiceActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.postall){
+        } else if (v.getId() == R.id.postall) {
             //统一请求回调
-             new PostTask().PostTask(MainActivity.this, new ContactInterface() {
-                 @Override
-                 public void callBackByTel(String answer) {
-                     Log.i("callBackByTel: ", answer);
-                     Toast.makeText(MainActivity.this,"这是统一请求后返回的回调方法"+answer,Toast.LENGTH_SHORT).show();
-                 }
-             });
+            new PostTask().PostTask(MainActivity.this, new ContactInterface() {
+                @Override
+                public void callBackByTel(String answer) {
+                    Log.i("callBackByTel: ", answer);
+                    Toast.makeText(MainActivity.this, "这是统一请求后返回的回调方法" + answer, Toast.LENGTH_SHORT).show();
+                }
+            });
 //             new PostTask().setCallBack("231","ques",new ContactInterface(){
 //
 //                 @Override
@@ -497,10 +503,10 @@ public class MainActivity extends AppCompatActivity
 //                     Log.i("callBackByTel: ", answer);
 //                 }
 //             });
-        }else if(v.getId()==R.id.waitthread){
+        } else if (v.getId() == R.id.waitthread) {
             //等待线程完成后再执行其他的
             System.out.println("main start");
-            Toast.makeText(MainActivity.this,"main start",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "main start", Toast.LENGTH_SHORT).show();
             Thread t1 = new Thread(new Worker("thread-1"));
 //            Thread t2 = new Thread(new Worker("thread-2"));
 
@@ -510,21 +516,35 @@ public class MainActivity extends AppCompatActivity
 //
 //
 //            t2.join();
-            Toast.makeText(MainActivity.this,"main end",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "main end", Toast.LENGTH_SHORT).show();
             System.out.println("main end");
-        }else if(v.getId()==R.id.Synchronized){
+        } else if (v.getId() == R.id.Synchronized) {
             //Synchronized使用同步方法
-            Intent intent=new Intent();
-                intent.setClass(this,SynchronizedActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, SynchronizedActivity.class);
             startActivity(intent);
-        }else if(v.getId()==R.id.downloadfile){
+        } else if (v.getId() == R.id.downloadfile) {
             //下载文件
-            Intent intent=new Intent();
-            intent.setClass(this,DownloadActivity.class);
+            Intent intent = new Intent();
+            intent.setClass(this, DownloadActivity.class);
             startActivity(intent);
+        } else if (v.getId() == R.id.socket) {
+            //使用socket和列表的使用，下拉刷新上拉加载
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            ComponentName cn = new ComponentName("com.example.sockettest", "com.example.sockettest.MainActivity");
+            intent.setComponent(cn);
+            startActivity(intent);
+        }else if(v.getId()==R.id.bottomdialog){
+            BottomSheetDialog dialog=new BottomSheetDialog(MainActivity.this);
+            View dialogView = View.inflate(getBaseContext(), R.layout.bottom_layout, null);
+            dialog.setContentView(dialogView);
+//            dialog.getDelegate().findViewById(android.support.design.R.id.design_bottom_sheet).setBackgroundColor(getResources().getColor(android.R.color.transparent));
+            dialog.show();
         }
 
     }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -533,33 +553,33 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             hello.setText("nav_camera");
-            Intent intent =new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, ListActivity1.class);
             startActivity(intent);
         } else if (id == R.id.nav_gallery) {
             hello.setText("nav_gallery");
-            Intent intent =new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, ListActivity2.class);
             startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
             hello.setText("nav_slideshow");
-            Intent intent =new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, ListActivity3.class);
             startActivity(intent);
         } else if (id == R.id.nav_manage) {
             hello.setText("nav_manage");
-            Intent intent =new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, ListActivity4.class);
             startActivity(intent);
         } else if (id == R.id.nav_share) {
             hello.setText("nav_share");
             //测试okhttp
-            Intent intent =new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, OkHttpActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_send) {
             //尝试使用webview
-            Intent intent =new Intent();
+            Intent intent = new Intent();
             intent.setClass(this, WebViewActivity.class);
             startActivity(intent);
         }
@@ -568,36 +588,31 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
     public void showToast(CharSequence msg) {
         DialogUIUtils.showToastLong(msg.toString());
     }
-    class Worker implements Runnable
-    {
+
+    class Worker implements Runnable {
 
         private String name;
 
-        public Worker(String name)
-        {
+        public Worker(String name) {
             this.name = name;
         }
 
         @Override
-        public void run()
-        {
-            for (int i = 0; i < 4; i++)
-            {
-                try
-                {
+        public void run() {
+            for (int i = 0; i < 4; i++) {
+                try {
                     Thread.sleep(1000);
-                }
-                catch (InterruptedException e)
-                {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Message msg=new Message();
-                msg.what=1;
-                Bundle bundle=new Bundle();
-                bundle.putString("value",name);
+                Message msg = new Message();
+                msg.what = 1;
+                Bundle bundle = new Bundle();
+                bundle.putString("value", name);
                 msg.setData(bundle);
                 handler.sendMessage(msg);
 //                System.out.println(name);

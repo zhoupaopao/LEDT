@@ -432,22 +432,22 @@
                 android:layout_weight="1"
                 android:onClick="cl"
                 android:text="尝试下载文件" />
-            <!--<Button-->
-                <!--android:id="@+id/waitthread"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:textSize="@dimen/button_size"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="cl"-->
-                <!--android:text="尝试使用线程，等待线程完成在继续执行" />-->
-            <!--<Button-->
-                <!--android:id="@+id/Synchronized"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:textSize="@dimen/button_size"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:onClick="cl"-->
-                <!--android:text="尝试同步任务，使用" />-->
+            <Button
+                android:id="@+id/socket"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="尝试使用socket，列表的基础使用，需要先开启服务，打开另外一个app" />
+            <Button
+                android:id="@+id/bottomdialog"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="尝试使用底部浮框" />
 
         </LinearLayout>
     </LinearLayout>

@@ -34,9 +34,10 @@ import library.OnClickSlideItemListener;
 public class RecyclerViewActivity extends Activity {
     RecyclerView recyclerView;
     MyRecycleAdpter adapter;
-    ArrayList<String>names;
+    ArrayList<String> names;
     XRefreshView xRefreshView;
-    int mLoadCount=0;
+    int mLoadCount = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,13 +48,13 @@ public class RecyclerViewActivity extends Activity {
     }
 
     private void initView() {
-        xRefreshView=findViewById(R.id.xrefreshview);
-        names=new ArrayList<>();
-        for(int i=0;i<18;i++){
-            names.add("name"+i);
+        xRefreshView = findViewById(R.id.xrefreshview);
+        names = new ArrayList<>();
+        for (int i = 0; i < 18; i++) {
+            names.add("name" + i);
         }
-        recyclerView=findViewById(R.id.recycleview);
-        adapter=new MyRecycleAdpter(RecyclerViewActivity.this,names);
+        recyclerView = findViewById(R.id.recycleview);
+        adapter = new MyRecycleAdpter(RecyclerViewActivity.this, names);
         xRefreshView.setPinnedTime(1000);
         xRefreshView.setMoveForHorizontal(true);
         xRefreshView.setPullLoadEnable(true);
@@ -80,7 +81,7 @@ public class RecyclerViewActivity extends Activity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        names.set(2,"sadasd");
+                        names.set(2, "sadasd");
                         names.remove(5);
 //                        adapter.notifyItemRangeChanged(0,5) ;//列表从positionStart位置到itemCount数量的列表项进行数据刷新
                         adapter.notifyDataSetChanged();//整个数据刷新
@@ -102,7 +103,7 @@ public class RecyclerViewActivity extends Activity {
                             xRefreshView.setLoadComplete(true);
                         } else {
                             names.add("12312");
-                            adapter.notifyItemRangeInserted(names.size()-1, names.size());//批量插入。从起始位置到结束位置
+                            adapter.notifyItemRangeInserted(names.size() - 1, names.size());//批量插入。从起始位置到结束位置
                             // 刷新完成必须调用此方法停止加载
                             xRefreshView.stopLoadMore(true);//true代表加载成功，false代表失败
                             //当数据加载失败 不需要隐藏footerview时，可以调用以下方法，传入false，不传默认为true
@@ -159,9 +160,10 @@ public class RecyclerViewActivity extends Activity {
 //        recyclerView.addItemDecoration(divider);
 //
 /// //设置增加或删除条目的动画
-        recyclerView.setItemAnimator( new DefaultItemAnimator());
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
-    public void addlistw(String sss){
+
+    public void addlistw(String sss) {
 
     }
 
