@@ -52,6 +52,7 @@ import com.ledt.Activity.LeftBackActivity;
 import com.ledt.Activity.LeftDrawerActivity;
 import com.ledt.Activity.LinearRecyclerViewActivity;
 import com.ledt.Activity.LocationNoMap;
+import com.ledt.Activity.ManualaddActivity;
 import com.ledt.Activity.MapOverLayoutActivity;
 import com.ledt.Activity.NavigationListActivity;
 import com.ledt.Activity.NewWebviewActivity;
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity
     private DrawerLayout mDrawerLayout;
     SharedPreferences sp = null;
     private BuildBean dialog;
+    final BuildBean[] dialog1 = new BuildBean[1];
     Context mContext;
 
     @Override
@@ -489,7 +491,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (v.getId() == R.id.postall) {
             //统一请求回调
-            new PostTask().PostTask(MainActivity.this, new ContactInterface() {
+            RequestParams params;
+            params = new RequestParams(this);
+            params.addFormDataPart("username","test");
+            params.addFormDataPart("password","654654");
+            new PostTask().PostTask(MainActivity.this,Api.Login,params, new ContactInterface() {
                 @Override
                 public void callBackByTel(String answer) {
                     Log.i("callBackByTel: ", answer);
@@ -541,6 +547,10 @@ public class MainActivity extends AppCompatActivity
             dialog.setContentView(dialogView);
 //            dialog.getDelegate().findViewById(android.support.design.R.id.design_bottom_sheet).setBackgroundColor(getResources().getColor(android.R.color.transparent));
             dialog.show();
+        }else if(v.getId()==R.id.Manualadd){
+            Intent intent = new Intent();
+            intent.setClass(this, ManualaddActivity.class);
+            startActivity(intent);
         }
 
     }

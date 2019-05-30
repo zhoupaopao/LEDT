@@ -243,6 +243,9 @@
             android:name=".Activity.DownloadActivity"
             android:configChanges="keyboardHidden|orientation" />
         <activity
+            android:name=".Activity.ManualaddActivity"
+            android:configChanges="keyboardHidden|orientation" />
+        <activity
             android:name="com.lzy.imagepicker.ui.ImagePreviewDelActivity"
             android:theme="@style/ImagePickerThemeFullScreen" />
         <!-- <activity android:name="com.ledt.List.ListActivity2" android:configChanges="keyboardHidden|orientation" /> -->

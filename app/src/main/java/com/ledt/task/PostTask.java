@@ -37,16 +37,12 @@ public class PostTask{
         this.callBack =callBack;
 
     }
-    public void PostTask(final Context context, final ContactInterface callBack) {
+    public void PostTask(final Context context,String url, RequestParams params, final ContactInterface callBack) {
         this.context = context;
         this.callBack =callBack;
         DialogUIUtils.init(context);
         sp=context.getSharedPreferences("Userinfo", context.MODE_PRIVATE);
-        RequestParams params;
-        params = new RequestParams((HttpCycleContext) context);
-        params.addFormDataPart("username","test");
-        params.addFormDataPart("password","654654");
-        HttpRequest.post(Api.Login,params,500,new JsonHttpRequestCallback(){
+        HttpRequest.post(url,params,500,new JsonHttpRequestCallback(){
             @Override
             protected void onSuccess(Headers headers, JSONObject jsonObject) {
                 super.onSuccess(headers, jsonObject);

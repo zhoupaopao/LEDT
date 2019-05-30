@@ -450,6 +450,36 @@
                 android:text="尝试使用底部浮框" />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/Manualadd"
+                android:layout_width="0dp"
+                android:textSize="@dimen/button_size"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="cl"
+                android:text="手动添加布局" />
+            <!--<Button-->
+                <!--android:id="@+id/socket"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:textSize="@dimen/button_size"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:onClick="cl"-->
+                <!--android:text="尝试使用socket，列表的基础使用，需要先开启服务，打开另外一个app" />-->
+            <!--<Button-->
+                <!--android:id="@+id/bottomdialog"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:textSize="@dimen/button_size"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:onClick="cl"-->
+                <!--android:text="尝试使用底部浮框" />-->
+
+        </LinearLayout>
     </LinearLayout>
     <TextView
         android:id="@+id/hello"
